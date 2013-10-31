@@ -1562,29 +1562,29 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
 
     if (step.Contains("all") || step.Contains("jet")){
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetBProbabilityBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetBProbabilityBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetBProbabilityBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetProbabilityBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetProbabilityBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetProbabilityBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighEffBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighEffBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighEffBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTagsEI__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTagsEI__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTagsEI__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighPurBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighPurBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighPurBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighEffBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighEffBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighEffBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighPurBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighPurBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighPurBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFMuonBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFMuonBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFMuonBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFElectronBJetTags__"+reco+".obj.@data_size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFElectronBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFElectronBJetTags__"+reco+".obj.data_");
 
     }
