@@ -9,4 +9,5 @@ mkdir ${dataDir} ${dataDir}_tmp
 scramv1 p -n ${relD} CMSSW ${relB}
 rm -rf ${relD}/tmp
 ln -s ${dataDir}_tmp ${relD}/tmp
-cp ~slava77/tools/make.sh ${relD}/src
+# "make.sh is not copied anymore. Time  to update?"
+#cp ~slava77/tools/make.sh ${relD}/src
