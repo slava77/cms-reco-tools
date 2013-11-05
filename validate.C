@@ -551,6 +551,20 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("edmErrorSummaryEntrys_logErrorHarvester__"+reco+".obj.category.size()");
     }
 
+    if (step.Contains("all")){
+      plotvar("HBHEDataFramesSorted_simHcalUnsuppressedDigis__"+reco+".obj.obj@.size()");
+      plotvar("HODataFramesSorted_simHcalUnsuppressedDigis__"+reco+".obj.obj@.size()");
+      plotvar("HFDataFramesSorted_simHcalUnsuppressedDigis__"+reco+".obj.obj@.size()");
+      plotvar("HBHEDataFramesSorted_simHcalDigis__"+reco+".obj.obj@.size()");
+      plotvar("HODataFramesSorted_simHcalDigis__"+reco+".obj.obj@.size()");
+      plotvar("HFDataFramesSorted_simHcalDigis__"+reco+".obj.obj@.size()");
+      plotvar("ZDCDataFramesSorted_simHcalUnsuppressedDigis__"+reco+".obj.obj@.size()");
+      plotvar("HcalUpgradeDataFramesSorted_simHcalUnsuppressedDigis_HBHEUpgradeDigiCollection_"+reco+".obj.obj@.size()");
+      plotvar("HcalUpgradeDataFramesSorted_simHcalUnsuppressedDigis_HFUpgradeDigiCollection_"+reco+".obj.obj@.size()");
+      plotvar("HcalUpgradeDataFramesSorted_simHcalDigis_HBHEUpgradeDigiCollection_"+reco+".obj.obj@.size()");
+      plotvar("HcalUpgradeDataFramesSorted_simHcalDigis_HFUpgradeDigiCollection_"+reco+".obj.obj@.size()");
+    }
+
     if ((step.Contains("all") || step.Contains("halo"))){
       plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.HcalLooseHaloId()");
       plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.HcalTightHaloId()");
