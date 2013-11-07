@@ -75,18 +75,30 @@ void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200){
   std::cout<<"Common modules count (only significant diffs shown): "<<commonN.size()<<std::endl;
   double sumCommon = 0;
   double verbFrac = 0.05;
-  double verbDelta = 10;
-  double verbFracSmall = 0.1;
+  double verbSumForVerbFrac = 0.005*(sum2+sum1); // verbFrac difference from modules taking at least 1% of total time   
+  double verbFracSmall = 0.1; //any 10% difference to be shown
+  double verbDelta = 0.005*(sum2+sum1);  //1% of total CPU time
+
+  double verbSum1 = 0.;
+  double verbSum2 = 0.;
   for (int i = 0; i< commonN.size(); ++i){
     double val1 = commonT1[i];
     double val2 = commonT2[i];
 
-    if ((fabs(val1-val2)>verbDelta && fabs(val1/val2-1.)> verbFrac)
-	|| fabs(val1/val2-1.)>verbFracSmall){
+    if ( (val1+val2>verbSumForVerbFrac && fabs(val1/val2-1.)> verbFrac)
+	|| fabs(val1/val2-1.)>verbFracSmall
+	 || fabs(val1-val2) > verbDelta ){
       std::cout<<"\t"<<commonN[i]<<" \t "<<val1<<" ms/ev -> "<<val2<<" ms/ev" <<std::endl;
+      verbSum1 += val1;
+      verbSum2 += val2;
     }
     
   }
-  std::cout<<" Total times: "<<sum1<<" ms/ev -> "<<sum2<<" ms/ev"<<std::endl;
+  if (verbSum1 && verbSum2 > 0){
+    std::cout<< "\t Total in detailed printout: "<<" \t "<<verbSum1<<" ms/ev -> "<<verbSum2<< " ms/ev"
+	     <<" \t delta: "<<verbSum2-verbSum1<<std::endl;
+  }
+  std::cout<<" Total times: "<<sum1<<" ms/ev -> "<<sum2<<" ms/ev"
+	   <<" \t delta: "<<sum2-sum1<<std::endl;
   //  for(int i=1;i<=n;++i)std::cout<<h->GetXaxis()->GetBinLabel(i)<<" "<<h->GetBinContent(i)<<std::endl; 
 }
