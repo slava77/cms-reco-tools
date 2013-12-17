@@ -582,7 +582,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.NFlatHaloSegments()");
       plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.CSCHaloHLTAccept()");
 
-      plotvar("recoEcalHaloData_EcalHaloData__"+reco+".obj.NumberOfHaloSuperClusters()");
+      //      plotvar("recoEcalHaloData_EcalHaloData__"+reco+".obj.NumberOfHaloSuperClusters()");
       plotvar("recoGlobalHaloData_GlobalHaloData__"+reco+".obj.METOverSumEt()");
       plotvar("recoGlobalHaloData_GlobalHaloData__"+reco+".obj.DeltaMEx()");
       plotvar("recoGlobalHaloData_GlobalHaloData__"+reco+".obj.DeltaMEy()");
