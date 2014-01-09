@@ -1,8 +1,9 @@
-void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200){
+void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, float scaleF1 = 1.0){
   //  std::cout<<"File "<<fName<<std::endl;
   TFile* f1 = new TFile(fName1);
   f1->cd("/DQMData/Run 1/DQM/Run summary/TimerService/Paths");
   TH1F* h1 = gDirectory->Get("reconstruction_step_module_total");
+  h1->Scale(scaleF1);
   const unsigned int n1 = h1->GetNbinsX();
   TAxis* x1 = h1->GetXaxis();
   h1->SetBit(TH1::kCanRebin, false); //just in case it's on by default
