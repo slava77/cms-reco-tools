@@ -1601,6 +1601,87 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFElectronBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFElectronBJetTags__"+reco+".obj.data_");
 
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj@.size()");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nSelectedTracks()");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertexTracks()");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertices()");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertexCandidates()");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_svData.dist2d.value()");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.first");
+      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
+
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj@.size()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nSelectedTracks()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertexTracks()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertices()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertexCandidates()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.value()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_trackData.first");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
+
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj@.size()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nSelectedTracks()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertexTracks()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertices()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertexCandidates()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_svData.dist2d.value()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_svData.dist2d.error()");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_trackData.first");
+      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_trackData.second.svStatus");
+
+      plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak5JetTracksAssociatorAtVertexPF__"+reco+".obj.@data_.size()");
+      plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak5JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.size()");
+      plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak5JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.refVector_.keys_");
+
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_axis.theta()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_axis.phi()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ip2d.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ip2d.error()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.distanceToJetAxis.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.distanceToGhostTrack.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ghostTrackWeight");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_prob2d");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_prob3d");
+
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_axis.theta()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_axis.phi()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.ip2d.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.ip2d.error()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.distanceToJetAxis.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.distanceToGhostTrack.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.ghostTrackWeight");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_prob2d");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_prob3d");
+
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_axis.theta()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_axis.phi()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ip2d.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ip2d.error()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.distanceToJetAxis.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.distanceToGhostTrack.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ghostTrackWeight");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_prob2d");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_prob3d");
+
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_axis.theta()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_axis.phi()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data@.size()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.ip2d.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.ip2d.error()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.distanceToJetAxis.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.distanceToGhostTrack.value()");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.ghostTrackWeight");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_prob2d");
+      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_prob3d");
     }
 
     if (step.Contains("all") || step.Contains("hfreco")){
