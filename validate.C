@@ -166,7 +166,7 @@ double plotvar(TString v,TString cut=""){
 
 
 void jet(TString type, TString algo, TString var){
-  TString v=type+"_"+algo+"__"+reco+".obj."+var+"()";
+  TString v=type+"_"+algo+(algo.Contains("_")? "_" : "__")+reco+".obj."+var+"()";
   plotvar(v);
 }
 
@@ -1555,6 +1555,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       jets("recoJPTJets", "TCTauJetPlusTrackZSPCorJetAntiKt5");
       jets("recoPFJets","ak5PFJets");
       jets("recoPFJets","ak5PFJetsCHS");
+      
+      jets("recoPFJets", "ak4PFJetsCHS");
+      jets("recoPFJets", "ak8PFJets");
+      jets("recoPFJets", "ak8PFJetsCHS");
+      jets("recoPFJets", "ca8PFJetsCHS");
+
+      jets("recoPFJets", "ca8PFJetsCHSPruned_SubJets");
+      jets("recoPFJets", "cmsTopTagPFJetsCHS_caTopSubJets");
 
       jets("recoBasicJets","ak7BasicJets"); //Castor jets
       jets("recoBasicJets","ca8PFJetsCHSPruned"); 
