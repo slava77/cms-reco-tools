@@ -1532,6 +1532,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("CaloTowersSorted_towerMaker__"+reco+".obj.obj.eta()");
       plotvar("CaloTowersSorted_towerMaker__"+reco+".obj.obj.phi()");
 
+      plotvar("Sum$(CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy()>0)");
+      plotvar("log10(CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy())", "CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy()>0");
+      plotvar("log10(CaloTowersSorted_towerMaker__"+reco+".obj.obj.emEnergy())", "CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy()>0");
+      plotvar("log10(CaloTowersSorted_towerMaker__"+reco+".obj.obj.hadEnergy())", "CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy()>0");
+      plotvar("log10(CaloTowersSorted_towerMaker__"+reco+".obj.obj.mass2())/2.", "CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy()>0");
+      plotvar("CaloTowersSorted_towerMaker__"+reco+".obj.obj.eta()", "CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy()>0");
+      plotvar("CaloTowersSorted_towerMaker__"+reco+".obj.obj.phi()", "CaloTowersSorted_towerMaker__"+reco+".obj.obj.energy()>0");
+
       plotvar("recoCastorTowers_CastorTowerReco__"+reco+".obj@.size()");
       plotvar("recoCastorTowers_CastorTowerReco__"+reco+".obj.rechitsSize()");
       plotvar("log10(recoCastorTowers_CastorTowerReco__"+reco+".obj.energy())");
