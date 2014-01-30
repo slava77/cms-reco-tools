@@ -219,9 +219,15 @@ void photonVars(TString cName = "photons_"){
   photon("phi", cName);
   
   photon("e1x5", cName);
+  photon("e2x5", cName);
+  photon("e3x3", cName);
   photon("e5x5", cName);
+  photon("maxEnergyXtal", cName);
   photon("sigmaEtaEta", cName);
-  //      photon("r9", cName);
+  photon("sigmaIetaIeta", cName);
+  photon("r1x5", cName);
+  photon("r2x5", cName);
+  //  photon("r9", cName);
   photon("mipChi2", cName);
   photon("mipNhitCone", cName);
   photon("ecalRecHitSumEtConeDR03", cName);
@@ -271,6 +277,7 @@ void gsfElectronVars(TString cName = "gsfElectrons_"){
   
   gsfElectron("e1x5", cName);
   gsfElectron("e5x5", cName);
+  gsfElectron("e2x5Max", cName);
   gsfElectron("ecalEnergy", cName);
   if (detailled)    gsfElectron("hcalOverEcal", cName);
   gsfElectron("energy", cName);
@@ -289,6 +296,9 @@ void gsfElectronVars(TString cName = "gsfElectrons_"){
   gsfElectron("deltaEtaEleClusterTrackAtCalo", cName);
   gsfElectron("deltaPhiEleClusterTrackAtCalo", cName);
   gsfElectron("sigmaEtaEta", cName);
+  gsfElectron("sigmaIetaIeta", cName);
+  gsfElectron("sigmaIphiIphi", cName);
+  gsfElectron("r9", cName);
   gsfElectron("hcalDepth1OverEcal", cName);
   gsfElectron("hcalDepth2OverEcal", cName);
   gsfElectron("hcalOverEcalBc", cName);
@@ -1164,7 +1174,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       recoMuonsCos1Leg("type");
     }
     
-  if ((step.Contains("all") || step.Contains("tau")) && !step.Contains("cosmic")){
+    if ((step.Contains("all") || step.Contains("tau")) && !step.Contains("cosmic") && !step.Contains("NoTaus")){
       // tau plots
       plotvar("recoPFTaus_hpsPFTauProducer__"+reco+".obj@.size()");
       tau("hpsPFTauProducer","energy");
@@ -1448,11 +1458,13 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoPFTaus_pfTaus__"+reco+".obj.isolationPFGammaCandsEtSum()");
       */
 
-      plotvar("log10(recoPFTaus_pfTausEI__"+reco+".obj.pt())");
-      plotvar("recoPFTaus_pfTausEI__"+reco+".obj.eta()");
-      plotvar("recoPFTaus_pfTausEI__"+reco+".obj.phi()");
-      plotvar("recoPFTaus_pfTausEI__"+reco+".obj.isolationPFChargedHadrCandsPtSum()");
-      plotvar("recoPFTaus_pfTausEI__"+reco+".obj.isolationPFGammaCandsEtSum()");
+      if (!step.Contains("NoTaus")){
+	plotvar("log10(recoPFTaus_pfTausEI__"+reco+".obj.pt())");
+	plotvar("recoPFTaus_pfTausEI__"+reco+".obj.eta()");
+	plotvar("recoPFTaus_pfTausEI__"+reco+".obj.phi()");
+	plotvar("recoPFTaus_pfTausEI__"+reco+".obj.isolationPFChargedHadrCandsPtSum()");
+	plotvar("recoPFTaus_pfTausEI__"+reco+".obj.isolationPFGammaCandsEtSum()");
+      }
 
       plotvar("log10(recoPFCandidates_pfIsolatedElectronsEI__"+reco+".obj.pt())");
       plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+reco+".obj.eta()");
