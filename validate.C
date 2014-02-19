@@ -238,6 +238,10 @@ void photonVars(TString cName = "photons_"){
   photon("chargedHadronIso", cName);
   photon("neutralHadronIso", cName);
   photon("photonIso", cName);
+  photon("sumChargedParticlePt", cName);
+  photon("sumNeutralHadronEtHighThreshold", cName);
+  photon("sumPhotonEtHighThreshold", cName);
+  photon("sumPUPt", cName);
   photon("nClusterOutsideMustache", cName);
   photon("etOutsideMustache", cName);
   photon("pfMVA", cName);
@@ -313,6 +317,14 @@ void gsfElectronVars(TString cName = "gsfElectrons_"){
   gsfElectron("pfIsolationVariables().chargedHadronIso", cName, true);
   gsfElectron("pfIsolationVariables().neutralHadronIso", cName, true);
   gsfElectron("pfIsolationVariables().photonIso", cName, true);
+  gsfElectron("pfIsolationVariables().sumChargedHadronPt", cName, true);
+  gsfElectron("pfIsolationVariables().sumNeutralHadronEt", cName, true);
+  gsfElectron("pfIsolationVariables().sumPhotonEt", cName, true);
+  gsfElectron("pfIsolationVariables().sumChargedParticlePt", cName, true);
+  gsfElectron("pfIsolationVariables().sumNeutralHadronEtHighThreshold", cName, true);
+  gsfElectron("pfIsolationVariables().sumPhotonEtHighThreshold", cName, true);
+  gsfElectron("pfIsolationVariables().sumPUPt", cName, true);
+
   gsfElectron("mvaInput().earlyBrem", cName, true);
   gsfElectron("mvaOutput().mva", cName, true);
   gsfElectron("correctedEcalEnergy", cName);
