@@ -774,7 +774,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     if ((step.Contains("all") || step.Contains("dt")) && !step.Contains("cosmic") ){
       //dT segments
       plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_@.size()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.chi2()");
+      plotvar("min(DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.chi2(),99.99)");
+      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.degreesOfFreedom()");
       plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localPosition().x()");
       plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localPosition().y()");
       //plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data.localPosition().z()");
@@ -786,7 +787,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localDirection().z()");
 
       plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__"+reco+".obj.collection_.data_@.size()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__"+reco+".obj.collection_.data_.chi2()");
+      plotvar("min(DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__"+reco+".obj.collection_.data_.chi2(),99.99)");
+      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__"+reco+".obj.collection_.data_.degreesOfFreedom()");
 
     }
 
@@ -796,6 +798,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       if (detailled)      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.weight()");
       plotvar("log10(CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.chi2())");
       plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.chi2()");
+      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.degreesOfFreedom()");
       plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.localPosition().x()");
       plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.localPosition().y()");
       if (detailled)      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.type()");
