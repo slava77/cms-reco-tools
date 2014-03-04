@@ -387,6 +387,8 @@ void allTracks(TString alias){
   if (detailled)    plotTrack(alias,"found");
   plotTrack(alias,"chi2");
   plotTrack(alias,"normalizedChi2");
+  plotvar("min(recoTracks_"+alias+".chi2(),99)");
+  plotvar("min(recoTracks_"+alias+".normalizedChi2(),29)");
   if (detailled)    plotTrack(alias,"dz");
   plotTrack(alias,"dxy");
   if (detailled)    plotTrack(alias,"ndof");
