@@ -11,6 +11,7 @@
 #include <fstream>
 #include "TLegend.h"
 #include "TCut.h"
+#include <cmath>
 
 bool detailled = true;
 bool RemoveIdentical = true;
@@ -137,7 +138,7 @@ double plotvar(TString v,TString cut=""){
       diff->Draw("same p e");
 
       for (int ib=1;ib<=diff->GetNbinsX();++ib){
-	countDiff+=fabs(diff->GetBinContent(ib));
+	countDiff+=std::fabs(diff->GetBinContent(ib));
       }
 
       TLegend * leg = new TLegend(0.5,0.8,0.99,0.99);
@@ -282,6 +283,9 @@ void gsfElectronVars(TString cName = "gsfElectrons_"){
   gsfElectron("e1x5", cName);
   gsfElectron("e5x5", cName);
   gsfElectron("e2x5Max", cName);
+  gsfElectron("full5x5_e1x5", cName);
+  gsfElectron("full5x5_e5x5", cName);
+  gsfElectron("full5x5_e2x5Max", cName);
   gsfElectron("ecalEnergy", cName);
   if (detailled)    gsfElectron("hcalOverEcal", cName);
   gsfElectron("energy", cName);
@@ -306,6 +310,13 @@ void gsfElectronVars(TString cName = "gsfElectrons_"){
   gsfElectron("hcalDepth1OverEcal", cName);
   gsfElectron("hcalDepth2OverEcal", cName);
   gsfElectron("hcalOverEcalBc", cName);
+  gsfElectron("full5x5_sigmaEtaEta", cName);
+  gsfElectron("full5x5_sigmaIetaIeta", cName);
+  gsfElectron("full5x5_sigmaIphiIphi", cName);
+  gsfElectron("full5x5_r9", cName);
+  gsfElectron("full5x5_hcalDepth1OverEcal", cName);
+  gsfElectron("full5x5_hcalDepth2OverEcal", cName);
+  gsfElectron("full5x5_hcalOverEcalBc", cName);
   gsfElectron("dr03TkSumPt", cName);
   gsfElectron("dr03EcalRecHitSumEt", cName);
   gsfElectron("dr03HcalDepth1TowerSumEt", cName);
@@ -327,6 +338,7 @@ void gsfElectronVars(TString cName = "gsfElectrons_"){
 
   gsfElectron("mvaInput().earlyBrem", cName, true);
   gsfElectron("mvaOutput().mva", cName, true);
+  gsfElectron("mvaOutput().mva_e_pi", cName, true);
   gsfElectron("correctedEcalEnergy", cName);
   gsfElectron("correctedEcalEnergyError", cName);
   gsfElectron("trackMomentumError", cName);
@@ -991,6 +1003,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       globalMuons("phi");
       if (detailled)    globalMuons("found");
       globalMuons("chi2");
+      plotvar("min(globalMuonTracks.chi2(),99)");
       if (detailled)    globalMuons("dz");
       if (detailled)    globalMuons("dxy");
       if (detailled)    globalMuons("ndof");
@@ -1433,8 +1446,19 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoPFMETs_pfMet__"+reco+".obj.chargedHadronEtFraction()");
       plotvar("recoPFMETs_pfMet__"+reco+".obj.muonEtFraction()");
 
+      plotvar("log10(recoPFMETs_pfChMet__"+reco+".obj.pt())");
+      plotvar("log10(recoPFMETs_pfChMet__"+reco+".obj.sumEt())");
+      plotvar("recoPFMETs_pfChMet__"+reco+".obj.phi()");
+      plotvar("recoPFMETs_pfChMet__"+reco+".obj.significance()");
+      plotvar("recoPFMETs_pfChMet__"+reco+".obj.photonEtFraction()");
+      plotvar("recoPFMETs_pfChMet__"+reco+".obj.neutralHadronEtFraction()");
+      plotvar("recoPFMETs_pfChMet__"+reco+".obj.electronEtFraction()");
+      plotvar("recoPFMETs_pfChMet__"+reco+".obj.chargedHadronEtFraction()");
+      plotvar("recoPFMETs_pfChMet__"+reco+".obj.muonEtFraction()");
+
       plotvar("recoPFBlocks_particleFlowBlock__"+reco+".obj@.size()");
       plotvar("recoPFBlocks_particleFlowBlock__"+reco+".obj.elements_@.size()");
+      plotvar("recoPFBlocks_particleFlowBlock__"+reco+".obj.linkData_@.size()");
     }
     if (step.Contains("all") || step.Contains("EI")){
       /* this existed only in 610pre
@@ -1548,6 +1572,27 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       calomet("metOptNoHFHO","phi");
       calomet("metOptNoHFHO","metSignificance");
       
+      calomet("corMetGlobalMuons","et");
+      calomet("corMetGlobalMuons","eta");
+      calomet("corMetGlobalMuons","phi");
+      calomet("corMetGlobalMuons","metSignificance");
+      
+      calomet("caloMetBEFO","et");
+      calomet("caloMetBEFO","eta");
+      calomet("caloMetBEFO","phi");
+      calomet("caloMetBEFO","metSignificance");
+
+      calomet("caloMet","et");
+      calomet("caloMet","eta");
+      calomet("caloMet","phi");
+      calomet("caloMet","metSignificance");
+      
+      calomet("caloMetBE","et");
+      calomet("caloMetBE","eta");
+      calomet("caloMetBE","phi");
+      calomet("caloMetBE","metSignificance");
+      
+      
     }
 
     if (step.Contains("all") || step.Contains("calotower")){
@@ -1587,12 +1632,15 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       jets("recoPFJets","kt4PFJets");
 
       jets("recoCaloJets","ak5CaloJets");
+      jets("recoCaloJets","ak4CaloJets");
       jets("recoTrackJets","ak5TrackJets");
+      jets("recoTrackJets","ak4TrackJets");
       jets("recoJPTJets","JetPlusTrackZSPCorJetAntiKt5");
       jets("recoJPTJets", "TCTauJetPlusTrackZSPCorJetAntiKt5");
       jets("recoPFJets","ak5PFJets");
       jets("recoPFJets","ak5PFJetsCHS");
       
+      jets("recoPFJets", "ak4PFJets");
       jets("recoPFJets", "ak4PFJetsCHS");
       jets("recoPFJets", "ak8PFJets");
       jets("recoPFJets", "ak8PFJetsCHS");
@@ -1679,6 +1727,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak5JetTracksAssociatorAtVertexPF__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak5JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.size()");
       plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak5JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.refVector_.keys_");
+
+      plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak4JetTracksAssociatorAtVertexPF__"+reco+".obj.@data_.size()");
+      plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak4JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.size()");
+      plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak4JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.refVector_.keys_");
 
       plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj@.size()");
       plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_axis.theta()");
