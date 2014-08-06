@@ -894,6 +894,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       }
 
     }
+    if (step.Contains("all")){
+      allTracks("regionalCosmicTracks__"+reco+"");
+    }
     if ((step.Contains("all") || step.Contains("pixeltrack")) && !step.Contains("cosmic") ){
       /// general track plots
       allTracks("pixelTracks__"+reco+"");
