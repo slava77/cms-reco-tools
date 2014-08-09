@@ -1361,6 +1361,32 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoCaloClusters_hybridSuperClusters_hybridBarrelBasicClusters_"+reco+".obj.phi()");
       plotvar("log10(recoCaloClusters_hybridSuperClusters_hybridBarrelBasicClusters_"+reco+".obj.energy())");
 
+      
+      plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+reco+".obj@.size()");
+      plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+reco+".obj.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+reco+".obj.phi()");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitHO_Cleaned_"+reco+".obj.energy())");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitHO_Cleaned_"+reco+".obj.time())");
+
+      plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+reco+".obj@.size()");
+      plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+reco+".obj.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+reco+".obj.phi()");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+reco+".obj.energy())");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+reco+".obj.time())");
+
+      plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+reco+".obj@.size()");
+      plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+reco+".obj.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+reco+".obj.phi()");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+reco+".obj.energy())");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+reco+".obj.time())");
+
+      plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+reco+".obj@.size()");
+      plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+reco+".obj.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+reco+".obj.phi()");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitPS_Cleaned_"+reco+".obj.energy())");
+      plotvar("log10(recoPFRecHits_particleFlowRecHitPS_Cleaned_"+reco+".obj.time())");
+
+
       plotvar("recoPFClusters_particleFlowClusterECAL__"+reco+".obj@.size()");
       plotvar("recoPFClusters_particleFlowClusterECAL__"+reco+".obj.eta()");
       plotvar("recoPFClusters_particleFlowClusterECAL__"+reco+".obj.phi()");
