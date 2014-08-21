@@ -3,7 +3,7 @@ runTheMatrix.py -l 38.0 --useInput all --command="-n 1000" >& run38.0_1k.log &
 echo "started TTbar PU wf 202.0"
 runTheMatrix.py -l 202.0 --useInput all --command="-n 200" >& run202.0_200.log &
 echo "started TTbar PU 25ns wf 25202.0"
-runTheMatrix.py -l 25202.0 --useInput all --command=" -n 50" >& run25202.0_50.log &
+runTheMatrix.py -l 25202.0 --useInput all --command=" -n 100" >& run25202.0_100.log &
 echo "started Mu10 wf 20.0"
 runTheMatrix.py -l 20.0 --useInput all --command="-n 2000" >& run20.0_2k.log &
 echo "started Ele35 wf 17.0"

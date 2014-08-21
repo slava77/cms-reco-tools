@@ -1,14 +1,16 @@
-void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, float scaleF1 = 1.0, int runNumber = 1){
+void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, float scaleF1 = 1.0, int runNumber = 1, const char* pName = "RECO", const char* pathName = "reconstruction"){
   //  std::cout<<"File "<<fName<<std::endl;
   TFile* f1 = new TFile(fName1);
   std::string timerPath = Form("/DQMData/Run %d/DQM/Run summary/TimerService/Paths", runNumber);
   f1->cd(timerPath.c_str());
-  TH1F* h1 = (TH1F*)gDirectory->Get("reconstruction_step_module_total");
+  TH1F* h1 = (TH1F*)gDirectory->Get(Form("%s_step_module_total", pathName));
+  bool path1HasProcessName = false;
   if (!h1){
     //try a different path
-    timerPath = Form("/DQMData/Run %d/DQM/Run summary/TimerService/process RECO/Paths", runNumber);
+    timerPath = Form("/DQMData/Run %d/DQM/Run summary/TimerService/process %s/Paths", runNumber, pName);
     f1->cd(timerPath.c_str());
-    h1 = (TH1F*)gDirectory->Get("reconstruction_step_module_total");
+    h1 = (TH1F*)gDirectory->Get(Form("%s_step_module_total", pathName));
+    path1HasProcessName = true;
   }
   h1->Scale(scaleF1);
   const unsigned int n1 = h1->GetNbinsX();
@@ -17,7 +19,14 @@ void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, 
 
   TFile* f2 = new TFile(fName2);
   f2->cd(timerPath.c_str());
-  TH1F* h2 = (TH1F*)gDirectory->Get("reconstruction_step_module_total");
+  TH1F* h2 = (TH1F*)gDirectory->Get(Form("%s_step_module_total", pathName));
+  if (!h2){
+    std::string anotherPath;
+    if (path1HasProcessName) anotherPath = Form("/DQMData/Run %d/DQM/Run summary/TimerService/Paths", runNumber);
+    else anotherPath = Form("/DQMData/Run %d/DQM/Run summary/TimerService/process %s/Paths", runNumber, pName);
+    f2->cd(anotherPath.c_str());
+    h2 = (TH1F*)gDirectory->Get(Form("%s_step_module_total", pathName));
+  }
   const unsigned int n2 = h2->GetNbinsX();
   TAxis* x2 = h2->GetXaxis();
   h2->SetBit(TH1::kCanRebin, false); //just in case it's on by default
