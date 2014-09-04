@@ -1708,6 +1708,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.data_");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.data_", 
 	      "recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.data_>=0");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.@data_.size()");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.data_");
+      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.data_", 
+	      "recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.data_>=0");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.@data_.size()");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.data_");
       plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.data_", 
@@ -1790,6 +1794,16 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
       plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.first");
       plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
+
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj@.size()");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nSelectedTracks()");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nVertexTracks()");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nVertices()");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nVertexCandidates()");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_svData.dist2d.value()");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_svData.dist2d.error()");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_trackData.first");
+      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_trackData.second.svStatus");
 
       plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj@.size()");
       plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nSelectedTracks()");
