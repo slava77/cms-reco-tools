@@ -11,7 +11,7 @@ runTheMatrix.py -l 17.0 --useInput all --command="-n 2000" >& run17.0_2k.log &
 echo "started Gamma35 wf 19.0"
 runTheMatrix.py -l 19.0 --useInput all --command="-n 2000" >& run19.0_2k.log &
 echo "started QCD 3TeV wf 1313.0"
-runTheMatrix.py -l 1313.0 --useInput all --command="-n 500" >& run1313.0_500.log &
+runTheMatrix.py -l 1313.0 --useInput all --command="-n 400" >& run1313.0_400.log &
 if [ "x${1}" == "xALL" ]; then 
     echo "started Gamma10 wf 18.0"
     runTheMatrix.py -l 18.0 --useInput all --command="-n 2000" >& run18.0_2k.log &
