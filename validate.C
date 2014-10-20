@@ -132,13 +132,20 @@ double plotvar(TString v,TString cut=""){
       diff->Add(plot);
       diff->Add(refplot,-1.);
 
+      double max = std::max(refplot->GetMaximum() , plot->GetMaximum());
+      double min = std::min(refplot->GetMinimum() , plot->GetMinimum());
+      min = std::min(diff->GetMinimum(), min);
+      refplot->SetMaximum(max + 0.05*std::abs(max));
+      refplot->SetMinimum(min - 0.05*std::abs(min));
+
       diff->SetMarkerColor(4);
       diff->SetLineColor(4);
       diff->SetMarkerStyle(7);
       diff->Draw("same p e");
 
+      
       for (int ib=1;ib<=diff->GetNbinsX();++ib){
-	countDiff+=std::fabs(diff->GetBinContent(ib));
+	countDiff+=std::abs(diff->GetBinContent(ib));
       }
 
       TLegend * leg = new TLegend(0.5,0.8,0.99,0.99);
