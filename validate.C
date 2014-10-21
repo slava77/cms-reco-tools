@@ -230,6 +230,10 @@ void photonVars(TString cName = "photons_"){
   photon("e2x5", cName);
   photon("e3x3", cName);
   photon("e5x5", cName);
+  photon("full5x5_e1x5", cName);
+  photon("full5x5_e2x5Max", cName);
+  photon("full5x5_e5x5", cName);
+
   photon("maxEnergyXtal", cName);
   photon("sigmaEtaEta", cName);
   photon("sigmaIetaIeta", cName);
