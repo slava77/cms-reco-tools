@@ -173,14 +173,15 @@ double plotvar(TString v,TString cut=""){
 }
 
 
-void jet(TString type, TString algo, TString var){
-  TString v=type+"_"+algo+(algo.Contains("_")? "_" : "__")+reco+".obj."+var+"()";
+void jet(TString type, TString algo, TString var, bool log10Var = false){
+  TString v = type+"_"+algo+(algo.Contains("_")? "_" : "__")+reco+".obj."+var+"()";
+  if (log10Var) v = "log10(" + v + ")";
   plotvar(v);
 }
 
 void jets(TString type,TString algo){
-  jet(type,algo,"energy");
-  jet(type,algo,"et");
+  jet(type,algo,"energy", true);
+  jet(type,algo,"et", true);
   jet(type,algo,"eta");
   jet(type,algo,"phi");
   if (type!="recoPFJets"){
@@ -895,6 +896,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       allTracks("generalTracks__"+reco+"");
       plotvar("floatedmValueMap_generalTracks_MVAVals_"+reco+".obj.values_");
 
+      allTracks("hiGeneralTracks__"+reco+"");
       if (detailled){
 	//	allTracks("preFilterZeroStepTracks__"+reco+"");
 	//	allTracks("preFilterStepOneTracks__"+reco+"");
@@ -1712,6 +1714,29 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoJetIDedmValueMap_ak5JetID__"+reco+".obj.values_.restrictedEMF");
       plotvar("recoJetIDedmValueMap_ak5JetID__"+reco+".obj.values_.fLS");
       plotvar("recoJetIDedmValueMap_ak5JetID__"+reco+".obj.values_.fHFOOT");
+
+
+      //hi stuff, but still jet related somewhat
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundCalo__"+reco+".obj.@values_.size()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundCalo__"+reco+".obj.values_.pt()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundCalo__"+reco+".obj.values_.pt_equalized()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundCalo__"+reco+".obj.values_.mt()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundCalo__"+reco+".obj.values_.mt_equalized()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundCalo__"+reco+".obj.values_.mt_initial()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundCalo__"+reco+".obj.values_.area()");
+      plotvar("floats_voronoiBackgroundCalo__"+reco+".obj");
+
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundPF__"+reco+".obj.@values_.size()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundPF__"+reco+".obj.values_.pt()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundPF__"+reco+".obj.values_.pt_equalized()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundPF__"+reco+".obj.values_.mt()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundPF__"+reco+".obj.values_.mt_equalized()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundPF__"+reco+".obj.values_.mt_initial()");
+      plotvar("recoVoronoiBackgroundedmValueMap_voronoiBackgroundPF__"+reco+".obj.values_.area()");
+      plotvar("floats_voronoiBackgroundPF__"+reco+".obj");
+
+      jets("recoCaloJets", "akVs4CaloJets");
+      jets("recoPFJets", "akVs4PFJets");
     }
 
     if (step.Contains("all") || step.Contains("jet")){
