@@ -357,6 +357,13 @@ void gsfElectronVars(TString cName = "gsfElectrons_"){
   gsfElectron("trackMomentumError", cName);
   gsfElectron("ecalEnergyError", cName);
   gsfElectron("caloEnergy", cName);
+
+  gsfElectron("pixelMatchSubdetector1", cName);
+  gsfElectron("pixelMatchSubdetecto", cName);
+  gsfElectron("pixelMatchDPhi1", cName);
+  gsfElectron("pixelMatchDPhi2", cName);
+  gsfElectron("pixelMatchDRz1", cName);
+  gsfElectron("pixelMatchDRz2", cName);
 }
 
 void gsfTracks(TString var){
