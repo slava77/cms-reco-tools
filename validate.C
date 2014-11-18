@@ -189,6 +189,15 @@ void jets(TString type,TString algo){
   }
   else{
     jet(type,algo,"neutralHadronEnergy");
+
+    jet(type,algo,"chargedHadronEnergyFraction");
+    jet(type,algo,"neutralHadronEnergyFraction");
+    jet(type,algo,"photonEnergyFraction");
+    jet(type,algo,"electronEnergyFraction");
+    jet(type,algo,"muonEnergyFraction");
+    jet(type,algo,"hoEnergyFraction");
+    jet(type,algo,"HFHadronEnergyFraction");
+    jet(type,algo,"HFEMEnergyFraction");
   }
 }
 
@@ -196,13 +205,17 @@ void jets(TString type,TString algo){
 
 
 
-void calomet(TString algo, TString var){
-  TString v="recoCaloMETs_"+algo+"__"+reco+".obj."+var+"()";
+void calomet(TString algo, TString var, bool doLog10 = false){
+  TString v;
+  if (doLog10) v ="log10(recoCaloMETs_"+algo+"__"+reco+".obj."+var+"())";
+  else v ="recoCaloMETs_"+algo+"__"+reco+".obj."+var+"()";
   plotvar(v);
 }
 
-void met(TString algo, TString var){
-  TString v="recoMETs_"+algo+"__"+reco+".obj."+var+"()";
+void met(TString algo, TString var, bool doLog10 = false){
+  TString v;
+  if (doLog10) v ="log10(recoMETs_"+algo+"__"+reco+".obj."+var+"())";
+  else v = "recoMETs_"+algo+"__"+reco+".obj."+var+"()";
   plotvar(v);
 }
 
@@ -1530,6 +1543,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoPFJets_pfJetsEI__"+reco+".obj.photonEnergyFraction()");
       plotvar("recoPFJets_pfJetsEI__"+reco+".obj.electronEnergyFraction()");
       plotvar("recoPFJets_pfJetsEI__"+reco+".obj.muonEnergyFraction()");
+      plotvar("recoPFJets_pfJetsEI__"+reco+".obj.hoEnergyFraction()");
+      plotvar("recoPFJets_pfJetsEI__"+reco+".obj.HFHadronEnergyFraction()");
+      plotvar("recoPFJets_pfJetsEI__"+reco+".obj.HFEMEnergyFraction()");
 
       plotvar("log10(recoPFMETs_pfMetEI__"+reco+".obj.pt())");
       plotvar("log10(recoPFMETs_pfMetEI__"+reco+".obj.sumEt())");
@@ -1588,14 +1604,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
     if (step.Contains("all") || step.Contains("met")){
       ///MET plots
-      met("tcMet","pt");
+      met("tcMet","pt", true);
       met("tcMet","px");
       met("tcMet","py");
       met("tcMet","eta");
       met("tcMet","phi");
       met("tcMet","significance");
 
-      met("tcMetWithPFclusters","pt");
+      met("tcMetWithPFclusters","pt", true);
       met("tcMetWithPFclusters","px");
       met("tcMetWithPFclusters","py");
       met("tcMetWithPFclusters","eta");
@@ -1603,7 +1619,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       met("tcMetWithPFclusters","significance");
       
       
-      met("htMetAK7","pt");
+      met("htMetAK7","pt", true);
       met("htMetAK7","px");
       met("htMetAK7","py");
       met("htMetAK7","eta");
@@ -1611,38 +1627,38 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       met("htMetAK7","significance");
 
 
-      calomet("metOpt","et");
+      calomet("metOpt","et", true);
       calomet("metOpt","eta");
       calomet("metOpt","phi");
       calomet("metOpt","metSignificance");
 
       
-      calomet("metOptNoHFHO","et");
+      calomet("metOptNoHFHO","et", true);
       calomet("metOptNoHFHO","eta");
       calomet("metOptNoHFHO","phi");
       calomet("metOptNoHFHO","metSignificance");
       
-      calomet("corMetGlobalMuons","et");
+      calomet("corMetGlobalMuons","et", true);
       calomet("corMetGlobalMuons","eta");
       calomet("corMetGlobalMuons","phi");
       calomet("corMetGlobalMuons","metSignificance");
 
-      calomet("caloMetM","et");
+      calomet("caloMetM","et", true);
       calomet("caloMetM","eta");
       calomet("caloMetM","phi");
       calomet("caloMetM","metSignificance");
       
-      calomet("caloMetBEFO","et");
+      calomet("caloMetBEFO","et", true);
       calomet("caloMetBEFO","eta");
       calomet("caloMetBEFO","phi");
       calomet("caloMetBEFO","metSignificance");
 
-      calomet("caloMet","et");
+      calomet("caloMet","et", true);
       calomet("caloMet","eta");
       calomet("caloMet","phi");
       calomet("caloMet","metSignificance");
       
-      calomet("caloMetBE","et");
+      calomet("caloMetBE","et", true);
       calomet("caloMetBE","eta");
       calomet("caloMetBE","phi");
       calomet("caloMetBE","metSignificance");
