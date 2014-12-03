@@ -1715,13 +1715,16 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       jets("recoPFJets", "ak4PFJetsCHS");
       jets("recoPFJets", "ak8PFJets");
       jets("recoPFJets", "ak8PFJetsCHS");
+      jets("recoPFJets", "ak8PFJetsCHSSoftDrop");
       jets("recoPFJets", "ca8PFJetsCHS");
 
       jets("recoPFJets", "ca8PFJetsCHSPruned_SubJets");
+      jets("recoPFJets", "ak8PFJetsCHSPruned_SubJets");
       jets("recoPFJets", "cmsTopTagPFJetsCHS_caTopSubJets");
 
       jets("recoBasicJets","ak7BasicJets"); //Castor jets
       jets("recoBasicJets","ca8PFJetsCHSPruned"); 
+      jets("recoBasicJets","ak8PFJetsCHSPruned"); 
       jets("recoBasicJets","cmsTopTagPFJetsCHS"); 
       
 
