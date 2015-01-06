@@ -1,3 +1,4 @@
+#!/bin/bash
 or=$1
 nw=$2
 pPat="RECO"

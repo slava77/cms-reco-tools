@@ -14,3 +14,5 @@ echo -e "gROOT->SetStyle(\"Plain\");\n
 # cout<< gSystem->GetMakeSharedLib()<<endl ;\n
 mv diff.ps ${fO}
 gzip -f ${fO}
+fOPDF=`echo ${fO} | sed -e 's/.ps$/.pdf/g' `
+[ -f "diff.pdf" ] &&  mv diff.pdf ${fOPDF} && gzip ${fOPDF}
