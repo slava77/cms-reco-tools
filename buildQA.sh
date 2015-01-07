@@ -1,9 +1,11 @@
 #!/bin/bash
 
 BUILD_LOG=abuild.log
-echo "grep for errors: in ${BUILD_LOG}"
-grep -iw "warning\|error" ${BUILD_LOG} | grep -v "Warning in <TUnixSystem::SetDisplay>: DISPLAY not set" \
-  ||    echo "==> No errors/warnings"
+if [ -f "${BUILD_LOG}" ]; then
+    echo "grep for errors: in ${BUILD_LOG}"
+    grep -iw "warning\|error" ${BUILD_LOG} | grep -v "Warning in <TUnixSystem::SetDisplay>: DISPLAY not set" \
+	||    echo "==> No errors/warnings"
+fi
 
 echo "check dup dicts"
 duplicateReflexLibrarySearch.py --dir ./ --dup
