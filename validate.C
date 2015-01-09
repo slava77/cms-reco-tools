@@ -202,8 +202,52 @@ void jets(TString type,TString algo){
 }
 
 
+void secondaryVertexTagInfoVars(TString br){
+  plotvar(br+reco+".obj@.size()");
+  plotvar(br+reco+".obj.nSelectedTracks()");
+  plotvar(br+reco+".obj.nVertexTracks()");
+  plotvar(br+reco+".obj.nVertices()");
+  plotvar(br+reco+".obj.nVertexCandidates()");
+  plotvar(br+reco+".obj.m_svData.dist2d.value()");
+  plotvar(br+reco+".obj.m_svData.dist2d.error()");
+  plotvar(br+reco+".obj.m_trackData.first");
+  plotvar(br+reco+".obj.m_trackData.second.svStatus");
+}
 
+void impactParameterTagInfoVars(TString br){
+  plotvar(br+reco+".obj@.size()");
+  plotvar(br+reco+".obj.m_axis.theta()");
+  plotvar(br+reco+".obj.m_axis.phi()");
+  plotvar(br+reco+".obj.m_data@.size()");
+  plotvar(br+reco+".obj.m_data.ip2d.value()");
+  plotvar(br+reco+".obj.m_data.ip2d.error()");
+  plotvar(br+reco+".obj.m_data.distanceToJetAxis.value()");
+  plotvar(br+reco+".obj.m_data.distanceToGhostTrack.value()");
+  plotvar(br+reco+".obj.m_data.ghostTrackWeight");
+  plotvar(br+reco+".obj.m_prob2d");
+  plotvar(br+reco+".obj.m_prob3d");
+}
 
+void vertexVars(TString br){
+  plotvar(br+reco+".obj@.size()");
+  plotvar(br+reco+".obj.x()");
+  plotvar(br+reco+".obj.y()");
+  plotvar(br+reco+".obj.z()");
+  plotvar("log10("+br+reco+".obj.xError())");
+  plotvar("log10("+br+reco+".obj.yError())");
+  plotvar("log10("+br+reco+".obj.zError())");
+  plotvar(br+reco+".obj.chi2()");
+  plotvar(br+reco+".obj.tracksSize()");
+}
+
+void jetTagVar(TString mName){
+  TString br = "recoJetedmRefToBaseProdTofloatsAssociationVector_" + mName;
+
+  plotvar(br+reco+".obj.@data_.size()");
+  plotvar(br+reco+".obj.data_");
+  plotvar(br+reco+".obj.data_", br+reco+".obj.data_>=0");
+
+}
 
 void calomet(TString algo, TString var, bool doLog10 = false){
   TString v;
@@ -581,6 +625,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 {
   if (sr=="") sr=r;
 
+  TString tbr;
+
   if (SHOW) RemoveIdentical=false;
   else RemoveIdentical=true;
 
@@ -614,10 +660,11 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
   if (!step.Contains("hlt")){
 
     if ((step.Contains("all") || step.Contains("error"))){
-      plotvar("edmErrorSummaryEntrys_logErrorHarvester__"+reco+".obj@.size()");
-      plotvar("edmErrorSummaryEntrys_logErrorHarvester__"+reco+".obj.count");
-      plotvar("edmErrorSummaryEntrys_logErrorHarvester__"+reco+".obj.module.size()");
-      plotvar("edmErrorSummaryEntrys_logErrorHarvester__"+reco+".obj.category.size()");
+      tbr="edmErrorSummaryEntrys_logErrorHarvester__";
+      plotvar(tbr+reco+".obj@.size()");
+      plotvar(tbr+reco+".obj.count");
+      plotvar(tbr+reco+".obj.module.size()");
+      plotvar(tbr+reco+".obj.category.size()");
     }
 
     if (step.Contains("all")){
@@ -635,34 +682,38 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
 
     if ((step.Contains("all") || step.Contains("halo"))){
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.HcalLooseHaloId()");
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.HcalTightHaloId()");
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.EcalLooseHaloId()");
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.EcalTightHaloId()");
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.CSCLooseHaloId()");
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.CSCTightHaloId()");
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.GlobalLooseHaloId()");
-      plotvar("recoBeamHaloSummary_BeamHaloSummary__"+reco+".obj.GlobalTightHaloId()");
+      tbr="recoBeamHaloSummary_BeamHaloSummary__";
+      plotvar(tbr+reco+".obj.HcalLooseHaloId()");
+      plotvar(tbr+reco+".obj.HcalTightHaloId()");
+      plotvar(tbr+reco+".obj.EcalLooseHaloId()");
+      plotvar(tbr+reco+".obj.EcalTightHaloId()");
+      plotvar(tbr+reco+".obj.CSCLooseHaloId()");
+      plotvar(tbr+reco+".obj.CSCTightHaloId()");
+      plotvar(tbr+reco+".obj.GlobalLooseHaloId()");
+      plotvar(tbr+reco+".obj.GlobalTightHaloId()");
 
-      plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.NumberOfHaloTriggers()");
-      //      plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.NumberOfHaloTracks()");
-      plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.NumberOfOutOfTimeTriggers()");
-      plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.NumberOfOutTimeHits()");
-      plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.NFlatHaloSegments()");
-      plotvar("recoCSCHaloData_CSCHaloData__"+reco+".obj.CSCHaloHLTAccept()");
+      tbr="recoCSCHaloData_CSCHaloData__";
+      plotvar(tbr+reco+".obj.NumberOfHaloTriggers()");
+      //      plotvar(tbr+reco+".obj.NumberOfHaloTracks()");
+      plotvar(tbr+reco+".obj.NumberOfOutOfTimeTriggers()");
+      plotvar(tbr+reco+".obj.NumberOfOutTimeHits()");
+      plotvar(tbr+reco+".obj.NFlatHaloSegments()");
+      plotvar(tbr+reco+".obj.CSCHaloHLTAccept()");
 
       //      plotvar("recoEcalHaloData_EcalHaloData__"+reco+".obj.NumberOfHaloSuperClusters()");
-      plotvar("recoGlobalHaloData_GlobalHaloData__"+reco+".obj.METOverSumEt()");
-      plotvar("recoGlobalHaloData_GlobalHaloData__"+reco+".obj.DeltaMEx()");
-      plotvar("recoGlobalHaloData_GlobalHaloData__"+reco+".obj.DeltaMEy()");
-      plotvar("recoGlobalHaloData_GlobalHaloData__"+reco+".obj.DeltaSumEt()");
-      plotvar("recoHcalHaloData_HcalHaloData__"+reco+".obj.PhiWedgeCollection@.size()");
-      plotvar("recoHcalHaloData_HcalHaloData__"+reco+".obj.PhiWedgeCollection.Energy()");
-      plotvar("recoHcalHaloData_HcalHaloData__"+reco+".obj.PhiWedgeCollection.NumberOfConstituents()");
-      plotvar("recoHcalHaloData_HcalHaloData__"+reco+".obj.PhiWedgeCollection.iPhi()");
-      plotvar("recoHcalHaloData_HcalHaloData__"+reco+".obj.PhiWedgeCollection.MinTime()");
-      plotvar("recoHcalHaloData_HcalHaloData__"+reco+".obj.PhiWedgeCollection.MaxTime()");
-      plotvar("recoHcalHaloData_HcalHaloData__"+reco+".obj.PhiWedgeCollection.ZDirectionConfidence()");
+      tbr="recoGlobalHaloData_GlobalHaloData__";
+      plotvar(tbr+reco+".obj.METOverSumEt()");
+      plotvar(tbr+reco+".obj.DeltaMEx()");
+      plotvar(tbr+reco+".obj.DeltaMEy()");
+      plotvar(tbr+reco+".obj.DeltaSumEt()");
+      tbr="recoHcalHaloData_HcalHaloData__";
+      plotvar(tbr+reco+".obj.PhiWedgeCollection@.size()");
+      plotvar(tbr+reco+".obj.PhiWedgeCollection.Energy()");
+      plotvar(tbr+reco+".obj.PhiWedgeCollection.NumberOfConstituents()");
+      plotvar(tbr+reco+".obj.PhiWedgeCollection.iPhi()");
+      plotvar(tbr+reco+".obj.PhiWedgeCollection.MinTime()");
+      plotvar(tbr+reco+".obj.PhiWedgeCollection.MaxTime()");
+      plotvar(tbr+reco+".obj.PhiWedgeCollection.ZDirectionConfidence()");
     }
     if ((step.Contains("all") || step.Contains("hcal")) && !step.Contains("cosmic") ){
       //hcal rechit plots
@@ -820,50 +871,54 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
     if ((step.Contains("all") || step.Contains("dt")) && !step.Contains("cosmic") ){
       //dT segments
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_@.size()");
-      plotvar("min(DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.chi2(),99.99)");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.degreesOfFreedom()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localPosition().x()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localPosition().y()");
-      //plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data.localPosition().z()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localPositionError().xx()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localPositionError().yy()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localPositionError().xy()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localDirection().x()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localDirection().y()");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__"+reco+".obj.collection_.data_.localDirection().z()");
+      tbr="DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__";
+      plotvar(tbr+reco+".obj.collection_.data_@.size()");
+      plotvar("min("+tbr+reco+".obj.collection_.data_.chi2(),99.99)");
+      plotvar(tbr+reco+".obj.collection_.data_.degreesOfFreedom()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPosition().x()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPosition().y()");
+      //plotvar(tbr+reco+".obj.collection_.data.localPosition().z()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().xx()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().yy()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().xy()");
+      plotvar(tbr+reco+".obj.collection_.data_.localDirection().x()");
+      plotvar(tbr+reco+".obj.collection_.data_.localDirection().y()");
+      plotvar(tbr+reco+".obj.collection_.data_.localDirection().z()");
 
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__"+reco+".obj.collection_.data_@.size()");
-      plotvar("min(DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__"+reco+".obj.collection_.data_.chi2(),99.99)");
-      plotvar("DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__"+reco+".obj.collection_.data_.degreesOfFreedom()");
+      tbr="DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DCosmicSegments__";
+      plotvar(tbr+reco+".obj.collection_.data_@.size()");
+      plotvar("min("+tbr+reco+".obj.collection_.data_.chi2(),99.99)");
+      plotvar(tbr+reco+".obj.collection_.data_.degreesOfFreedom()");
 
     }
 
     if ((step.Contains("all") || step.Contains("csc")) && !step.Contains("cosmic") ){
       //csc rechits
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_@.size()");
-      if (detailled)      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.weight()");
-      plotvar("log10(CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.chi2())");
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.chi2()");
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.degreesOfFreedom()");
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.localPosition().x()");
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.localPosition().y()");
-      if (detailled)      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.type()");
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.localPositionError().xx()");
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.localPositionError().yy()");
-      plotvar("CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__"+reco+".obj.collection_.data_.localPositionError().xy()");
+      tbr="CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__";
+      plotvar(tbr+reco+".obj.collection_.data_@.size()");
+      if (detailled)      plotvar(tbr+reco+".obj.collection_.data_.weight()");
+      plotvar("log10("+tbr+reco+".obj.collection_.data_.chi2())");
+      plotvar(tbr+reco+".obj.collection_.data_.chi2()");
+      plotvar(tbr+reco+".obj.collection_.data_.degreesOfFreedom()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPosition().x()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPosition().y()");
+      if (detailled)      plotvar(tbr+reco+".obj.collection_.data_.type()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().xx()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().yy()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().xy()");
     }
 
     if ((step.Contains("all") || step.Contains("rpc")) && !step.Contains("cosmic") ){
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj@.size()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.clusterSize()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.firstClusterStrip()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.localPosition().x()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.localPosition().y()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.localPosition().z()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.localPositionError().xx()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.localPositionError().yy()");
-      plotvar("RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__"+reco+".obj.collection_.data_.localPositionError().xy()");
+      tbr="RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__";
+      plotvar(tbr+reco+".obj@.size()");
+      plotvar(tbr+reco+".obj.collection_.data_.clusterSize()");
+      plotvar(tbr+reco+".obj.collection_.data_.firstClusterStrip()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPosition().x()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPosition().y()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPosition().z()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().xx()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().yy()");
+      plotvar(tbr+reco+".obj.collection_.data_.localPositionError().xy()");
       
     }
     if ((step.Contains("all") || step.Contains("sipixel")) && !step.Contains("cosmic") ){
@@ -877,13 +932,20 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("SiStripClusteredmNewDetSetVector_siStripClusters__"+reco+".obj.m_data.barycenter()");
       //plotvar("SiStripClusteredmNewDetSetVector_siStripClusters__"+reco+".obj.m_data.amplitudes()[0]");
 
-      plotvar("ClusterSummary_clusterSummaryProducer__"+reco+".obj.modules_@.size()");
-      plotvar("ClusterSummary_clusterSummaryProducer__"+reco+".obj.iterator_@.size()");
-      plotvar("ClusterSummary_clusterSummaryProducer__"+reco+".obj.modules_");
-      plotvar("ClusterSummary_clusterSummaryProducer__"+reco+".obj.iterator_");
+      tbr="ClusterSummary_clusterSummaryProducer__";
+      plotvar(tbr+reco+".obj.modules_@.size()");
+      plotvar(tbr+reco+".obj.iterator_@.size()");
+      plotvar(tbr+reco+".obj.modules_");
+      plotvar(tbr+reco+".obj.iterator_");
 
-      plotvar("ClusterSummary_clusterSummaryProducer__"+reco+".obj.genericVariables_@.size()");
-      plotvar("log(ClusterSummary_clusterSummaryProducer__"+reco+".obj.genericVariables_)/log(10)");
+      plotvar(tbr+reco+".obj.genericVariables_@.size()");
+      plotvar("log10("+tbr+reco+".obj.genericVariables_)");
+
+      for (ULong_t tkI = 0; tkI< 8; ++tkI){
+	plotvar(tbr+reco+".obj.getNClus("+tkI+")");
+	plotvar(tbr+reco+".obj.getClusSize("+tkI+")");
+	plotvar("log10("+tbr+reco+".obj.getClusCharge("+tkI+"))");
+      }
     }
 
     if ((step.Contains("all") || step.Contains("beamspot")) && !step.Contains("cosmic") ){
@@ -937,26 +999,21 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
     if ((step.Contains("all") || step.Contains("vertex")) && !step.Contains("cosmic") ){
       /// primary vertex plots
-      plotvar("recoVertexs_pixelVertices__"+reco+".obj@.size()");
-      plotvar("recoVertexs_pixelVertices__"+reco+".obj.x()");
-      plotvar("recoVertexs_pixelVertices__"+reco+".obj.y()");
-      plotvar("recoVertexs_pixelVertices__"+reco+".obj.z()");
-      plotvar("recoVertexs_pixelVertices__"+reco+".obj.chi2()");
-      plotvar("recoVertexs_pixelVertices__"+reco+".obj.tracksSize()");
+      vertexVars("recoVertexs_pixelVertices__");
+      vertexVars("recoVertexs_offlinePrimaryVertices__");
+      vertexVars("recoVertexs_offlinePrimaryVerticesWithBS__");
+      vertexVars("recoVertexs_inclusiveSecondaryVertices__");
 
-      plotvar("recoVertexs_offlinePrimaryVertices__"+reco+".obj@.size()");
-      plotvar("recoVertexs_offlinePrimaryVertices__"+reco+".obj.x()");
-      plotvar("recoVertexs_offlinePrimaryVertices__"+reco+".obj.y()");
-      plotvar("recoVertexs_offlinePrimaryVertices__"+reco+".obj.z()");
-      plotvar("recoVertexs_offlinePrimaryVertices__"+reco+".obj.chi2()");
-      plotvar("recoVertexs_offlinePrimaryVertices__"+reco+".obj.tracksSize()");
-
-      plotvar("recoVertexs_offlinePrimaryVerticesWithBS__"+reco+".obj@.size()");
-      plotvar("recoVertexs_offlinePrimaryVerticesWithBS__"+reco+".obj.x()");
-      plotvar("recoVertexs_offlinePrimaryVerticesWithBS__"+reco+".obj.y()");
-      plotvar("recoVertexs_offlinePrimaryVerticesWithBS__"+reco+".obj.z()");
-      plotvar("recoVertexs_offlinePrimaryVerticesWithBS__"+reco+".obj.chi2()");
-      plotvar("recoVertexs_offlinePrimaryVerticesWithBS__"+reco+".obj.tracksSize()");
+      plotvar("recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj@.size()");
+      plotvar("recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.x()");
+      plotvar("recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.y()");
+      plotvar("recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.z()");
+      plotvar("recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.vertexNormalizedChi2()");
+      plotvar("recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.vertexNdof()");
+      plotvar("recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.numberOfDaughters()");
+      plotvar("log10(recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.vertexCovariance(0,0))/2");
+      plotvar("log10(recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.vertexCovariance(1,1))/2");
+      plotvar("log10(recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+reco+".obj.vertexCovariance(2,2))/2");
 
       plotvar("recoPFDisplacedVertexs_particleFlowDisplacedVertex__"+reco+".obj@.size()");
       plotvar("recoPFDisplacedVertexs_particleFlowDisplacedVertex__"+reco+".obj.x()");
@@ -1727,7 +1784,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       jets("recoBasicJets","ak8PFJetsCHSPruned"); 
       jets("recoBasicJets","cmsTopTagPFJetsCHS"); 
       
-
+      
       plotvar("double_kt6PFJets_rho_"+reco+".obj");
       plotvar("double_kt6CaloJets_rho_"+reco+".obj");
       plotvar("double_fixedGridRhoFastjetAll__"+reco+".obj");
@@ -1766,86 +1823,31 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
 
     if (step.Contains("all") || step.Contains("jet")){
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexMVABJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_combinedInclusiveSecondaryVertexV2BJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_ghostTrackBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetBProbabilityBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetBProbabilityBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetBProbabilityBJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_jetBProbabilityBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetProbabilityBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetProbabilityBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_jetProbabilityBJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_jetProbabilityBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighEffBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighEffBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighEffBJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighEffBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTagsEI__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTagsEI__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTagsEI__"+reco+".obj.data_",
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_combinedSecondaryVertexBJetTagsEI__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighPurBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighPurBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighPurBJetTags__"+reco+".obj.data_", 
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_trackCountingHighPurBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighEffBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighEffBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighEffBJetTags__"+reco+".obj.data_",
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighEffBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighPurBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighPurBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighPurBJetTags__"+reco+".obj.data_",
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_simpleSecondaryVertexHighPurBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFMuonBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFMuonBJetTags__"+reco+".obj.data_");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFMuonBJetTags__"+reco+".obj.data_",
-	      "recoJetedmRefToBaseProdTofloatsAssociationVector_softPFMuonBJetTags__"+reco+".obj.data_>=0");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFElectronBJetTags__"+reco+".obj.@data_.size()");
-      plotvar("recoJetedmRefToBaseProdTofloatsAssociationVector_softPFElectronBJetTags__"+reco+".obj.data_");
+      jetTagVar("combinedSecondaryVertexMVABJetTags__");
+      jetTagVar("combinedInclusiveSecondaryVertexV2BJetTags__");
+      jetTagVar("ghostTrackBJetTags__");
+      jetTagVar("combinedSecondaryVertexBJetTags__");
+      jetTagVar("jetBProbabilityBJetTags__");
+      jetTagVar("jetProbabilityBJetTags__");
+      jetTagVar("trackCountingHighEffBJetTags__");
+      jetTagVar("combinedSecondaryVertexBJetTagsEI__");
+      jetTagVar("trackCountingHighPurBJetTags__");
+      jetTagVar("simpleSecondaryVertexHighEffBJetTags__");
+      jetTagVar("simpleSecondaryVertexHighPurBJetTags__");
+      jetTagVar("softPFMuonBJetTags__");
+      jetTagVar("softPFElectronBJetTags__");
+      jetTagVar("pfCombinedInclusiveSecondaryVertexV2BJetTags__");
+      jetTagVar("pfJetBProbabilityBJetTags__");
+      jetTagVar("pfCombinedMVABJetTags__");
+      jetTagVar("pfJetProbabilityBJetTags__");
+      jetTagVar("pfTrackCountingHighEffBJetTags__");
+      jetTagVar("pfTrackCountingHighPurBJetTags__");
+      jetTagVar("pfSimpleSecondaryVertexHighEffBJetTags__");
+      jetTagVar("pfSimpleSecondaryVertexHighPurBJetTags__");
 
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj@.size()");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertexTracks()");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertices()");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.first");
-      plotvar("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
-
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj@.size()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertexTracks()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertices()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_trackData.first");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
-
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj@.size()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertexTracks()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertices()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_trackData.first");
-      plotvar("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_trackData.second.svStatus");
+      secondaryVertexTagInfoVars("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__");
+      secondaryVertexTagInfoVars("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__");
+      secondaryVertexTagInfoVars("recoSecondaryVertexTagInfos_secondaryVertexTagInfosEI__");
 
       plotvar("recoSoftLeptonTagInfos_softPFMuonsTagInfos__"+reco+".obj@.size()");
       plotvar("recoSoftLeptonTagInfos_softPFMuonsTagInfos__"+reco+".obj.m_leptons@.size()");
@@ -1863,55 +1865,12 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoSoftLeptonTagInfos_softPFElectronsTagInfos__"+reco+".obj.m_leptons.second.ratio");
       plotvar("recoSoftLeptonTagInfos_softPFElectronsTagInfos__"+reco+".obj.m_leptons.second.quality()");
 
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertexTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertices()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.first");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
-
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nVertexTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nVertices()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_trackData.first");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__"+reco+".obj.m_trackData.second.svStatus");
-
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertexTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertices()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_trackData.first");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
-
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertexTracks()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertices()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_trackData.first");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__"+reco+".obj.m_trackData.second.svStatus");
-
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj@.size()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.nSelectedTracks()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.nVertexTracks()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.nVertices()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.nVertexCandidates()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.value()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.m_svData.dist2d.error()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.m_trackData.first");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__"+reco+".obj.m_trackData.second.svStatus");
+      secondaryVertexTagInfoVars("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_ghostTrackVertexTagInfos__");
+      secondaryVertexTagInfoVars("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_inclusiveSecondaryVertexFinderTagInfos__");
+      secondaryVertexTagInfoVars("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfInclusiveSecondaryVertexFinderTagInfos__");
+      secondaryVertexTagInfoVars("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfos__");
+      secondaryVertexTagInfoVars("recoTracksRefsrecoJTATagInforecoIPTagInforecoVertexrecoTemplatedSecondaryVertexTagInfos_secondaryVertexTagInfosEI__");
+      secondaryVertexTagInfoVars("recoCandidateedmPtrsrecoJetTagInforecoIPTagInforecoVertexCompositePtrCandidaterecoTemplatedSecondaryVertexTagInfos_pfSecondaryVertexTagInfos__");
 
 
       plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak5JetTracksAssociatorAtVertexPF__"+reco+".obj.@data_.size()");
@@ -1922,102 +1881,26 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak4JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.size()");
       plotvar("recoJetedmRefToBaseProdrecoTracksrecoTrackrecoTracksTorecoTrackedmrefhelperFindUsingAdvanceedmRefVectorsAssociationVector_ak4JetTracksAssociatorAtVertexPF__"+reco+".obj.data_.refVector_.keys_");
 
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_axis.theta()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_axis.phi()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ip2d.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ip2d.error()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.distanceToJetAxis.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.distanceToGhostTrack.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ghostTrackWeight");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_prob2d");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_prob3d");
-
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_axis.theta()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_axis.phi()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ip2d.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ip2d.error()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.distanceToJetAxis.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.distanceToGhostTrack.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_data.ghostTrackWeight");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_prob2d");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__"+reco+".obj.m_prob3d");
-
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj@.size()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_axis.theta()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_axis.phi()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_data@.size()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_data.ip2d.value()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_data.ip2d.error()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_data.distanceToJetAxis.value()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_data.distanceToGhostTrack.value()");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_data.ghostTrackWeight");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_prob2d");
-      plotvar("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__"+reco+".obj.m_prob3d");
-
       plotvar("recoTracks_pfImpactParameterTagInfos_ghostTracks_"+reco+".obj@.size()");
       plotvar("recoTracks_impactParameterTagInfos_ghostTracks_"+reco+".obj@.size()");
       plotvar("recoTracks_impactParameterTagInfosEI_ghostTracks_"+reco+".obj@.size()");
 
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_axis.theta()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_axis.phi()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.ip2d.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.ip2d.error()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.distanceToJetAxis.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.distanceToGhostTrack.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_data.ghostTrackWeight");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_prob2d");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_"+reco+".obj.m_prob3d");
-
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_axis.theta()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_axis.phi()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ip2d.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ip2d.error()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.distanceToJetAxis.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.distanceToGhostTrack.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ghostTrackWeight");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_prob2d");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_prob3d");
-
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_axis.theta()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_axis.phi()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data@.size()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ip2d.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ip2d.error()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.distanceToJetAxis.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.distanceToGhostTrack.value()");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_data.ghostTrackWeight");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_prob2d");
-      plotvar("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__"+reco+".obj.m_prob3d");
-
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_axis.theta()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_axis.phi()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data@.size()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.ip2d.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.ip2d.error()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.distanceToJetAxis.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.distanceToGhostTrack.value()");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_data.ghostTrackWeight");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_prob2d");
-      plotvar("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_"+reco+".obj.m_prob3d");
+      impactParameterTagInfoVars("recoTrackIPTagInfos_impactParameterTagInfos__");
+      impactParameterTagInfoVars("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfos__");
+      impactParameterTagInfoVars("recoCandidateedmPtrsrecoJetTagInforecoIPTagInfos_pfImpactParameterTagInfos__");
+      impactParameterTagInfoVars("recoTrackIPTagInfos_impactParameterTagInfos_ghostTracks_");
+      impactParameterTagInfoVars("recoTrackIPTagInfos_impactParameterTagInfosEI__");
+      impactParameterTagInfoVars("recoTracksRefsrecoJTATagInforecoIPTagInfos_impactParameterTagInfosEI__");
+      impactParameterTagInfoVars("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_");
     }
-
+      
     if (step.Contains("all") || step.Contains("hfreco")){
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+reco+".obj@.size()");
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+reco+".obj.pt()");
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+reco+".obj.eta()");
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+reco+".obj.phi()");
     }
-
+    
   }else{
     for (int i=0;i!=156;++i){
       TString b="edmTriggerResults_TriggerResults__"+reco+".obj.paths_[";
