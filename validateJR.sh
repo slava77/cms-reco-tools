@@ -1,3 +1,4 @@
+#!/bin/bash
 baseA=$1
 baseB=$2
 diffN=$3
