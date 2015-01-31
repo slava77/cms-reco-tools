@@ -135,8 +135,9 @@ void compareInDir(TFile* f1, TFile* f2, std::string dirName,unsigned int logmod=
 
       if (std::string(h1->GetName())==std::string("reconstruction_step_module_total")
 	  || std::string(h1->GetName())==std::string("validation_step_module_total")){
-	TPaveText ksPt(0,0, 0.35, 0.05, "NDC");
+	TPaveText ksPt(0,0, 0.35, 0.04, "NDC"); ksPt.SetBorderSize(0); ksPt.SetFillColor(0);
 	ksPt.AddText(Form("P(KS)=%g, diffBins=%g, eblk %g ered %g",ksProb, bDiff, h1->GetEntries(), h2->GetEntries()));
+	//	ksPt.AddText(h1->GetName());
 	ksPt.Draw();
 	cv->Print("diff.ps");
 
@@ -168,7 +169,7 @@ void compareInDir(TFile* f1, TFile* f2, std::string dirName,unsigned int logmod=
 	  else h1->SetMinimum(min1L-0.15*std::abs(min1L));
 	  h1->Draw();
 	  h2->Draw("sames");
-	  TPaveText ksPtL(0,0, 0.45, 0.05, "NDC");
+	  TPaveText ksPtL(0,0, 0.35, 0.04, "NDC"); ksPtL.SetBorderSize(0); ksPtL.SetFillColor(0);
 	  ksPtL.AddText(Form("P(KS)=%g, diffBinsL=%g(%g), eblk %g ered %g",ksProb, bDiffL, bDiffL/h1Int, h1->GetEntries(), h2->GetEntries()));
 	  ksPtL.Draw();
 	  cv->Print("diff.ps");
@@ -184,8 +185,9 @@ void compareInDir(TFile* f1, TFile* f2, std::string dirName,unsigned int logmod=
       pD->cd(2);
       h2->Draw("colz");
     }
-    TPaveText ksPt(0,0, 0.35, 0.05, "NDC");
+    TPaveText ksPt(0,0, 0.55, 0.06, "NDC"); ksPt.SetBorderSize(0); ksPt.SetFillColor(0);
     ksPt.AddText(Form("P(KS)=%g, diffBins=%g, eblk %g ered %g",ksProb, bDiff, h1->GetEntries(), h2->GetEntries()));
+    ksPt.AddText(h1->GetName());
     ksPt.Draw();
     cv->Print("diff.ps");
     cv->Print("diff.pdf");
