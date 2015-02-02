@@ -44,9 +44,9 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
     pidList=${pidList}" "${!}
     export pidList
     echo $pidList
-    nRunning=`ps -p $pidList | grep -c "^[1-9]"`
+    nRunning=`ps -p $pidList | grep -c "^[ ]*[1-9]"`
     while ((nRunning > 5 )); do  
-	nRunning=`ps -p $pidList | grep -c "^[1-9]"`
+	nRunning=`ps -p $pidList | grep -c "^[ ]*[1-9]"`
 #	echo $nRunning "still above 5 -> sleep 10 "
 	sleep 10
     done
@@ -56,7 +56,7 @@ done
 allPids=`cat ${fLock}`
 nRunning=1
 while (( nRunning > 0 )); do
-    nRunning=`ps -p $allPids | grep -c "^[1-9]"`
+    nRunning=`ps -p $allPids | grep -c "^[ ]*[1-9]"`
 #    echo $nRunning
     sleep 10
 done
