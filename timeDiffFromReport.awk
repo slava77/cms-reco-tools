@@ -57,7 +57,7 @@ END{
 	    }
 	    if (adt!=2){
 		printf("%+12f %+10.2f%% %12.2f ms/ev -> %12.2f ms/ev %s\n",dt, dtJob, to[m]*1000, ts[m]*1000,m);
-	    } else if (adt==-2){
+	    } else if (dt==-2){
 		printf("%12s %+10.2f%% %12.2f ms/ev -> %12.2f ms/ev %s\n","removed", dtJob, to[m]*1000, 0, m);
 	    } else {
 		printf("%12s %+10.2f%% %12.2f ms/ev -> %12.2f ms/ev %s\n","added", dtJob, 0, ts[m]*1000, m);
