@@ -8,6 +8,8 @@
 #include "TProfile.h"
 #include "TH2.h"
 #include "TKey.h"
+#include "TClass.h"
+#include "TObjArray.h"
 
 #include <cmath>
 
@@ -35,7 +37,7 @@ void compareInDir(TFile* f1, TFile* f2, std::string dirName,unsigned int logmod=
   TIterator* keyIt1 = list1->MakeIterator();
 
   TObject* obj;  
-  while (obj = keyIt1->Next()){
+  while ((obj = keyIt1->Next())){
     TObject* obj1 = d1->Get(obj->GetName());    
     if(obj1 == 0){
       //      std::cout<<"ERROR: failed to read in "<<d1->GetName()<<" / "<<obj->GetName()<<std::endl;
