@@ -23,8 +23,13 @@ END{
     for(br in ms){
 	osi=os[br]; nsi=ns[br]; 
 	dsi=nsi-osi; 
-	adsi = dsi; if(adsi<0)adsi=-adsi; msi=ms[br]; 
-	dsiR=dsi/msi*100; 
+	adsi = dsi; if(adsi<0)adsi=-adsi; 
+	msi=ms[br]; 
+	if (dsi==0 && msi==0){
+	    dsiR=0;
+	} else {
+	    dsiR=dsi/msi*100; 
+	}
 	dsiT=dsi/oTotal*100;
 	dsTotal+=dsi;
 	dsTTotal+=dsiT;
