@@ -27,7 +27,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
     export pidList
     echo $pidList
     nRunning=`ps -p $pidList | grep -c "^[ ]*[1-9]"`
-    while ((nRunning > 5 )); do  
+    while ((nRunning > 10 )); do  
 	nRunning=`ps -p $pidList | grep -c "^[ ]*[1-9]"`
 #	echo $nRunning "still above 5 -> sleep 10 "
 	sleep 10
