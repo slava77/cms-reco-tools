@@ -543,8 +543,8 @@ void readFileList(TString file,TChain * ch){
   {
     in>>f;
     if (f!=""){
-      if (!f.Contains("castor"))
-	f="/castor/cern.ch/cms"+f;
+      //      if (!f.Contains("castor"))
+      //	f="/castor/cern.ch/cms"+f;
       std::cout<<"adding : "<<f<<std::endl;
       ch->AddFile(f);
       f="";
