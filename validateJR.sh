@@ -16,7 +16,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
     cp ~/tools/validate.C ./
     echo "Will run on ${fN} in ${cWD}/${extN}"
     echo "Now in `pwd`"
-    g++ -shared -o validate.so validate.C `root-config --cflags ` -fPIC
+#    g++ -shared -o validate.so validate.C `root-config --cflags ` -fPIC
     echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n AutoLibraryLoader::enable();\n 
     .x validate.C+(\"${extN}\", \"${baseA}/${fN}\", \"${baseB}/${fN}\", \"${procN}\");\n .qqqqqq" | root -l -b >& ${extN}.log &
 # manually set the make flags, not needed in most cases
