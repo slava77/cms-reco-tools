@@ -24,8 +24,16 @@ no=`grep [a-z] ${ot} | wc -l`
 ns=`grep [a-z] ${st} | wc -l`
 
 if [ "${no}" == "0" -o "${ns}" == "0" ]; then
-    echo "Couldn't parse time report "
-    exit 1
+    echo "Couldn't parse time report using CPU and wall-clock format: trying Wall-clock only"
+
+    grep -P "^TimeReport( [ ]*[0-9.]{1,}){3}[ ]*[^ ]*$" ${ol} |  awk '{print $5" "$2}' >  ${ot}
+    grep -P "^TimeReport( [ ]*[0-9.]{1,}){3}[ ]*[^ ]*$" ${sl} |  awk '{print $5" "$2}' >  ${st}
+    no=`grep [a-z] ${ot} | wc -l`
+    ns=`grep [a-z] ${st} | wc -l`
+    if [ "${no}" == "0" -o "${ns}" == "0" ]; then
+	echo "Couldn't parse time report"
+	exit 1
+    fi
 fi
 
 grep [a-zA-Z] ${ot} ${st} | tr ':' ' ' | sed -e "s?^${st}?st?g;s?^${ot}?ot?g"| awk -f ~/tools/timeDiffFromReport.awk 
