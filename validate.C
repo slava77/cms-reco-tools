@@ -86,7 +86,6 @@ double plotvar(TString v,TString cut=""){
   gStyle->SetTitleW(1);
   gStyle->SetTitleH(0.06);
 
-  
   double refplotEntries = -1;
   double plotEntries = -1;
 
