@@ -1577,6 +1577,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       //for each sub category ...
       for (int t=1;t!=8;t++)	allpf(t);
 
+      allpf(-1, "particleFlowTmp_");
+      //for each sub category ...
+      for (int t=1;t!=8;t++)	allpf(t, "particleFlowTmp_");
+
       allpf(-1, "particleFlowEGamma_");
       allpf(-1, "particleFlowTmp_AddedMuonsAndHadrons");
       allpf(-1, "particleFlowTmp_CleanedCosmicsMuons");
