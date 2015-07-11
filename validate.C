@@ -83,7 +83,7 @@ double plotvar(TString v,TString cut=""){
 
   gStyle->SetTitleX(0.5);
   gStyle->SetTitleY(1);
-  gStyle->SetTitleW(1);
+  gStyle->SetTitleW(01.);
   gStyle->SetTitleH(0.06);
 
   double refplotEntries = -1;
@@ -180,8 +180,9 @@ double plotvar(TString v,TString cut=""){
     pt->SetFillStyle(0);
     pt->Draw();
     
-    TLegend * leg = new TLegend(0.72,0.89,0.99,0.93);
+    TLegend * leg = new TLegend(0.61,0.89,0.99,0.93);
     leg->SetNColumns(3);
+    leg->SetMargin(0.15);
     leg->AddEntry(refplot,"Ref.","l");
     leg->AddEntry(plot,"New","l");
     leg->AddEntry(diff,"New - Ref.","p");
