@@ -1,0 +1,24 @@
+#!/bin/tcsh
+
+setenv SCRAM_ARCH slc6_amd64_gcc491
+setenv PATH /afs/cern.ch/cms/common/:$PATH
+
+echo Renew proxy
+voms-proxy-init -valid 100:00 -voms cms
+
+setenv pr `pwd | sed 's/.*pr//'`
+set echo
+/afs/cern.ch/cms/common/scram p -n $1-orig $1
+/afs/cern.ch/cms/common/scram p -n $1-testPR$pr $1
+cd $1-testPR$pr/src
+cmsenv
+/afs/cern.ch/cms/common/scramv1 runtime -csh
+git cms-merge-topic --unsafe $pr
+git cms-checkdeps -a |& tee dep.log 
+# nohup scram b -j 16 >& abuild.log </dev/null &
+/afs/cern.ch/cms/common/scram b -j 12 |& tee abuild.log 
+# echo after the job compiles, check for errors and warnings and edm/DF build issues
+~/tools/buildQA.sh
+cd ../../$1-orig/src
+cmsenv
+/afs/cern.ch/cms/common/scram b
