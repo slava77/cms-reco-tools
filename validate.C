@@ -9,6 +9,7 @@
 #include "TStyle.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "TLegend.h"
 #include "TPaveText.h"
 #include "TCut.h"
@@ -140,6 +141,10 @@ double plotvar(TString v,TString cut=""){
     refplot->Draw("he");
     refplot->SetMinimum(-0.05*refplot->GetMaximum() );
     plot->Draw("same he");
+
+    double ksscore = refplot->KolmogorovTest(plot);
+    int refentries = refplot->GetEntries();
+    int newentries = plot->GetEntries();
     
     TString dn=vn+"_diff";
     if (cut!="") dn+=count;
@@ -150,7 +155,7 @@ double plotvar(TString v,TString cut=""){
     
     diff->Add(plot);
     diff->Add(refplot,-1.);
-    
+
     double max = std::max(refplot->GetMaximum() , plot->GetMaximum());
     double min = std::min(refplot->GetMinimum() , plot->GetMinimum());
     min = std::min(diff->GetMinimum(), min);
@@ -180,9 +185,9 @@ double plotvar(TString v,TString cut=""){
     pt->SetFillStyle(0);
     pt->Draw();
     
-    TLegend * leg = new TLegend(0.61,0.89,0.99,0.93);
+    TLegend * leg = new TLegend(0.72,0.89,0.99,0.93);
     leg->SetNColumns(3);
-    leg->SetMargin(0.15);
+    //leg->SetMargin(0.12);
     leg->AddEntry(refplot,"Ref.","l");
     leg->AddEntry(plot,"New","l");
     leg->AddEntry(diff,"New - Ref.","p");
