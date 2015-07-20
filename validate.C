@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include "TLegend.h"
+#include "TPaveText.h"
 #include "TCut.h"
 #include <cmath>
 
@@ -68,6 +69,10 @@ double plotvar(TString v,TString cut=""){
   if (cut!="") cn+=count;
   TCanvas * c = new TCanvas(cn,"plot of "+v);
   c->SetGrid();
+  c->SetTopMargin(0.12);
+  c->SetLeftMargin(0.06);
+  c->SetRightMargin(0.01);
+  c->SetBottomMargin(0.06);
   TH1F * refplot=0;
   TString refvn=vn;
   vn.ReplaceAll(recoS,refrecoS);
@@ -75,6 +80,12 @@ double plotvar(TString v,TString cut=""){
   refv.ReplaceAll(recoS,refrecoS);
   if (refv!=v)
     std::cout<<" changing reference variable to:"<<refv<<std::endl;
+
+  gStyle->SetTitleX(0.5);
+  gStyle->SetTitleY(1);
+  gStyle->SetTitleW(1);
+  gStyle->SetTitleH(0.06);
+
   
   double refplotEntries = -1;
   double plotEntries = -1;
@@ -156,12 +167,27 @@ double plotvar(TString v,TString cut=""){
     for (int ib=1;ib<=diff->GetNbinsX();++ib){
       countDiff+=std::abs(diff->GetBinContent(ib));
     }
+
+    double ksscore = refplot->KolmogorovTest(plot);
+    int refentries = refplot->GetEntries();
+    int newentries = plot->GetEntries();
+
+    TString outtext;
+    outtext.Form("Ref: %i, New: %i, Diff: %g, 1-KS: %6.4g",refentries,newentries,countDiff,1-ksscore);
+
+    TPaveText * pt = new TPaveText(0.01,0.89,0.71,0.93,"NDC");
+    pt->AddText(outtext);
+    pt->SetBorderSize(0);
+    pt->SetFillStyle(0);
+    pt->Draw();
     
-    TLegend * leg = new TLegend(0.5,0.8,0.99,0.99);
-    leg->AddEntry(refplot,"reference","l");
-    leg->AddEntry(plot,"new version","l");
-    leg->AddEntry(diff,"new - reference","p");
+    TLegend * leg = new TLegend(0.72,0.89,0.99,0.93);
+    leg->SetNColumns(3);
+    leg->AddEntry(refplot,"Ref.","l");
+    leg->AddEntry(plot,"New","l");
+    leg->AddEntry(diff,"New - Ref.","p");
     leg->Draw();
+
     
   }else{ 
     std::cout<<"cannot do things for "<<v<<std::endl;
