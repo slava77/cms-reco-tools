@@ -9,7 +9,6 @@
 #include "TStyle.h"
 #include <iostream>
 #include <fstream>
-#include <sstream>
 #include "TLegend.h"
 #include "TPaveText.h"
 #include "TCut.h"
@@ -84,7 +83,7 @@ double plotvar(TString v,TString cut=""){
 
   gStyle->SetTitleX(0.5);
   gStyle->SetTitleY(1);
-  gStyle->SetTitleW(01.);
+  gStyle->SetTitleW(1);
   gStyle->SetTitleH(0.06);
 
   double refplotEntries = -1;
@@ -142,10 +141,6 @@ double plotvar(TString v,TString cut=""){
     refplot->SetMinimum(-0.05*refplot->GetMaximum() );
     plot->Draw("same he");
 
-    double ksscore = refplot->KolmogorovTest(plot);
-    int refentries = refplot->GetEntries();
-    int newentries = plot->GetEntries();
-    
     TString dn=vn+"_diff";
     if (cut!="") dn+=count;
     TH1F *  diff = new TH1F(dn,refplot->GetTitle(),
@@ -167,7 +162,6 @@ double plotvar(TString v,TString cut=""){
     diff->SetMarkerStyle(7);
     diff->Draw("same p e");
     
-    
     for (int ib=1;ib<=diff->GetNbinsX();++ib){
       countDiff+=std::abs(diff->GetBinContent(ib));
     }
@@ -175,7 +169,7 @@ double plotvar(TString v,TString cut=""){
     double ksscore = refplot->KolmogorovTest(plot);
     int refentries = refplot->GetEntries();
     int newentries = plot->GetEntries();
-
+    
     TString outtext;
     outtext.Form("Ref: %i, New: %i, Diff: %g, 1-KS: %6.4g",refentries,newentries,countDiff,1-ksscore);
 
@@ -187,7 +181,6 @@ double plotvar(TString v,TString cut=""){
     
     TLegend * leg = new TLegend(0.72,0.89,0.99,0.93);
     leg->SetNColumns(3);
-    //leg->SetMargin(0.12);
     leg->AddEntry(refplot,"Ref.","l");
     leg->AddEntry(plot,"New","l");
     leg->AddEntry(diff,"New - Ref.","p");
