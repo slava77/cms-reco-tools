@@ -8,7 +8,7 @@ fN=$2
 fTouch=$3
 [ "x${fTouch}" == "x" ] && echo will use ${fN}evts && fTouch=${fN}evts
 
-grep -m 1 "^Begin processing ${fN}[a-z]" <(tail -f ${fLog}) >& /dev/null
+grep -m 1 "^Begin processing the ${fN}[a-z]" <(tail -f ${fLog}) >& /dev/null
 touch ${fTouch}
 sleep 10
 mv igprof.mp igprof.mp.${fTouch}
