@@ -3,7 +3,7 @@
 BUILD_LOG=abuild.log
 if [ -f "${BUILD_LOG}" ]; then
     echo "grep for errors: in ${BUILD_LOG}"
-    grep -iw "warning\|error" ${BUILD_LOG} | grep -v "Warning in <TUnixSystem::SetDisplay>: DISPLAY not set" \
+    grep -iw "warning\|error\|SyntaxWarning" ${BUILD_LOG} | grep -v "Warning in <TUnixSystem::SetDisplay>: DISPLAY not set" \
 	||    echo "==> No errors/warnings"
 fi
 
