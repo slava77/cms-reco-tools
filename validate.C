@@ -562,6 +562,56 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
 
 }
 
+void packedVar(TString var, TString cName = "packedPFCandidates_", TString tName = "patPackedCandidates_", bool notafunction = false){
+  TString v= notafunction ? tName+cName+"_"+recoS+".obj."+var :
+    tName+cName+"_"+recoS+".obj."+var+"()" ;
+  plotvar(v);
+}
+
+void packed(TString cName = "packedPFCandidates_", TString tName = "patPackedCandidates_"){
+  plotvar(tName+cName+"_"+recoS+".obj@.size()");
+  packedVar("charge",cName,tName);
+  packedVar("dxy",cName,tName);
+  packedVar("dxyError",cName,tName);
+  packedVar("dz",cName,tName);
+  packedVar("dzError",cName,tName);
+  packedVar("energy",cName,tName);
+  packedVar("et",cName,tName);
+  packedVar("et2",cName,tName);
+  packedVar("eta",cName,tName);
+  packedVar("isCaloMuon",cName,tName);
+  packedVar("isConvertedPhoton",cName,tName);
+  packedVar("isElectron",cName,tName);
+  packedVar("isGlobalMuon",cName,tName);
+  packedVar("isJet",cName,tName);
+  packedVar("isMuon",cName,tName);
+  packedVar("isPhoton",cName,tName);
+  packedVar("isElectron",cName,tName);
+  packedVar("isStandAloneMuon",cName,tName);
+  packedVar("isTrackerMuon",cName,tName);
+  packedVar("mass",cName,tName);
+  packedVar("mt",cName,tName);
+  packedVar("numberOfDaughters",cName,tName);
+  packedVar("numberOfMothers",cName,tName);
+  packedVar("numberOfHits",cName,tName);
+  packedVar("numberOfPixelHits",cName,tName);
+  packedVar("p",cName,tName);
+  packedVar("phi",cName,tName);
+  packedVar("pt",cName,tName);
+  packedVar("px",cName,tName);
+  packedVar("py",cName,tName);
+  packedVar("pz",cName,tName);
+  packedVar("rapidity",cName,tName);
+  packedVar("status",cName,tName);
+  packedVar("theta",cName,tName);
+  packedVar("vertexChi2",cName,tName);
+  packedVar("vertexNdof",cName,tName);
+  packedVar("vx",cName,tName);
+  packedVar("vy",cName,tName);
+  packedVar("vz",cName,tName);
+  packedVar("y",cName,tName);
+}
+
 void recoMuonsCos(TString var, bool notafunction = false){
   TString v= notafunction ? "recoMuons_muonsFromCosmics__"+recoS+".obj."+var :
     "recoMuons_muonsFromCosmics__"+recoS+".obj."+var+"()" ;
@@ -1923,6 +1973,11 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+recoS+".obj.pt()");
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+recoS+".obj.eta()");
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+recoS+".obj.phi()");
+    }
+
+    if (step.Contains("all")) {
+      packed("packedPFCandidates_");
+      packed("lostTracks_");
     }
     
   }else{
