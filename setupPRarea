@@ -3,8 +3,8 @@
 setenv SCRAM_ARCH slc6_amd64_gcc491
 setenv PATH /afs/cern.ch/cms/common/:$PATH
 
-echo Renew proxy
-voms-proxy-init -valid 100:00 -voms cms
+#echo Renew proxy
+#voms-proxy-init -valid 100:00 -voms cms
 
 setenv pr `pwd | sed 's/.*pr//'`
 set echo
