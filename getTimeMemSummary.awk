@@ -5,6 +5,7 @@ BEGIN{
     maxC1=0;maxCI1=-1;avC1=0;
     maxT=0;maxTI=-1;avT=0;
     maxT1=0;maxTI1=-1;avT1=0;
+    maxT8=0;maxTI8=-1;avT8=0;
 }
 /^MemoryCheck/{
     cn++; 
@@ -18,6 +19,9 @@ BEGIN{
 	avT1+=$4; if(maxT1<$4){maxT1=$4;maxTI1=cn;}
 	avC1+=$5; if(maxC1<$5){maxC1=$5;maxCI1=cn;}
     }
+    if (cn>8){
+	avT8+=$4; if(maxT8<$4){maxT8=$4;maxTI8=cn;}
+    }
 }
 END{
     print "Summary for "cn" events";
@@ -29,5 +33,8 @@ END{
     if (cn>=2){
 	print "M1 Time av "avT1/(cn-1)" s/evt   max "maxT1" s on evt "maxTI1;
 	print "M1 CPU av "avC1/(cn-1)" s/evt   max "maxC1" s on evt "maxCI1;
+    }
+    if (cn>=9){
+	print "M8 Time av "avT8/(cn-8)" s/evt   max "maxT8" s on evt "maxTI8;
     }
 }

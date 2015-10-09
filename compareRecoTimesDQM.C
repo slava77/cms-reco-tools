@@ -15,7 +15,7 @@ void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, 
   h1->Scale(scaleF1);
   const unsigned int n1 = h1->GetNbinsX();
   TAxis* x1 = h1->GetXaxis();
-  h1->SetBit(TH1::kCanRebin, false); //just in case it's on by default
+  h1->SetCanExtend(TH1::kNoAxis); //just in case it's on by default
 
   TFile* f2 = new TFile(fName2);
   f2->cd(timerPath.c_str());
@@ -29,7 +29,7 @@ void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, 
   }
   const unsigned int n2 = h2->GetNbinsX();
   TAxis* x2 = h2->GetXaxis();
-  h2->SetBit(TH1::kCanRebin, false); //just in case it's on by default
+  h2->SetCanExtend(TH1::kNoAxis); //just in case it's on by default
 
   double sum1 = h1->Integral(0,9999)/Nev;
   double sum2 = h2->Integral(0,9999)/Nev;
