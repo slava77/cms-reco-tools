@@ -1270,6 +1270,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.ipCompatibility");
       plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.vertexCompatibility");
 
+      for (int iS = 0; iS<4;++iS){
+	TString iSS = ""; iSS += iS;
+	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].nStationHits["+iSS+"]");
+	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].nStationCorrelatedHits["+iSS+"]");
+	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].stationShowerSizeT["+iSS+"]");
+	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].stationShowerDeltaR["+iSS+"]");
+      }
+
       plotvar("booledmValueMap_muons_muidGlobalMuonPromptTight_"+recoS+".obj.values_");
       plotvar("booledmValueMap_muons_muidTMLastStationAngTight_"+recoS+".obj.values_");
 
@@ -1452,15 +1460,15 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       if (detailled){
 
 	
-	plotvar("recoSuperClusters_uncleanedHybridSuperClusters__RECO.obj@.size()");
-	plotvar("recoSuperClusters_uncleanedHybridSuperClusters__RECO.obj.eta()");
-	/* plotvar("recoSuperClusters_hybridSuperClusters__RECO.obj@.size()");
-	   plotvar("recoSuperClusters_hybridSuperClusters__RECO.obj.eta()");
-	   plotvar("TrackCandidates_conversionTrackCandidates_outInTracksFromConversions_RECO.obj@.size()");
-	   plotvar("TrackCandidates_conversionTrackCandidates_inOutTracksFromConversions_RECO.obj@.size()");
-	   allTracks("ckfOutInTracksFromConversions__RECO");
-	   allTracks("ckfInOutTracksFromConversions__RECO");
-	   plotvar("recoPhotonCores_photonCore__RECO.obj@.size()");
+	plotvar("recoSuperClusters_uncleanedHybridSuperClusters__"+recoS+".obj@.size()");
+	plotvar("recoSuperClusters_uncleanedHybridSuperClusters__"+recoS+".obj.eta()");
+	/* plotvar("recoSuperClusters_hybridSuperClusters__"+recoS+".obj@.size()");
+	   plotvar("recoSuperClusters_hybridSuperClusters__"+recoS+".obj.eta()");
+	   plotvar("TrackCandidates_conversionTrackCandidates_outInTracksFromConversions_"+recoS+".obj@.size()");
+	   plotvar("TrackCandidates_conversionTrackCandidates_inOutTracksFromConversions_"+recoS+".obj@.size()");
+	   allTracks("ckfOutInTracksFromConversions__"+recoS+"");
+	   allTracks("ckfInOutTracksFromConversions__"+recoS+"");
+	   plotvar("recoPhotonCores_photonCore__"+recoS+".obj@.size()");
 	*/
 
       }
@@ -1729,7 +1737,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("log10(recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.pt())");
       plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.eta()");
       plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.phi()");
-      plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.gsfElectronRef().isAvailable()");
+      //      plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.gsfElectronRef().isAvailable()");
       //      plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.gsfElectronRef().get()->pfIsolationVariables().chargedHadronIso");
       //      plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.gsfElectronRef().get()->pfIsolationVariables().neutralHadronIso");
       //      plotvar("recoPFCandidates_pfIsolatedElectronsEI__"+recoS+".obj.gsfElectronRef().get()->pfIsolationVariables().photonIso");
@@ -1737,7 +1745,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("log10(recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.pt())");
       plotvar("recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.eta()");
       plotvar("recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.phi()");
-      plotvar("recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.muonRef().isAvailable()");
+      //      plotvar("recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.muonRef().isAvailable()");
       //      plotvar("recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.muonRef().get()->type()");
       //      plotvar("recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.muonRef().get()->calEnergy().emS9");
       //      plotvar("recoPFCandidates_pfIsolatedMuonsEI__"+recoS+".obj.muonRef().get()->calEnergy().hadS9");
