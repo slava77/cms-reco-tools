@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "started QCD wf 38.0 and 1338"
 runTheMatrix.py -l 38.0,1338.0 --useInput all --command="-n 600" >& run38.0_600.log &
 echo "started TTbar PU wf 202.0"
