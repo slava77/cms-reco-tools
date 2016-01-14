@@ -17,9 +17,9 @@ END{
     } 
     dsTotal=0;
     dsTTotal=0;
-    print  "-------------------------------------------------------------";
-    print  " or, B       new, B      delta, B   delta, %   deltaJ, %    branch "
-    print  "-------------------------------------------------------------";
+    print  "-----------------------------------------------------------------";
+    print  "   or, B         new, B      delta, B   delta, %   deltaJ, %    branch "
+    print  "-----------------------------------------------------------------";
     for(br in ms){
 	osi=os[br]; nsi=ns[br]; 
 	dsi=nsi-osi; 
@@ -38,11 +38,11 @@ END{
 	if (dsiR==-200) isGone=1; else isGone=0;
 	if (adsiR>dptMin||adsi>absMin){
 	    if (isNew!=1&&isGone!=1){
-		printf("%9.0f ->   %9.0f  % 9.0f    % 5.1f  % 4.2f     %s\n", osi, nsi, dsi, dsiR, dsiT, br);
+		printf("%9.1f ->   %9.1f  % 9.0f    % 5.1f  % 4.2f     %s\n", osi, nsi, dsi, dsiR, dsiT, br);
 	    } else if (isNew==1){
-		printf("%9.0f ->   %9.0f  % 9.0f     NEWO  % 4.2f     %s\n", osi, nsi, dsi, dsiT, br);
+		printf("%9.1f ->   %9.1f  % 9.0f     NEWO  % 4.2f     %s\n", osi, nsi, dsi, dsiT, br);
 	    } else if (isGone==1){
-		printf("%9.0f ->   %9.0f  % 9.0f     OLDO  % 4.2f     %s\n", osi, nsi, dsi, dsiT, br);
+		printf("%9.1f ->   %9.1f  % 9.0f     OLDO  % 4.2f     %s\n", osi, nsi, dsi, dsiT, br);
 	    }
 	}
     }
