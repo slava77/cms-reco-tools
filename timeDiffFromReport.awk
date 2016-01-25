@@ -2,6 +2,8 @@
 /^st/{ts[$2]=$3;}
 
 END{
+    tDiff=ENVIRON["tDiff"]
+    tRelDiff=ENVIRON["tRelDiff"]
     for (m in to){
 	ms[m]=1;
     }
@@ -32,11 +34,10 @@ END{
     for (m in dta) dtaT[m] = dta[m];
     nPrn=0;
 
-    minAdt = 0.05;
     for (im=nmod; im>=1;--im){
 	mName="";
 	adt = adtaSV[im];
-	if (adt< minAdt) continue;
+	if (adt< tRelDiff) continue;
 
 	for (m in dtaT){
 	    valT=dtaT[m];
@@ -50,7 +51,7 @@ END{
 	tm = 0.5*(to[m] + ts[m]);
 	dt=dta[m];
 	dtJob = dt*tm*100/toJob;
-	if ( (adt>0.05&&tm>0.005) || (adt>0.2&&tm>0.0005) || adt>1 ){
+	if ( (adt> tRelDiff &&tm> tDiff ) || (adt>0.2&&tm>0.0005) || adt>1 ){
 	    if (nPrn==0){
 		printf("%12s %10s %12s          %12s       %s\n","delta/mean","delta/orJob", "original", "new","module name");
 		printf("%12s %10s %12s          %12s       %s\n","----------","------------", "--------", "----","------------");

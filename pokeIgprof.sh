@@ -8,7 +8,10 @@ fN=$2
 fTouch=$3
 [ "x${fTouch}" == "x" ] && echo will use ${fN}evts && fTouch=${fN}evts
 
+fMv=${4}
+[ "x${fMv}" == "x" ] && echo will use  igprof.mp.${fTouch}  && fMv=igprof.mp.${fTouch}
+
 grep -m 1 "^Begin processing the ${fN}[a-z]" <(tail -f ${fLog}) >& /dev/null
 touch ${fTouch}
 sleep 10
-mv igprof.mp igprof.mp.${fTouch}
+mv igprof.mp ${fMv}
