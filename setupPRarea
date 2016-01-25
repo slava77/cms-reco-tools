@@ -1,6 +1,6 @@
 #!/bin/tcsh
 
-setenv SCRAM_ARCH slc6_amd64_gcc491
+setenv SCRAM_ARCH slc6_amd64_gcc493
 setenv PATH /afs/cern.ch/cms/common/:$PATH
 
 #echo Renew proxy
