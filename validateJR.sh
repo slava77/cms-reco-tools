@@ -9,11 +9,6 @@ export pidList=""
 llistF=lastlist_${diffN}.txt
 echo Start processing at `date`
 grep root ${inList} | grep -v "#" | while read -r dsN fN procN mFN mProcN comm; do 
-    echo $dsN
-    echo $fN
-    echo $procN
-    echo $mFN
-    echo $mProcN
     [ ! -f "${baseA}/${fN}" ] && echo Missing ${baseA}/${fN} && continue
     extN=all_${diffN}_${dsN}
     mkdir -p ${extN}

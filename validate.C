@@ -366,22 +366,21 @@ void photonVars(TString cName = "photons_", TString tName = "recoPhotons_"){
   photon("nClusterOutsideMustache", cName,tName);
   photon("etOutsideMustache", cName,tName);
   photon("pfMVA", cName,tName);
-  // TODO
-  //photon("showerShapeVariables().effSigmaRR",cName, true);
-  //photon("showerShapeVariables().sigmaIetaIphi",cName, true);
-  //photon("showerShapeVariables().sigmaIphiIphi",cName, true);
-  //photon("showerShapeVariables().e2nd",cName, true);
-  //photon("showerShapeVariables().eTop",cName, true);
-  //photon("showerShapeVariables().eLeft",cName, true);
-  //photon("showerShapeVariables().eRight",cName, true);
-  //photon("showerShapeVariables().eBottom",cName, true);
-  //photon("showerShapeVariables().e1x3",cName, true);
-  //photon("showerShapeVariables().e2x2",cName, true);
-  //photon("showerShapeVariables().e2x5Max",cName, true);
-  //photon("showerShapeVariables().e2x5Left",cName, true);
-  //photon("showerShapeVariables().e2x5Right",cName, true);
-  //photon("showerShapeVariables().e2x5Top",cName, true);
-  //photon("showerShapeVariables().e2x5Bottom",cName, true);
+  photon("showerShapeVariables().effSigmaRR",cName,tName, true);
+  photon("showerShapeVariables().sigmaIetaIphi",cName,tName, true);
+  photon("showerShapeVariables().sigmaIphiIphi",cName,tName, true);
+  photon("showerShapeVariables().e2nd",cName,tName, true);
+  photon("showerShapeVariables().eTop",cName,tName, true);
+  photon("showerShapeVariables().eLeft",cName,tName, true);
+  photon("showerShapeVariables().eRight",cName,tName, true);
+  photon("showerShapeVariables().eBottom",cName,tName, true);
+  photon("showerShapeVariables().e1x3",cName,tName, true);
+  photon("showerShapeVariables().e2x2",cName,tName, true);
+  photon("showerShapeVariables().e2x5Max",cName,tName, true);
+  photon("showerShapeVariables().e2x5Left",cName,tName, true);
+  photon("showerShapeVariables().e2x5Right",cName,tName, true);
+  photon("showerShapeVariables().e2x5Top",cName,tName, true);
+  photon("showerShapeVariables().e2x5Bottom",cName,tName, true);
 
   //  photon("r9", cName);
   photon("mipChi2", cName);
@@ -518,14 +517,13 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
   electron("pixelMatchDPhi2", cName, tName);
   electron("pixelMatchDRz1", cName, tName);
   electron("pixelMatchDRz2", cName, tName);
-  // TODO
-  //gsfElectron("showerShape().sigmaIetaIphi", cName, true);
-  //gsfElectron("showerShape().eMax", cName, true);
-  //gsfElectron("showerShape().e2nd", cName, true);
-  //gsfElectron("showerShape().eTop", cName, true);
-  //gsfElectron("showerShape().eLeft", cName, true);
-  //gsfElectron("showerShape().eRight", cName, true);
-  //gsfElectron("showerShape().eBottom", cName, true);
+  electron("showerShape().sigmaIetaIphi", cName,tName, true);
+  electron("showerShape().eMax", cName,tName, true);
+  electron("showerShape().e2nd", cName,tName, true);
+  electron("showerShape().eTop", cName,tName, true);
+  electron("showerShape().eLeft", cName,tName, true);
+  electron("showerShape().eRight", cName,tName, true);
+  electron("showerShape().eBottom", cName,tName, true);
 
 }
 
@@ -1638,13 +1636,13 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       electronVars("gsfElectrons_");
       electronVars("gedGsfElectrons_");
 
+      //HI collections
+      electronVars("gedGsfElectronsTmp_");
+      electronVars("ecalDrivenGsfElectrons_");
+      electronVars("mvaElectrons_");
+
       // miniaod
       electronVars("slimmedElectrons_","patElectrons_");
-      //HI collections
-      // TODO
-      //gsfElectronVars("gedGsfElectronsTmp_");
-      //gsfElectronVars("ecalDrivenGsfElectrons_");
-      //gsfElectronVars("mvaElectrons_");
 
       plotvar("floatedmValueMap_eidLoose__"+recoS+".obj.values_");
 
