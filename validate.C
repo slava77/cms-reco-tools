@@ -550,6 +550,9 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
   muonVar("time().nDof",cName,tName, true);
   muonVar("time().timeAtIpInOut",cName,tName, true);
   muonVar("time().timeAtIpInOutErr",cName,tName, true);
+  muonVar("rpcTime().nDof",cName,tName, true);
+  muonVar("rpcTime().timeAtIpInOut",cName,tName, true);
+  muonVar("rpcTime().timeAtIpInOutErr",cName,tName, true);
   muonVar("caloCompatibility",cName,tName);
   muonVar("isolationR03().sumPt",cName,tName, true);
   muonVar("isolationR03().emEt",cName,tName, true);
@@ -1387,9 +1390,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoMuons_muons__"+recoS+".obj.phi()",c);
       plotvar("recoMuons_muons__"+recoS+".obj.pt()",c);
       plotvar("recoMuons_muons__"+recoS+".obj.p()",c);
+      c="patMuons_slimmedMuons__"+recoS+".obj.isTrackerMuon()";
+      plotvar("patMuons_slimmedMuons__"+recoS+".obj@.size()",c);
+      plotvar("patMuons_slimmedMuons__"+recoS+".obj.eta()",c);
+      plotvar("patMuons_slimmedMuons__"+recoS+".obj.phi()",c);
+      plotvar("patMuons_slimmedMuons__"+recoS+".obj.pt()",c);
+      plotvar("patMuons_slimmedMuons__"+recoS+".obj.p()",c);
 
       muonVars("muons_");
-
       plotvar("recoCaloMuons_calomuons__"+recoS+".obj@.size()");
       //      plotvar("recoCaloMuons_calomuons__"+recoS+".obj.eta()");
       //      plotvar("recoCaloMuons_calomuons__"+recoS+".obj.phi()");
