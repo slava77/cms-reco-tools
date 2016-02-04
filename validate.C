@@ -2034,7 +2034,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
 
     if (step.Contains("all")) {
-      //packedCand("packedPFCandidates_");
+      packedCand("packedPFCandidates_");
       //packedCand("lostTracks_");
     }
     
