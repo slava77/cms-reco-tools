@@ -316,7 +316,8 @@ void tauVars(TString cName = "hpsPFTauProducer_", TString tName = "recoPFTaus_")
   tau("et",cName,tName);
   tau("eta",cName,tName);
   tau("phi",cName,tName);
-  if (tName!="patTaus_") tau("emFraction",cName,tName);
+  //TODO remove: if (tName!="patTaus_") tau("emFraction",cName,tName);
+  tau("emFraction",cName,tName);
 }
 
 void photon(TString var, TString cName = "photons_", TString tName = "recoPhotons_", bool notafunction=false){
@@ -382,25 +383,6 @@ void photonVars(TString cName = "photons_", TString tName = "recoPhotons_"){
   photon("showerShapeVariables().e2x5Top",cName,tName, true);
   photon("showerShapeVariables().e2x5Bottom",cName,tName, true);
 
-  //  photon("r9", cName);
-  photon("mipChi2", cName);
-  photon("mipNhitCone", cName);
-  photon("ecalRecHitSumEtConeDR03", cName);
-  photon("hcalTowerSumEtConeDR03", cName);
-  photon("hcalDepth1TowerSumEtConeDR03", cName);
-  photon("trkSumPtSolidConeDR03", cName);
-  photon("trkSumPtHollowConeDR03", cName);
-  photon("chargedHadronIso", cName);
-  photon("neutralHadronIso", cName);
-  photon("photonIso", cName);
-  photon("sumChargedParticlePt", cName);
-  photon("sumNeutralHadronEtHighThreshold", cName);
-  photon("sumPhotonEtHighThreshold", cName);
-  photon("sumPUPt", cName);
-  photon("nClusterOutsideMustache", cName);
-  photon("etOutsideMustache", cName);
-  photon("pfMVA", cName);
-  
   photon("energyCorrections().scEcalEnergy", cName,tName, true);
   photon("energyCorrections().scEcalEnergyError", cName,tName, true);
   photon("energyCorrections().phoEcalEnergy", cName,tName, true);
@@ -597,6 +579,13 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
   muonVar("pfMeanDRIsoProfileR03().sumChargedHadronPt",cName,tName, true);
   muonVar("pfMeanDRIsoProfileR03().sumChargedParticlePt",cName,tName, true);
   muonVar("pfMeanDRIsoProfileR03().sumNeutralHadronEt",cName,tName, true);
+  muonVar("pfMeanDRIsoProfileR03().sumPhotonEt", true);
+  muonVar("pfMeanDRIsoProfileR03().sumPUPt", true);
+  muonVar("pfSumDRIsoProfileR03().sumChargedHadronPt", true);
+  muonVar("pfSumDRIsoProfileR03().sumChargedParticlePt", true);
+  muonVar("pfSumDRIsoProfileR03().sumNeutralHadronEt", true);
+  muonVar("pfSumDRIsoProfileR03().sumPhotonEt", true);
+  muonVar("pfSumDRIsoProfileR03().sumPUPt", true);
   muonVar("numberOfChambers",cName,tName);
   muonVar("numberOfMatches",cName,tName);
   muonVar("stationMask",cName,tName);
