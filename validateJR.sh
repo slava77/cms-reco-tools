@@ -38,10 +38,10 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
       .x validate.C+(\"${extN}\", \"${baseA}/${fN}\", \"${baseB}/${fN}\", \"${procN}\");\n .qqqqqq" | root -l -b >& ${extN}.log &
       waitForProcesses
     fi
-    IFS='.' read -r -a splitFile <<< "$fN"
-    mFN="${splitFile[0]}_inMINIAOD.root"
+    fNBase=`echo ${fN} | sed -e 's/.root$//g'`
+    mFN="${fNBase}_inMINIAOD.root"
     if [ ! -f "${baseA}/${mFN}" ]; then
-        mFN="${splitFile[0]}_inMINIAODSIM.root"
+        mFN="${fNBase}_inMINIAODSIM.root"
     fi
     #if [ -f "${baseA}/${mFN}" ] && [ ! $noMiniAOD ]; then 
     if [ -f "${baseA}/${mFN}" ]; then
@@ -53,7 +53,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
         echo "Will run on ${mFN} in ${cWD}/${extmN}"
         echo "Now in `pwd`"
         echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n FWLiteEnabler::enable();\n 
-        .x validate.C+(\"${extmN}\", \"${baseA}/${mFN}\", \"${baseB}/${mFN}\", \"${mProcN}\");\n .qqqqqq" | root -l -b >& ${extmN}.log &
+        .x validate.C+(\"${extmN}\", \"${baseA}/${mFN}\", \"${baseB}/${mFN}\", \"${procN}\");\n .qqqqqq" | root -l -b >& ${extmN}.log &
         waitForProcesses
     fi
     #manually set the make flags, not needed in most cases

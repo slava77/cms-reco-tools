@@ -316,8 +316,7 @@ void tauVars(TString cName = "hpsPFTauProducer_", TString tName = "recoPFTaus_")
   tau("et",cName,tName);
   tau("eta",cName,tName);
   tau("phi",cName,tName);
-  //TODO remove: if (tName!="patTaus_") tau("emFraction",cName,tName);
-  tau("emFraction",cName,tName);
+  if (tName!="patTaus_") tau("emFraction",cName,tName);//crashes now for patTaus
 }
 
 void photon(TString var, TString cName = "photons_", TString tName = "recoPhotons_", bool notafunction=false){
@@ -579,13 +578,13 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
   muonVar("pfMeanDRIsoProfileR03().sumChargedHadronPt",cName,tName, true);
   muonVar("pfMeanDRIsoProfileR03().sumChargedParticlePt",cName,tName, true);
   muonVar("pfMeanDRIsoProfileR03().sumNeutralHadronEt",cName,tName, true);
-  muonVar("pfMeanDRIsoProfileR03().sumPhotonEt", true);
-  muonVar("pfMeanDRIsoProfileR03().sumPUPt", true);
-  muonVar("pfSumDRIsoProfileR03().sumChargedHadronPt", true);
-  muonVar("pfSumDRIsoProfileR03().sumChargedParticlePt", true);
-  muonVar("pfSumDRIsoProfileR03().sumNeutralHadronEt", true);
-  muonVar("pfSumDRIsoProfileR03().sumPhotonEt", true);
-  muonVar("pfSumDRIsoProfileR03().sumPUPt", true);
+  muonVar("pfMeanDRIsoProfileR03().sumPhotonEt",cName,tName, true);
+  muonVar("pfMeanDRIsoProfileR03().sumPUPt",cName,tName, true);
+  muonVar("pfSumDRIsoProfileR03().sumChargedHadronPt",cName,tName, true);
+  muonVar("pfSumDRIsoProfileR03().sumChargedParticlePt",cName,tName, true);
+  muonVar("pfSumDRIsoProfileR03().sumNeutralHadronEt",cName,tName, true);
+  muonVar("pfSumDRIsoProfileR03().sumPhotonEt",cName,tName, true);
+  muonVar("pfSumDRIsoProfileR03().sumPUPt",cName,tName, true);
   muonVar("numberOfChambers",cName,tName);
   muonVar("numberOfMatches",cName,tName);
   muonVar("stationMask",cName,tName);
@@ -600,12 +599,14 @@ void packedCandVar(TString var, TString cName = "packedPFCandidates_", TString t
 }
 
 void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPackedCandidates_"){
-  plotvar(tName+cName+"_"+recoS+".obj@.size()");
-  packedCandVar("charge",cName,tName);
-  packedCandVar("dxy",cName,tName);
-  packedCandVar("dxyError",cName,tName);
-  packedCandVar("dz",cName,tName);
-  packedCandVar("dzError",cName,tName);
+  //plotvar(tName+cName+"_"+recoS+".obj@.size()");
+  //  packedCandVar("charge",cName,tName);
+  //track parameters require vertex and it wouldnt unpack in our environment
+  //  packedCandVar("dxy",cName,tName);
+  //  packedCandVar("dxyError",cName,tName);
+  //  packedCandVar("dz",cName,tName);
+  //  packedCandVar("dzError",cName,tName);
+  /*
   packedCandVar("energy",cName,tName);
   packedCandVar("et",cName,tName);
   packedCandVar("eta",cName,tName);
@@ -635,6 +636,25 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   packedCandVar("vx",cName,tName);
   packedCandVar("vy",cName,tName);
   packedCandVar("vz",cName,tName);
+  */
+  //try to get something from the branches without constructor calls
+  packedCandVar("packedPt_",cName,tName, true); 
+  packedCandVar("packedEta_",cName,tName, true); 
+  packedCandVar("packedPhi_",cName,tName, true); 
+  packedCandVar("packedM_",cName,tName, true); 
+  packedCandVar("packedDxy_",cName,tName, true); 
+  packedCandVar("packedDz_",cName,tName, true); 
+  packedCandVar("packedDPhi_",cName,tName, true); 
+  packedCandVar("packedPuppiweight_",cName,tName, true); 
+  packedCandVar("packedPuppiweightNoLepDiff_",cName,tName, true); 
+  packedCandVar("hcalFraction_",cName,tName, true); 
+  packedCandVar("pdgId_",cName,tName, true); 
+  packedCandVar("qualityFlags_",cName,tName, true); 
+  packedCandVar("pvRefKey_",cName,tName, true); 
+  packedCandVar("packedHits_",cName,tName, true); 
+  packedCandVar("normalizedChi2_",cName,tName, true); 
+
+
 }
 
 void recoMuonsCos(TString var, bool notafunction = false){
