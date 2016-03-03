@@ -34,7 +34,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
       echo "Will run on ${fN} in ${cWD}/${extN}"
       echo "Now in `pwd`"
       #g++ -shared -o validate.so validate.C `root-config --cflags ` -fPIC
-      echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n FWLiteEnabler::enable();\n 
+      echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n AutoLibraryLoader::enable();\n FWLiteEnabler::enable();\n 
       .x validate.C+(\"${extN}\", \"${baseA}/${fN}\", \"${baseB}/${fN}\", \"${procN}\");\n .qqqqqq" | root -l -b >& ${extN}.log &
       waitForProcesses
     fi
@@ -52,7 +52,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
         cp ~/tools/validate.C ./
         echo "Will run on ${mFN} in ${cWD}/${extmN}"
         echo "Now in `pwd`"
-        echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n FWLiteEnabler::enable();\n 
+        echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n AutoLibraryLoader::enable();\n FWLiteEnabler::enable();\n 
         .x validate.C+(\"${extmN}\", \"${baseA}/${mFN}\", \"${baseB}/${mFN}\", \"${procN}\");\n .qqqqqq" | root -l -b >& ${extmN}.log &
         waitForProcesses
     fi
