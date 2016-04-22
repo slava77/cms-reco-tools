@@ -98,6 +98,8 @@ void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, 
 
   double verbSum1 = 0.;
   double verbSum2 = 0.;
+  double commonSum1 = 0.;
+  double commonSum2 = 0.;
   for (int i = 0; i< commonN.size(); ++i){
     double val1 = commonT1[i];
     double val2 = commonT2[i];
@@ -109,11 +111,17 @@ void compareRecoTimesDQM(const char* fName1, const char* fName2, int Nev = 200, 
       verbSum1 += val1;
       verbSum2 += val2;
     }
+    commonSum1 += val1;
+    commonSum2 += val2;
     
   }
   if (verbSum1 && verbSum2 > 0){
     std::cout<< "\t Total in detailed printout: "<<" \t "<<verbSum1<<" ms/ev -> "<<verbSum2<< " ms/ev"
 	     <<" \t delta: "<<verbSum2-verbSum1<<std::endl;
+  }
+  if (commonSum1 && commonSum2 > 0){
+    std::cout<< "\t Total in all common: "<<" \t "<<commonSum1<<" ms/ev -> "<<commonSum2<< " ms/ev"
+	     <<" \t delta: "<<commonSum2-commonSum1<<std::endl;
   }
   std::cout<<" Total times: "<<sum1<<" ms/ev -> "<<sum2<<" ms/ev"
 	   <<" \t delta: "<<sum2-sum1<<std::endl;
