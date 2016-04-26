@@ -1639,26 +1639,26 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
       
       plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj@.size()");
-      plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj.position().eta()");
-      plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj.position().phi()");
+      plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj.position_.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj.position_.phi()");
       plotvar("log10(recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj.energy())");
       plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj.time()");
 
       plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+recoS+".obj@.size()");
-      plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+recoS+".obj.position().eta()");
-      plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+recoS+".obj.position().phi()");
+      plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+recoS+".obj.position_.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+recoS+".obj.position_.phi()");
       plotvar("log10(recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+recoS+".obj.energy())");
       plotvar("recoPFRecHits_particleFlowRecHitECAL_Cleaned_"+recoS+".obj.time()");
 
       plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+recoS+".obj@.size()");
-      plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+recoS+".obj.position().eta()");
-      plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+recoS+".obj.position().phi()");
+      plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+recoS+".obj.position_.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+recoS+".obj.position_.phi()");
       plotvar("log10(recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+recoS+".obj.energy())");
       plotvar("recoPFRecHits_particleFlowRecHitHCAL_Cleaned_"+recoS+".obj.time()");
 
       plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+recoS+".obj@.size()");
-      plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+recoS+".obj.position().eta()");
-      plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+recoS+".obj.position().phi()");
+      plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+recoS+".obj.position_.eta()");
+      plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+recoS+".obj.position_.phi()");
       plotvar("log10(recoPFRecHits_particleFlowRecHitPS_Cleaned_"+recoS+".obj.energy())");
       plotvar("recoPFRecHits_particleFlowRecHitPS_Cleaned_"+recoS+".obj.time()");
 
