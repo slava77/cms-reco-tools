@@ -32,18 +32,23 @@ if [ "x${tDiff}" == "x" ]; then
 fi
 export tDiff
 
+rScale=$6
+if [ "x${rScale}" == "x" ]; then
+    rScale=1.0
+fi
+export rScale
 
 ot=${ol}.times
 st=${sl}.times
 
 grep -P "^TimeReport( [ ]*[0-9.]{1,}){6}[ ]*[^ ]*$" ${ol} |  awk '{print $8" "$2}' >  ${ot}
-grep -P "^TimeReport( [ ]*[0-9.]{1,}){6}[ ]*[^ ]*$" ${sl} |  awk '{print $8" "$2}' >  ${st}
+grep -P "^TimeReport( [ ]*[0-9.]{1,}){6}[ ]*[^ ]*$" ${sl} |  awk 'BEGIN{rScale=ENVIRON["rScale"];}{print $8" "$2*rScale}' >  ${st}
 
 #based on per-event timing
 otm=${ol}.timesm
 stm=${sl}.timesm
 grep "^TimeModule[^$]*"  ${ol} | awk 'BEGIN{nSkip=ENVIRON["nSkip"]}{if(cn[$4]>nSkip){sum[$4]+=$6;} cn[$4]++;}END{for (m in sum){print m" "sum[m]/(cn[m]-nSkip)" "cn[m]-nSkip}}' > ${otm}
-grep "^TimeModule[^$]*"  ${sl} | awk 'BEGIN{nSkip=ENVIRON["nSkip"]}{if(cn[$4]>nSkip){sum[$4]+=$6;} cn[$4]++;}END{for (m in sum){print m" "sum[m]/(cn[m]-nSkip)" "cn[m]-nSkip}}' > ${stm}
+grep "^TimeModule[^$]*"  ${sl} | awk 'BEGIN{nSkip=ENVIRON["nSkip"];rScale=ENVIRON["rScale"];}{if(cn[$4]>nSkip){sum[$4]+=$6*rScale;} cn[$4]++;}END{for (m in sum){print m" "sum[m]/(cn[m]-nSkip)" "cn[m]-nSkip}}' > ${stm}
 
 no=`grep [a-z] ${ot} | wc -l`
 ns=`grep [a-z] ${st} | wc -l`
@@ -55,7 +60,7 @@ if [ "${no}" == "0" -o "${ns}" == "0" ]; then
     echo "Couldn't parse time report using CPU and wall-clock format: trying Wall-clock only"
 
     grep -P "^TimeReport( [ ]*[0-9.]{1,}){3}[ ]*[^ ]*$" ${ol} |  awk '{print $5" "$2}' >  ${ot}
-    grep -P "^TimeReport( [ ]*[0-9.]{1,}){3}[ ]*[^ ]*$" ${sl} |  awk '{print $5" "$2}' >  ${st}
+    grep -P "^TimeReport( [ ]*[0-9.]{1,}){3}[ ]*[^ ]*$" ${sl} |  awk 'BEGIN{rScale=ENVIRON["rScale"];}{print $5" "$2*rScale}' >  ${st}
     no=`grep [a-z] ${ot} | wc -l`
     ns=`grep [a-z] ${st} | wc -l`
     if [ "${no}" == "0" -o "${ns}" == "0" ]; then
