@@ -912,6 +912,25 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("ZDCDataFramesSorted_hcalDigis__"+recoS+".obj.obj@.size()");
       plotvar("HODataFramesSorted_hcalDigis__"+recoS+".obj.obj@.size()");
       plotvar("HBHEDataFramesSorted_hcalDigis__"+recoS+".obj.obj@.size()");
+
+      //CTPPS
+      tbr="TotemFEDInfos_totemRPRawToDigi_RP_";
+      plotvar(tbr+recoS+".obj@.size()");
+      plotvar(tbr+recoS+".obj.getFEDId()");
+      plotvar(tbr+recoS+".obj.getOptoRxId()");
+      plotvar(tbr+recoS+".obj.getFSize()");
+      tbr="TotemVFATStatusedmDetSetVector_totemRPRawToDigi_RP_";
+      plotvar(tbr+recoS+".obj._sets@.size()");
+      plotvar(tbr+recoS+".obj._sets.data@.size()");
+      plotvar(tbr+recoS+".obj._sets.data.isOK()");
+      plotvar(tbr+recoS+".obj._sets.data.getChipPosition()");
+      plotvar(tbr+recoS+".obj._sets.data.getNumberOfClusters()");
+      tbr="TotemRPDigiedmDetSetVector_totemRPRawToDigi_RP_";
+      plotvar(tbr+recoS+".obj._sets@.size()");
+      plotvar(tbr+recoS+".obj._sets.data@.size()");
+      plotvar(tbr+recoS+".obj._sets.data.getStripNumber()");
+      tbr="TotemTriggerCounters_totemTriggerRawToDigi__";
+      plotvar(tbr+recoS+".obj.orbit_num");
     }
 
     if ((step.Contains("all") || step.Contains("halo"))){
