@@ -65,7 +65,7 @@ if [ "${no}" == "0" -o "${ns}" == "0" ]; then
     ns=`grep [a-z] ${st} | wc -l`
     if [ "${no}" == "0" -o "${ns}" == "0" ]; then
 	echo "Couldn't parse time report"
-	exit 1
+	#exit 1
     fi
 fi
 
