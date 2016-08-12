@@ -38,6 +38,13 @@ if [ "x${rScale}" == "x" ]; then
 fi
 export rScale
 
+nJob=$7
+if [ "x${nJob}" == "x" ]; then
+    nJob=0.0
+fi
+export nJob
+
+
 ot=${ol}.times
 st=${sl}.times
 
@@ -47,8 +54,8 @@ grep -P "^TimeReport( [ ]*[0-9.]{1,}){6}[ ]*[^ ]*$" ${sl} |  awk 'BEGIN{rScale=E
 #based on per-event timing
 otm=${ol}.timesm
 stm=${sl}.timesm
-grep "^TimeModule[^$]*"  ${ol} | awk 'BEGIN{nSkip=ENVIRON["nSkip"]}{if(cn[$4]>nSkip){sum[$4]+=$6;} cn[$4]++;}END{for (m in sum){print m" "sum[m]/(cn[m]-nSkip)" "cn[m]-nSkip}}' > ${otm}
-grep "^TimeModule[^$]*"  ${sl} | awk 'BEGIN{nSkip=ENVIRON["nSkip"];rScale=ENVIRON["rScale"];}{if(cn[$4]>nSkip){sum[$4]+=$6*rScale;} cn[$4]++;}END{for (m in sum){print m" "sum[m]/(cn[m]-nSkip)" "cn[m]-nSkip}}' > ${stm}
+grep "^TimeModule[^$]*"  ${ol} | awk 'BEGIN{nSkip=ENVIRON["nSkip"]; nJob=ENVIRON["nJob"];}{if(cn[$4]>nSkip){sum[$4]+=$6;} cn[$4]++;}END{for (m in sum){norm=nJob>0? 1./nJob : 1./(cn[m]-nSkip); print m" "sum[m]*norm" "cn[m]-nSkip}}' > ${otm}
+grep "^TimeModule[^$]*"  ${sl} | awk 'BEGIN{nSkip=ENVIRON["nSkip"];rScale=ENVIRON["rScale"]; nJob=ENVIRON["nJob"];}{if(cn[$4]>nSkip){sum[$4]+=$6*rScale;} cn[$4]++;}END{for (m in sum){norm=nJob>0? 1./nJob : 1./(cn[m]-nSkip); print m" "sum[m]*norm" "cn[m]-nSkip}}' > ${stm}
 
 no=`grep [a-z] ${ot} | wc -l`
 ns=`grep [a-z] ${st} | wc -l`
