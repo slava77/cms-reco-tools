@@ -8,6 +8,8 @@ inList=$4
 lMod=$5
 dMod=$6
 
+patt=$7
+
 if [ "x${dMod}" == "x" ]; then
     echo 6 parameters are expected on input
     exit 17
@@ -39,7 +41,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do
 
     fO=${extN}_${lMod}_${dMod}.ps
 
-    ~/tools/makeDiff.sh ${dqmB} ${dqmA} ${fO} ${lMod} ${dMod} >& ${fO}.log &
+    ~/tools/makeDiff.sh ${dqmB} ${dqmA} ${fO} ${lMod} ${dMod} ${patt} >& ${fO}.log &
 
     pidList=${pidList}" "${!}
     export pidList
