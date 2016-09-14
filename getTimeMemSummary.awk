@@ -9,11 +9,11 @@ BEGIN{
     maxT16=0;maxTI16=-1;avT16=0;
 }
 /^MemoryCheck/{
-    cn++; 
-    if(maxV<$5){maxV=$5; maxVI=cn;} 
-    if(maxR<$8){maxR=$8; maxRI=cn;}
+    if(maxV<$5){maxV=$5; maxVI=cn+1;} 
+    if(maxR<$8){maxR=$8; maxRI=cn+1;}
 }
 /^TimeEvent/{
+    cn++; 
     avT+=$4; if(maxT<$4){maxT=$4;maxTI=cn;}
     avC+=$5; if(maxC<$5){maxC=$5;maxCI=cn;}
     if (cn>1){
