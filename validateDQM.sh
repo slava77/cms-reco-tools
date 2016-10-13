@@ -26,17 +26,17 @@ export pidList=""
 echo Start processing at `date`
 grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do 
     wfDirA=`echo ${baseA}/${fN} | sed -e 's?/[^/]*root??g'`
-    dqmA=`find -L ${wfDirA} -name DQM_V\*.root | tail -1 `
+    dqmA=`find -L ${wfDirA} -maxdepth 1 -name DQM_V\*.root | tail -1 `
     [ "x${dqmA}" == "x" ] && echo "Missing DQM file in ${wfDirA}" && continue
     wfDirB=`echo ${baseB}/${fN} | sed -e 's?/[^/]*root??g'`
-    dqmB=`find -L ${wfDirB} -name DQM_V\*.root | tail -1 `
+    dqmB=`find -L ${wfDirB} -maxdepth 1 -name DQM_V\*.root | tail -1 `
     [ "x${dqmB}" == "x" ] && echo "Missing DQM file in ${wfDirB}" && continue
 
     extN=dqm_${diffN}_${dsN}
     mkdir -p ${extN}
     cd ${cWD}/${extN}
     
-    echo "Will compare ${dqmA} (red) to ${dqmB} (black) in ${cWD}/${extN}"
+    echo "Will compare ${dqmA} (red) to ${dqmB} (black) in ${cWD}/${extN} with lMod ${lMod} dmod ${dMod} patt ${patt}"
     echo "Now in `pwd`"
 
     fO=${extN}_${lMod}_${dMod}.ps
