@@ -24,7 +24,8 @@ cWD=`pwd`
 export pidList=""
 llistF=lastlist_${diffN}.txt
 echo Start processing at `date`
-grep root ${inList} | grep -v "#" | while read -r dsN fN procN comm; do 
+grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do 
+    fN=`echo ${baseA}/${fNP} | cut -d" " -f1 | sed -e "s?^${baseA}/??g"`
     #[ ! -f "${baseA}/${fN}" ] && echo Missing ${baseA}/${fN} && continue
     if [ -f "${baseA}/${fN}" ]; then
       extN=all_${diffN}_${dsN}
