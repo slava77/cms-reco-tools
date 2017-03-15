@@ -1,6 +1,0 @@
-TTbar123 121.0_TTbar+TTbar2HS+DIGI+RECO/step3.root RECO 10 events 3 steps
-SingleMuPt1FS 123.3_SingleMuPt1+SingleMuPt1FS/step1.root HLT 10 events fastsim
-TTbar 25.0_TTbar+TTbarINPUT+DIGI+RECO+ALCATT2/step3.root RECO 100 events steps 2 3
-SingleMuPt10FS 5.2_SingleMuPt10+SingleMuPt10FS/step1.root HLT 10 events fastsim
-CosmicsMC 7.0_Cosmics+CosmicsINPUT+DIGICOS+RECOCOS+ALCACOS/step3.root RECO 100 events steps 2 3
-BeamHaloMC 8.0_BeamHalo+BeamHaloINPUT+DIGICOS+RECOCOS+ALCABH/step3.root RECO 100 events steps 2 3

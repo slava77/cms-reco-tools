@@ -1,0 +1,41 @@
+==================
+validateDQM.sh patterns
+
+- tracking and main dependents
+"Egamma|extract|Muons|electronGsf|ak4PF|pfMet|general|Building|Btag|cutsRecoAK|cutsRecoBtv|cutsRecoHp|cutsRecoPt09Hp|HitEffFromHitPattern"
+
+- HCAL and main dependents
+"HcalRecHit|CaloTower|ak4Calo|ak4PF|pfMet|Egamma"
+
+- ECAL and some dependents
+"Ecal|ECAL|ECal|Egamma|extract|Muons|electronGsf|ak4PF|pfMet|general|Building|Btag"
+
+- ME0
+"ME0|me0|Me0"
+
+
+==================
+selectDQMb.sh or stripDQMb.sh patterns
+
+- default ignore pattern with stripDQMb.sh
+"y/TimerService\|/Higgs/PhotonJet\|/HLT_IsoTkMu\|/HLT_OldIsoTkMu\|/SimHitsValidationHcal\|/VME/BcnMsm\|/TPTask/\|/RPCRecHitV/SimVsReco/\|/RPCEfficiency\|v0_Lxy_normalized\| -nan \|/Throughput\|/MechanicalView"
+
+- ignore diffs with only a few bins filled
+" eblk 0 ered [1-4]\| eblk [1-4] ered 0"
+
+- tracking efficiency and related plots vs eta
+"duplicatesRate)\|effic)\|fakerate)"
+
+- same vs pt
+"duplicatesRate_Pt\|efficPt\|fakeratePt"
+
+- B-tag ROCs
+"FlavEff"
+
+- jet response
+"CorrOverGen"
+
+- jet response uncorrected, also includes resolution-like histograms
+"RecoOverGen"
+
+==================
