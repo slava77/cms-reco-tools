@@ -689,15 +689,15 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   packedCandVar("energy",cName,tName);
   packedCandVar("et",cName,tName);
   packedCandVar("eta",cName,tName);
-  packedCandVar("isElectron",cName,tName);
-  packedCandVar("isPhoton",cName,tName);
-  packedCandVar("isConvertedPhoton",cName,tName);
-  packedCandVar("isJet",cName,tName);
-  packedCandVar("isMuon",cName,tName);
-  packedCandVar("isCaloMuon",cName,tName);
+  //all false now//  packedCandVar("isElectron",cName,tName);
+  //all false now//  packedCandVar("isPhoton",cName,tName);
+  //all false now//  packedCandVar("isConvertedPhoton",cName,tName);
+  //all false now//  packedCandVar("isJet",cName,tName);
+  //all false now//  packedCandVar("isMuon",cName,tName);
+  //all false now//  packedCandVar("isCaloMuon",cName,tName);
   packedCandVar("isGlobalMuon",cName,tName);
   packedCandVar("isStandAloneMuon",cName,tName);
-  packedCandVar("isTrackerMuon",cName,tName);
+  //all false now//  packedCandVar("isTrackerMuon",cName,tName);
   packedCandVar("mass",cName,tName);
   packedCandVar("mt",cName,tName);
   packedCandVar("numberOfDaughters",cName,tName);
@@ -2140,6 +2140,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoPFBlocks_particleFlowBlock__"+recoS+".obj@.size()");
       plotvar("recoPFBlocks_particleFlowBlock__"+recoS+".obj.elements_@.size()");
       plotvar("recoPFBlocks_particleFlowBlock__"+recoS+".obj.linkData_@.size()");
+
+      plotvar("booledmValueMap_chargedHadronPFTrackIsolation__"+recoS+".obj.values_");
     }
     if (step.Contains("all") || step.Contains("EI")){
       /* this existed only in 610pre
