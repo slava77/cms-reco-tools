@@ -2423,6 +2423,11 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       jetTagVar("pfDeepCSVJetTags_probb_");
       jetTagVar("pfDeepCSVJetTags_probc_");
       jetTagVar("pfDeepCSVJetTags_probbb_");
+      jetTagVar("pfDeepCMVAJetTags_probcc_");
+      jetTagVar("pfDeepCMVAJetTags_probudsg_");
+      jetTagVar("pfDeepCMVAJetTags_probb_");
+      jetTagVar("pfDeepCMVAJetTags_probc_");
+      jetTagVar("pfDeepCMVAJetTags_probbb_");
 
       secondaryVertexTagInfoVars("recoSecondaryVertexTagInfos_ghostTrackVertexTagInfos__");
       secondaryVertexTagInfoVars("recoSecondaryVertexTagInfos_secondaryVertexTagInfos__");
