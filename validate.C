@@ -671,18 +671,10 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   //try to get something from the branches without constructor calls
   packedCandVar("packedPt_",cName,tName, true); 
   packedCandVar("packedEta_",cName,tName, true); 
-  packedCandVar("packedPhi_",cName,tName, true); 
-  packedCandVar("packedM_",cName,tName, true); 
   packedCandVar("packedDxy_",cName,tName, true); 
-  packedCandVar("packedDz_",cName,tName, true); 
-  packedCandVar("packedDPhi_",cName,tName, true); 
-  packedCandVar("packedPuppiweight_",cName,tName, true); 
-  packedCandVar("packedPuppiweightNoLepDiff_",cName,tName, true); 
-  packedCandVar("hcalFraction_",cName,tName, true); 
   packedCandVar("pdgId_",cName,tName, true); 
   packedCandVar("qualityFlags_",cName,tName, true); 
   packedCandVar("pvRefKey_",cName,tName, true); 
-  packedCandVar("packedHits_",cName,tName, true); 
   packedCandVar("normalizedChi2_",cName,tName, true); 
 
   //for the rest do some exception checking (it apparently does not throw for a range of cases)
@@ -697,6 +689,7 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   packedCandVar("energy",cName,tName);
   packedCandVar("et",cName,tName);
   packedCandVar("eta",cName,tName);
+  packedCandVar("hcalFraction",cName,tName); 
   //all false now//  packedCandVar("isElectron",cName,tName);
   //all false now//  packedCandVar("isPhoton",cName,tName);
   //all false now//  packedCandVar("isConvertedPhoton",cName,tName);
@@ -707,13 +700,15 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   packedCandVar("isStandAloneMuon",cName,tName);
   //all false now//  packedCandVar("isTrackerMuon",cName,tName);
   packedCandVar("mass",cName,tName);
-  packedCandVar("mt",cName,tName);
-  packedCandVar("numberOfDaughters",cName,tName);
-  packedCandVar("numberOfMothers",cName,tName);
+  //useless now//    packedCandVar("mt",cName,tName);
+  //useless now//    packedCandVar("numberOfDaughters",cName,tName);
+  //useless now//    packedCandVar("numberOfMothers",cName,tName);
   packedCandVar("numberOfHits",cName,tName);
   packedCandVar("numberOfPixelHits",cName,tName);
   packedCandVar("phi",cName,tName);
   packedCandVar("pt",cName,tName);
+  packedCandVar("puppiWeight",cName,tName); 
+  packedCandVar("puppiWeightNoLep",cName,tName); 
   packedCandVar("status",cName,tName);
   packedCandVar("vertexChi2",cName,tName);
   packedCandVar("vertexNdof",cName,tName);
