@@ -640,6 +640,14 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
   muonVar("pfSumDRIsoProfileR03().sumPUPt",cName,tName, true);
   muonVar("numberOfChambers",cName,tName);
   muonVar("numberOfMatches",cName,tName);
+  muonVar("muMatches_.detector",cName,tName);
+  muonVar("muMatches_.station",cName,tName);
+  muonVar("muMatches_.x",cName,tName, true);
+  muonVar("muMatches_.y",cName,tName, true);
+  muonVar("muMatches_.segmentMatches@.size",cName,tName);
+  muonVar("muMatches_.gemMatches@.size",cName,tName);
+  muonVar("muMatches_.me0Matches@.size",cName,tName);
+  muonVar("muMatches_.rpcMatches@.size",cName,tName);
   muonVar("stationMask",cName,tName);
   muonVar("type",cName,tName);
 
