@@ -690,6 +690,7 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   packedCandVar("et",cName,tName);
   packedCandVar("eta",cName,tName);
   packedCandVar("hcalFraction",cName,tName); 
+  packedCandVar("rawCaloFraction",cName,tName); 
   //all false now//  packedCandVar("isElectron",cName,tName);
   //all false now//  packedCandVar("isPhoton",cName,tName);
   //all false now//  packedCandVar("isConvertedPhoton",cName,tName);
