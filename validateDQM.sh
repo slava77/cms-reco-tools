@@ -9,6 +9,7 @@ lMod=$5
 dMod=$6
 
 patt=$7
+pattE=$8
 
 if [ "x${dMod}" == "x" ]; then
     echo 6 parameters are expected on input
@@ -37,12 +38,12 @@ grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do
     mkdir -p ${extN}
     cd ${cWD}/${extN}
     
-    echo "Will compare ${dqmA} (red) to ${dqmB} (black) in ${cWD}/${extN} with lMod ${lMod} dmod ${dMod} patt ${patt}"
+    echo "Will compare ${dqmA} (red) to ${dqmB} (black) in ${cWD}/${extN} with lMod ${lMod} dmod ${dMod} patt ${patt} pattE ${pattE}"
     echo "Now in `pwd`"
 
     fO=${extN}_${lMod}_${dMod}.ps
 
-    ~/tools/makeDiff.sh ${dqmB} ${dqmA} ${fO} ${lMod} ${dMod} ${patt} >& ${fO}.log &
+    ~/tools/makeDiff.sh ${dqmB} ${dqmA} ${fO} ${lMod} ${dMod} "${patt}" "${pattE}" >& ${fO}.log &
 
     pidList=${pidList}" "${!}
     export pidList
