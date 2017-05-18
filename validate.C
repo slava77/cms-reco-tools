@@ -1805,15 +1805,19 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       //      plotvar("recoDeDxDataedmValueMap_dedxMedian__"+recoS+".obj.values_.numberOfMeasurements()");
 
       plotvar("recoDeDxDataedmValueMap_dedxDiscrimASmi__"+recoS+".obj.size()");
-      plotvar("recoDeDxDataedmValueMap_dedxDiscrimASmi__"+recoS+".obj.values_.dEdx()");
+      plotvar("min(recoDeDxDataedmValueMap_dedxDiscrimASmi__"+recoS+".obj.values_.dEdx(),30)");
       plotvar("recoDeDxDataedmValueMap_dedxDiscrimASmi__"+recoS+".obj.values_.numberOfMeasurements()");
 
       plotvar("recoDeDxDataedmValueMap_dedxHarmonic2__"+recoS+".obj.size()");
-      plotvar("recoDeDxDataedmValueMap_dedxHarmonic2__"+recoS+".obj.values_.dEdx()");
+      plotvar("min(recoDeDxDataedmValueMap_dedxHarmonic2__"+recoS+".obj.values_.dEdx(),30)");
       plotvar("recoDeDxDataedmValueMap_dedxHarmonic2__"+recoS+".obj.values_.numberOfMeasurements()");
 
+      plotvar("recoDeDxDataedmValueMap_dedxPixelHarmonic2__"+recoS+".obj.size()");
+      plotvar("min(recoDeDxDataedmValueMap_dedxPixelHarmonic2__"+recoS+".obj.values_.dEdx(),30)");
+      plotvar("recoDeDxDataedmValueMap_dedxPixelHarmonic2__"+recoS+".obj.values_.numberOfMeasurements()");
+
       plotvar("recoDeDxDataedmValueMap_dedxTruncated40__"+recoS+".obj.size()");
-      plotvar("recoDeDxDataedmValueMap_dedxTruncated40__"+recoS+".obj.values_.dEdx()");
+      plotvar("min(recoDeDxDataedmValueMap_dedxTruncated40__"+recoS+".obj.values_.dEdx(),30)");
       plotvar("recoDeDxDataedmValueMap_dedxTruncated40__"+recoS+".obj.values_.numberOfMeasurements()");
     }
 
