@@ -2023,6 +2023,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       superClusters("particleFlowSuperClusterECAL_particleFlowSuperClusterECALEndcapWithPreshower", true);
       superClusters("particleFlowSuperClusterECAL_particleFlowSuperClusterECALEndcap", true);
       superClusters("particleFlowSuperClusterECAL_particleFlowSuperClusterECALBarrel");
+      superClusters("particleFlowSuperClusterOOTECAL_particleFlowSuperClusterOOTECALEndcapWithPreshower", true);
+      superClusters("particleFlowSuperClusterOOTECAL_particleFlowSuperClusterOOTECALBarrel");
       superClusters("multi5x5SuperClusters_multi5x5EndcapSuperClusters");
       superClusters("particleFlowEGamma_", true);
       superClusters("pfElectronTranslator_pf");
@@ -2035,6 +2037,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
       caloClusters("particleFlowSuperClusterECAL_particleFlowBasicClusterECALEndcap");
       caloClusters("particleFlowSuperClusterECAL_particleFlowBasicClusterECALBarrel");
+      caloClusters("particleFlowSuperClusterECAL_particleFlowBasicClusterECALPreshower");
+      caloClusters("particleFlowSuperClusterOOTECAL_particleFlowBasicClusterOOTECALEndcap");
+      caloClusters("particleFlowSuperClusterOOTECAL_particleFlowBasicClusterOOTECALBarrel");
+      caloClusters("particleFlowSuperClusterOOTECAL_particleFlowBasicClusterOOTECALPreshower");
       caloClusters("hfEMClusters_");
       caloClusters("multi5x5SuperClusters_multi5x5EndcapBasicClusters");
       caloClusters("hybridSuperClusters_hybridBarrelBasicClusters");
