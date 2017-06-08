@@ -39,3 +39,7 @@ selectDQMb.sh or stripDQMb.sh patterns
 "RecoOverGen"
 
 ==================
+Selection of modules for timing counts:
+
+- validation, DQM, I/O modules not relevant for reco timing:
+"analyzer\| hfv\|SUSY\|Efficiency\|OfflineSource\|StreamEcal\|MuTrackV$\| cutsReco\| tpCluster\|Valid$\|GenPart\|Task$\|eedMon\|Val$\|rackMon\|genPart\|dqm\|Analyzer$\|HitV$\|gensource\|Validation\| tpSel\|TrackAssoc$\|TruthValid$\|simHit\|output$\|DQM\|Monitor\|tp[^ ]*Association$\|MuonAssoc$\|MuAssoc_\|Validation$\|nalysis$\|mix$\|trackValidator\|HitsValid$\|Validator\|trackingParticle\| tpSelection\|hltTP\|analyze$\|monitori\|Analyze\| extracted\|ZmmCand\|SimHit\|ClusterSource\|DigiSource\|ResidualSource\|valCsctf\|ALCARECO\|genpart[A-Z]"

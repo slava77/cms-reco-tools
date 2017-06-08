@@ -1715,7 +1715,12 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.pfIsolationDR03().photonIso()");//skiped NH and puCharged
       plotvar(tbr+recoS+".obj.miniPFIsolation().chargedHadronIso()");
       plotvar(tbr+recoS+".obj.miniPFIsolation().photonIso()");//skiped NH and puCharged
-
+      plotvar(tbr+recoS+".obj.matchedCaloJetHadEnergy()");
+      plotvar(tbr+recoS+".obj.fromPV()");
+      plotvar(tbr+recoS+".obj.isHighPurityTrack()");
+      plotvar(tbr+recoS+".obj.dEdxStrip()");
+      plotvar(tbr+recoS+".obj.dEdxPixel()");
+      plotvar(tbr+recoS+".obj.deltaPhi()");
     }
     
     if ((step.Contains("all") || step.Contains("vertex")) && !step.Contains("cosmic") ){
@@ -2002,6 +2007,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       //new ged stuff
       photonVars("gedPhotons_");
       photonVars("gedPhotonsTmp_");//HI names
+
+      //OOT photons
+      photonVars("ootPhotons_");
 
       //HI stuff
       plotvar("recoHIPhotonIsolationedmValueMap_photonIsolationHIProducer__"+recoS+".obj.values_.ecalClusterIsoR2()");
