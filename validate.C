@@ -194,7 +194,7 @@ double plotvar(TString v,TString cut="", bool tryCatch = false){
     int newentries = plot->GetEntries();
     
     TString outtext;
-    outtext.Form("Ref: %i, New: %i, Diff: %g, 1-KS: %6.4g",refentries,newentries,countDiff,1-ksscore);
+    outtext.Form("Ref: %i, New: %i, De: %g, Diff: %g, 1-KS: %6.4g",refentries,newentries,refentries>0? (newentries-refentries)/double(refentries):0, countDiff,1-ksscore);
 
     TPaveText * pt = new TPaveText(0.01,0.89,0.71,0.93,"NDC");
     pt->AddText(outtext);
