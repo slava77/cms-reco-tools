@@ -570,11 +570,31 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
 
 }
 
-void gsfTracks(TString var){
-  TString v="recoGsfTracks_electronGsfTracks__"+recoS+".obj."+var+"()";
+void gsfTracks(TString var, bool doLog10 = false, TString cName = "electronGsfTracks_", TString tName = "recoGsfTracks_",  bool notafunction=false){
+  TString v=notafunction ? tName+cName+"_"+recoS+".obj."+var:
+    tName+cName+"_"+recoS+".obj."+var+"()";
+  if (doLog10) v = "log10("+v+")";
   plotvar(v);
 }
 
+void gsfTrackVars(TString cName = "electronGsfTracks_", TString tName = "recoGsfTracks_"){
+  plotvar(tName+cName+"_"+recoS+".obj@.size()");
+
+  gsfTracks("pt", true, cName, tName);
+  gsfTracks("p", true, cName, tName);
+  gsfTracks("eta", false, cName, tName);
+  gsfTracks("phi", false, cName, tName);
+  if (detailled)    gsfTracks("found", false, cName, tName);
+  gsfTracks("chi2", false, cName, tName);
+  gsfTracks("normalizedChi2", false, cName, tName);
+  if (detailled)    gsfTracks("dz", false, cName, tName);
+  gsfTracks("dxy", false, cName, tName);
+  if (detailled)    gsfTracks("ndof", false, cName, tName);
+  gsfTracks("qoverp", false, cName, tName);
+  if (detailled)    gsfTracks("px", false, cName, tName);
+  if (detailled)    gsfTracks("py", false, cName, tName);
+  if (detailled)    gsfTracks("pz", false, cName, tName);
+}
 void globalMuons(TString var){
   TString v="globalMuonTracks."+var+"()";
   plotvar(v);
@@ -2182,28 +2202,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoElectronSeeds_electronMergedSeeds__"+recoS+".obj.hoe1()");
 
       ///gsf tracks plots
-      plotvar("recoGsfTracks_electronGsfTracks__"+recoS+".obj@.size()");
-      gsfTracks("pt");
-      plotvar("log10(recoGsfTracks_electronGsfTracks__"+recoS+".obj.pt())");
-      gsfTracks("p");
-      plotvar("log10(recoGsfTracks_electronGsfTracks__"+recoS+".obj.p())");
-      gsfTracks("eta");
-      if (detailled)    gsfTracks("theta");
-      gsfTracks("phi");
-      if (detailled)    gsfTracks("found");
-      gsfTracks("chi2");
-      gsfTracks("normalizedChi2");
-      if (detailled)    gsfTracks("dz");
-      gsfTracks("dxy");
-      if (detailled)    gsfTracks("ndof");
-      gsfTracks("qoverp");
-      if (detailled)    gsfTracks("px");
-      if (detailled)    plotvar("log10(abs(recoGsfTracks_electronGsfTracks__"+recoS+".obj.px()))");
-      if (detailled)    gsfTracks("py");
-      if (detailled)    plotvar("log10(abs(recoGsfTracks_electronGsfTracks__"+recoS+".obj.py()))");
-      if (detailled)    gsfTracks("pz");
-      if (detailled)    plotvar("log10(abs(recoGsfTracks_electronGsfTracks__"+recoS+".obj.pz()))");
-      
+      gsfTrackVars("electronGsfTracks_");
+      gsfTrackVars("electronGsfTracksFromMultiCl_");      
     }
 
     if (step.Contains("all") || step.Contains("pflow")){
