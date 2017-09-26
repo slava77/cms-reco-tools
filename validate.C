@@ -257,6 +257,12 @@ void jets(TString type,TString algo){
     jet(type,algo,"HFHadronEnergyFraction");
     jet(type,algo,"HFEMEnergyFraction");
   }
+  if (type == "patJets"){
+    jet(type, algo, "userFloats_@.size");
+    jet(type, algo, "userInts_@.size");
+    jet(type, algo, "userCands_@.size");
+    jet(type, algo, "pairDiscriVector_@.size");
+  }
 }
 
 
@@ -568,6 +574,11 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
 
     electron("dB(pat::Electron::PV3D)", cName,tName, true);
     electron("dB(pat::Electron::PVDZ)", cName,tName, true);
+
+    electron("userFloats_@.size", cName,tName);
+    electron("userInts_@.size", cName,tName);
+    electron("userCands_@.size", cName,tName);
+    electron("isolations_@.size", cName,tName);
   }
 
 }
@@ -700,6 +711,11 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
 
     muonVar("dB(pat::Muon::PV3D)", cName,tName, true);
     muonVar("dB(pat::Muon::PVDZ)", cName,tName, true);
+
+    muonVar("userFloats_@.size", cName,tName);
+    muonVar("userInts_@.size", cName,tName);
+    muonVar("userCands_@.size", cName,tName);
+    muonVar("isolations_@.size", cName,tName);
   }
 }
 
@@ -1178,6 +1194,34 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj._sets.data.size()");
       plotvar(tbr+recoS+".obj._sets.data.sizeRow()");
       plotvar(tbr+recoS+".obj._sets.data.sizeCol()");
+
+      tbr="CTPPSPixelRecHitedmDetSetVector_ctppsPixelRecHits__";
+      plotvar(tbr+recoS+".obj._sets@.size()");
+      plotvar(tbr+recoS+".obj._sets.data@.size()");
+      plotvar(tbr+recoS+".obj._sets.data.hasBadPixels()");
+      plotvar(tbr+recoS+".obj._sets.data.minPixelRow()");
+      plotvar(tbr+recoS+".obj._sets.data.minPixelCol()");
+      plotvar(tbr+recoS+".obj._sets.data.clusterSize()");
+      plotvar(tbr+recoS+".obj._sets.data.getPoint().x()");
+      plotvar(tbr+recoS+".obj._sets.data.getPoint().y()");
+      plotvar("log10("+tbr+recoS+".obj._sets.data.getError().xx())");
+      plotvar("log10("+tbr+recoS+".obj._sets.data.getError().yy())");
+
+      tbr="CTPPSPixelLocalTrackedmDetSetVector_ctppsPixelLocalTracks__";
+      plotvar(tbr+recoS+".obj._sets@.size()");
+      plotvar(tbr+recoS+".obj._sets.data@.size()");
+      plotvar(tbr+recoS+".obj._sets.data.getX0()");
+      plotvar("log10("+tbr+recoS+".obj._sets.data.getX0Sigma())");
+      plotvar(tbr+recoS+".obj._sets.data.getY0()");
+      plotvar("log10("+tbr+recoS+".obj._sets.data.getY0Sigma())");
+      plotvar(tbr+recoS+".obj._sets.data.getZ0()");
+      plotvar(tbr+recoS+".obj._sets.data.getTx()");
+      plotvar("log10("+tbr+recoS+".obj._sets.data.getTxSigma())");
+      plotvar(tbr+recoS+".obj._sets.data.getTy()");
+      plotvar("log10("+tbr+recoS+".obj._sets.data.getTySigma())");
+      plotvar("min(20,"+tbr+recoS+".obj._sets.data.getChiSquaredOverNDF())");
+      plotvar(tbr+recoS+".obj._sets.data.getNDF()");
+      plotvar(tbr+recoS+".obj._sets.data.isValid()");
 
       tbr="CTPPSLocalTrackLites_ctppsLocalTrackLiteProducer__";
       plotvar(tbr+recoS+".obj@.size()");
@@ -2517,7 +2561,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       jets("patJets","slimmedJetsPuppi");
       jets("recoCaloJets", "slimmedCaloJets");
       //jets("patJets","slimmedJetsAK8PFCHSSoftDropPacked_SubJets");
-      //jets("patJets","slimmedJetsCMSTopTagCHSPacked_SubJets");
+      //jets("patJets","slimmedJetsCMSTopTagCHSPacked_SubJets");      
     }
 
     if (step.Contains("all") || step.Contains("jet")){
