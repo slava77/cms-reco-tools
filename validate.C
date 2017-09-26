@@ -1842,6 +1842,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("min(30,"+tbr+recoS+".obj.dEdxStrip())");
       plotvar("min(30,"+tbr+recoS+".obj.dEdxPixel())");
       plotvar(tbr+recoS+".obj.deltaPhi()");
+      plotvar(tbr+recoS+".obj.pfLepOverlap()");
+      plotvar("min(30,"+tbr+recoS+".obj.pfNeutralSum())");
     }
     
     if ((step.Contains("all") || step.Contains("vertex")) && !step.Contains("cosmic") ){
