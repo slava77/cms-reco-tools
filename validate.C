@@ -1949,6 +1949,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoDeDxDataedmValueMap_dedxTruncated40__"+recoS+".obj.size()");
       plotvar("min(recoDeDxDataedmValueMap_dedxTruncated40__"+recoS+".obj.values_.dEdx(),30)");
       plotvar("recoDeDxDataedmValueMap_dedxTruncated40__"+recoS+".obj.values_.numberOfMeasurements()");
+
+      plotvar("recoDeDxHitInfos_dedxHitInfo__"+recoS+".obj@.size()");
+      plotvar("recoDeDxHitInfos_dedxHitInfo__"+recoS+".obj.size()");
+      plotvar("recoDeDxHitInfos_dedxHitInfo__"+recoS+".obj.infos_.charge()");
+
+      plotvar("recoDeDxHitInfos_isolatedTracks__"+recoS+".obj@.size()");
+      plotvar("recoDeDxHitInfos_isolatedTracks__"+recoS+".obj.size()");
+      plotvar("recoDeDxHitInfos_isolatedTracks__"+recoS+".obj.infos_.charge()");
     }
 
     if ((step.Contains("all") || step.Contains("muon")) && !step.Contains("cosmic")){
