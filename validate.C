@@ -695,6 +695,7 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
   muonVar("muMatches_.rpcMatches@.size",cName,tName);
   muonVar("stationMask",cName,tName);
   muonVar("type",cName,tName);
+  plotvar("log2(max(0.5,"+tName+cName+"_"+recoS+".obj.selectors()))");
 
   if (tName == "patMuons_"){
     muonVar("puppiChargedHadronIso", cName,tName);
