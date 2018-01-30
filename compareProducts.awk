@@ -1,8 +1,12 @@
-/^os /{os[$2]=$4}
-/^ns /{ns[$2]=$4}
+/^os /{osP[$2]=$4; osU[$2]=$3}
+/^ns /{nsP[$2]=$4; nsU[$2]=$3}
 END{
     absMin=ENVIRON["absMin"];
     dptMin=ENVIRON["dptMin"];
+    useUnpacked=ENVIRON["useUnpacked"] == "yes" ? 1 : 0;
+    for (br in osU){ os[br] = useUnpacked ? osU[br] : osP[br];}
+    for (br in nsU){ ns[br] = useUnpacked ? nsU[br] : nsP[br];}
+
     oTotal= 0;
     for (br in os){ 
 	osi=os[br];
@@ -17,6 +21,8 @@ END{
     } 
     dsTotal=0;
     dsTTotal=0;
+    if (useUnpacked) print "Compare unpacked values";
+    else print "Compare packed values";
     print  "-----------------------------------------------------------------";
     print  "   or, B         new, B      delta, B   delta, %   deltaJ, %    branch "
     print  "-----------------------------------------------------------------";
