@@ -25,7 +25,12 @@ if [ "x${dptMin}" == "x" ]; then
     dptMin=20
 fi
 
-echo "Checking process ${procF} ${fA} and ${fB} (if above ${absMin} or ${dptMin}%):"
+useUnpacked=$6
+if [ "x${useUnpacked}" == "x" ]; then
+    useUnpacked=no
+fi
+
+echo "Checking process ${procF} ${fA} and ${fB} with useUnpacked=${useUnpacked} (if above ${absMin} or ${dptMin}%):"
 ds=`date -u +%s.%N`
 os=os.${ds}
 edmEventSize -v ${fA} > ${os}
@@ -33,6 +38,6 @@ edmEventSize -v ${fA} > ${os}
 ns=ns.${ds}
 edmEventSize -v ${fB} > ${ns}
 
-grep ${procF} ${os} ${ns} | sed -e "s/${os}:/os /g;s/${ns}:/ns /g" | absMin=${absMin} dptMin=${dptMin} awk -f ~/tools/compareProducts.awk
+grep ${procF} ${os} ${ns} | sed -e "s/${os}:/os /g;s/${ns}:/ns /g" | absMin=${absMin} dptMin=${dptMin} useUnpacked=${useUnpacked} awk -f ~/tools/compareProducts.awk
 
 rm ${os} ${ns}
