@@ -837,6 +837,12 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
       plotvar(tName+cName+"_"+recoS+Form(".obj[].isolations_[%d]",i), "", true);
     }
 
+    muonVar("pfEcalEnergy", cName,tName);
+    muonVar("jetPtRatio", cName,tName);
+    muonVar("jetPtRel", cName,tName);
+    muonVar("mvaValue", cName,tName);
+    muonVar("softMvaValue", cName,tName);
+
     muonVar("simType", cName,tName);
     muonVar("simExtType", cName,tName);
     muonVar("simFlavour", cName,tName);
