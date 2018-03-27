@@ -197,6 +197,7 @@ SingleGammaPt10in2018wf10804p0 10804.0_SingleGammaPt10+SingleGammaPt10_pythia8_2
 SingleGammaPt35in2018wf10805p0 10805.0_SingleGammaPt35+SingleGammaPt35_pythia8_2018*_GenSimFull*+*/step3.root RECO
 SingleMuPt10in2018wf10807p0 10807.0_SingleMuPt10+SingleMuPt10_pythia8_2018*_GenSimFull*+*/step3.root RECO
 SingleMuPt1000in2018wf10809p0 10809.0_SingleMuPt1000+SingleMuPt1000_pythia8_2018*_GenSimFull*+*/step3.root RECO
+TenMuExtendedE2018wf10811p0 10811.0_TenMuExtendedE_0_200+TenMuExtendedE_0_200_pythia8_2018*_GenSimFull*+*/step3.root RECO
 TenMuE2018wf10821p0 10821.0_TenMuE_0_200+TenMuE_0_200_pythia8_2018*_GenSimFull*+*/step3.root RECO
 MinBias13TeV2018wf10823p0 10823.0_MinBias_13+MinBias_13TeV_pythia8_TuneCUETP8M1_2018*_GenSimFull*+*/step3.root RECO
 TTbar13TeV2018wf10824p0 10824.0_TTbar_13+TTbar_13TeV_TuneCUETP8M1_2018*_GenSimFull*+*/step3.root RECO
