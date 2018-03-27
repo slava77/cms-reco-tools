@@ -64,7 +64,11 @@ double plotvar(TString v,TString cut="", bool tryCatch = false){
   vn.ReplaceAll("@","AT");
   vn.ReplaceAll("[","_");
   vn.ReplaceAll("]","_");
-  
+  vn.ReplaceAll(">","GT");
+  vn.ReplaceAll("<","LT");
+  vn.ReplaceAll("$","");
+  vn.ReplaceAll("&","N");
+
   if (limit!="")
     selection *= limit;
   
@@ -1013,7 +1017,7 @@ void generalTrack(TString var){
 }
 
 
-void pf(TString var,int type=-1, TString cName = "particleFlow_"){ 
+void pf(TString var,int type=-1, TString cName = "particleFlow_", bool hadDebug = false){ 
   TString v="recoPFCandidates_"+cName+"_"+recoS+".obj."+var+"()";
   if (var == "p" || var == "pt"){
     v = "log10("+v+")";
@@ -1032,6 +1036,7 @@ void pf(TString var,int type=-1, TString cName = "particleFlow_"){
     sel+=type;
     //std::cout<<"selecting "<<sel<<std::endl;
     plotvar(v,sel);
+
   }
 }
 
@@ -2397,12 +2402,37 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       gsfTrackVars("reducedEgamma_reducedGsfTracks");
     }
 
+    if (step.Contains("pfdebug")){
+      //for tests of PF hadron corrs
+      TString var = "pt";
+      TString pfName="recoPFCandidates_particleFlow__"+recoS+".obj";
+      TString pfAl="particleFlow";
+      refEvents->SetAlias(pfAl, pfName);
+      Events->SetAlias(pfAl, pfName);
+      TString v=pfAl+"."+var+"()";
+      for (int i = 1; i< 6; ++i){
+        TString sel=pfAl+".particleId()=="; sel+=i;
+        TString sel2 = sel+"&&abs("+pfAl+".eta())<1.5";
+        plotvar("log10("+v+")",sel2);
+        sel2 = sel+"&&abs("+pfAl+".eta())>1.5&&abs("+pfAl+".eta())<2.5";
+        plotvar("log10("+v+")",sel2);
+        sel2 = sel+"&&abs("+pfAl+".eta())>2.5";
+        plotvar("log10("+v+")",sel2);
+        sel2 = sel+"&&abs("+pfAl+".eta())<1.5";
+        plotvar("log10(Sum$("+v+"*("+sel2+")))");
+        sel2 = sel+"&&abs("+pfAl+".eta())>1.5&&abs("+pfAl+".eta())<2.5";
+        plotvar("log10(Sum$("+v+"*("+sel2+")))");
+        sel2 = sel+"&&abs("+pfAl+".eta())>2.5";
+        plotvar("log10(Sum$("+v+"*("+sel2+")))");
+      }
+    }//step.Contains("pfdebug")
+
     if (step.Contains("all") || step.Contains("pflow")){
       ///particle flow objects
 
-      allpf();
+      allpf(-1, "particleFlow_");
       //for each sub category ...
-      for (int t=1;t!=8;t++)	allpf(t);
+      for (int t=1;t!=8;t++)	allpf(t, "particleFlow_");
 
       allpf(-1, "particleFlowTmp_");
       //for each sub category ...
