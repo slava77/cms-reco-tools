@@ -41,6 +41,23 @@ void print( TString step){
 
 }
 
+// Underscores have a special meaning: most common use for steps with an underscore
+// is for the last pattern to mean the used workflow.
+// The workflow names so far had no underscores, but some can match the selection pattern.
+// To disambiguate:
+// append an underscore during pattern matching to steps with underscores present
+bool stepContainsNU(const TString& s, TString v){
+  if (!v.Contains("_")){
+    if (s.Contains("_")){
+      return s.Contains(v+"_");
+    } else {
+      return s.Contains(v);
+    }
+  } else {
+    return s.Contains(v);
+  }
+}
+
 double plotvar(TString v,TString cut="", bool tryCatch = false){
 
   std::cout<<"plotting variable: "<<v<<std::endl;
@@ -1182,9 +1199,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
   std::cout<<"Start making plots for Events with "<<Nnew<<" events and refEvents with "<<Nref<<" events ==> check  "<<Nmax<<std::endl;
 
-  if (!step.Contains("hlt")){
+  if (!stepContainsNU(step, "hlt")){
 
-    if ((step.Contains("all") || step.Contains("error"))){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "error"))){
       tbr="edmErrorSummaryEntrys_logErrorHarvester__";
       plotvar(tbr+recoS+".obj@.size()");
       plotvar(tbr+recoS+".obj.count");
@@ -1192,7 +1209,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.category.size()");
     }
 
-    if (step.Contains("all")){
+    if (stepContainsNU(step, "all")){
       plotvar("HBHEDataFramesSorted_simHcalUnsuppressedDigis__"+recoS+".obj.obj@.size()");
       plotvar("HODataFramesSorted_simHcalUnsuppressedDigis__"+recoS+".obj.obj@.size()");
       plotvar("HFDataFramesSorted_simHcalUnsuppressedDigis__"+recoS+".obj.obj@.size()");
@@ -1214,7 +1231,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("QIE10DataFrameHcalDataFrameContainer_hcalDigis_ZDC_"+recoS+".obj.m_ids@.size()");
     }
 
-    if (step.Contains("all") || step.Contains("ctpps")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "ctpps")){
       //CTPPS
       tbr="TotemFEDInfos_totemRPRawToDigi_RP_";
       plotvar(tbr+recoS+".obj@.size()");
@@ -1377,7 +1394,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.getTimeUnc()");      
     }
 
-    if ((step.Contains("all") || step.Contains("halo"))){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "halo"))){
       tbr="recoBeamHaloSummary_BeamHaloSummary__";
       plotvar(tbr+recoS+".obj.HcalLooseHaloId()");
       plotvar(tbr+recoS+".obj.HcalTightHaloId()");
@@ -1427,7 +1444,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.getProblematicStrips().energyRatio");
       plotvar(tbr+recoS+".obj.getProblematicStrips().emEt");
     }
-    if ((step.Contains("all") || step.Contains("hcal")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "hcal")) && !stepContainsNU(step, "cosmic") ){
       //hcal rechit plots
       plotvar("HBHERecHitsSorted_hbheprereco__"+recoS+".obj.obj@.size()");
       plotvar("HBHERecHitsSorted_hbheprereco__"+recoS+".obj.obj.energy()");
@@ -1463,7 +1480,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
       plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
 
-      if (step.Contains("hcalHEP17")){
+      if (stepContainsNU(step, "HEP17")){
 	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
 	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
 	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
@@ -1597,7 +1614,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("HGCRecHitsSorted_HGCalRecHit_HGCHEBRecHits_"+recoS+".obj.obj.outOfTimeChi2()");
     }
 
-    if ((step.Contains("all") || step.Contains("preshower")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "preshower")) && !stepContainsNU(step, "cosmic") ){
       //pre-shower rechit plots
       plotvar("EcalRecHitsSorted_ecalPreshowerRecHit_EcalRecHitsES_"+recoS+".obj.obj@.size()");
       plotvar("EcalRecHitsSorted_ecalPreshowerRecHit_EcalRecHitsES_"+recoS+".obj.obj.energy()");
@@ -1635,7 +1652,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
     }
 
-    if ((step.Contains("all") || step.Contains("ecal")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "ecal")) && !stepContainsNU(step, "cosmic") ){
       //ecal rechit plots
       plotvar("EcalRecHitsSorted_ecalRecHit_EcalRecHitsEB_"+recoS+".obj.obj@.size()");
       plotvar("EcalRecHitsSorted_ecalRecHit_EcalRecHitsEB_"+recoS+".obj.obj.energy()");
@@ -1734,7 +1751,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
 
 
-    if ((step.Contains("all") || step.Contains("dt")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "dt")) && !stepContainsNU(step, "cosmic") ){
       //dT segments
       tbr="DTChamberIdDTRecSegment4DsOwnedRangeMap_dt4DSegments__";
       plotvar(tbr+recoS+".obj.collection_.data_@.size()");
@@ -1770,7 +1787,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.collection_.data_.localDirection().z()");
     }
 
-    if ((step.Contains("all") || step.Contains("csc")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "csc")) && !stepContainsNU(step, "cosmic") ){
       //csc rechits
       tbr="CSCDetIdCSCSegmentsOwnedRangeMap_cscSegments__";
       plotvar(tbr+recoS+".obj.collection_.data_@.size()");
@@ -1799,7 +1816,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.collection_.data_.localPositionError().xy()");
     }
 
-    if ((step.Contains("all") || step.Contains("rpc")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "rpc")) && !stepContainsNU(step, "cosmic") ){
       tbr="RPCDetIdRPCRecHitsOwnedRangeMap_rpcRecHits__";
       plotvar(tbr+recoS+".obj@.size()");
       plotvar(tbr+recoS+".obj.collection_.data_.clusterSize()");
@@ -1812,7 +1829,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.collection_.data_.localPositionError().xy()");
       
     }
-    if ((step.Contains("all") || step.Contains("gem")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "gem")) && !stepContainsNU(step, "cosmic") ){
       tbr="GEMDetIdGEMRecHitsOwnedRangeMap_gemRecHits__";
       plotvar(tbr+recoS+".obj@.size()");
       plotvar(tbr+recoS+".obj.collection_.data_.clusterSize()");
@@ -1840,7 +1857,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.collection_.data_.localPositionError().yy()");
       plotvar(tbr+recoS+".obj.collection_.data_.localPositionError().xy()");
     }
-    if ((step.Contains("all") || step.Contains("me0")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "me0")) && !stepContainsNU(step, "cosmic") ){
       tbr="ME0DetIdME0RecHitsOwnedRangeMap_me0RecHits__";
       plotvar(tbr+recoS+".obj@.size()");
       plotvar(tbr+recoS+".obj.collection_.data_.tof()");
@@ -1866,7 +1883,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.collection_.data_.localPositionError().yy()");
       plotvar(tbr+recoS+".obj.collection_.data_.localPositionError().xy()");
     }
-    if ((step.Contains("all") || step.Contains("sipixel")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "sipixel")) && !stepContainsNU(step, "cosmic") ){
       plotvar("SiPixelClusteredmNewDetSetVector_siPixelClusters__"+recoS+".obj.m_data@.size()");
       //plotvar("SiPixelClusteredmNewDetSetVector_siPixelClusters__"+recoS+".obj.m_data.barycenter()");
       plotvar("SiPixelClusteredmNewDetSetVector_siPixelClusters__"+recoS+".obj.m_data.charge()");
@@ -1891,7 +1908,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.chi_");
       plotvar(tbr+recoS+".obj.chi(0)");
     }
-    if ((step.Contains("all") || step.Contains("sistrip")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "sistrip")) && !stepContainsNU(step, "cosmic") ){
       plotvar("SiStripClusteredmNewDetSetVector_siStripClusters__"+recoS+".obj.m_data@.size()");
       plotvar("SiStripClusteredmNewDetSetVector_siStripClusters__"+recoS+".obj.m_data.barycenter()");
       plotvar("log10(max(0.1,SiStripClusteredmNewDetSetVector_siStripClusters__"+recoS+".obj.m_data.amplitudes_@.size()))");
@@ -1914,7 +1931,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       }
     }
 
-    if ((step.Contains("all") || step.Contains("beamspot")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "beamspot")) && !stepContainsNU(step, "cosmic") ){
       /// beam spot plots
       plotvar("recoBeamSpot_offlineBeamSpot__"+recoS+".obj.type()");
       plotvar("recoBeamSpot_offlineBeamSpot__"+recoS+".obj.x0()");
@@ -1939,7 +1956,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       
     }
 
-    if ((step.Contains("all") || step.Contains("track")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "track")) && !stepContainsNU(step, "cosmic") ){
       /// general track plots
       allTracks("generalTracks__"+recoS+"");
       plotvar("floatedmValueMap_generalTracks_MVAVals_"+recoS+".obj.values_");
@@ -1955,17 +1972,17 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       }
 
     }
-    if (step.Contains("all")){
+    if (stepContainsNU(step, "all")){
       allTracks("regionalCosmicTracks__"+recoS+"");
       allTracks("cosmicDCTracks__"+recoS+"");
       allTracks("displacedGlobalMuons__"+recoS+"");
     }
-    if ((step.Contains("all") || step.Contains("pixeltrack")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "pixeltrack")) && !stepContainsNU(step, "cosmic") ){
       /// general track plots
       allTracks("pixelTracks__"+recoS+"");
     }
 
-    if (step.Contains("all")) {
+    if (stepContainsNU(step, "all")) {
       packedCand("packedPFCandidates_");
       packedCand("lostTracks_");
       packedCand("lostTracks_eleTracks");
@@ -1990,7 +2007,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("min(30,"+tbr+recoS+".obj.pfNeutralSum())");
     }
     
-    if ((step.Contains("all") || step.Contains("vertex")) && !step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "vertex")) && !stepContainsNU(step, "cosmic") ){
       /// primary vertex plots
       vertexVars("recoVertexs_pixelVertices__");
       vertexVars("recoVertexs_offlinePrimaryVertices__");
@@ -2048,13 +2065,13 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("log10(recoVertexCompositePtrCandidates_slimmedSecondaryVertices__"+recoS+".obj.vertexCovariance(3,3))/2");
     }
 
-    if ((step.Contains("all") || step.Contains("track")) && step.Contains("cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "track")) && stepContainsNU(step, "cosmic") ){
       ///cosmic tracks plots
       allTracks("ctfWithMaterialTracksP5__"+recoS+"");
     }
 
-    if ((step.Contains("all") || step.Contains("v0")) &&
-	!step.Contains("cosmic")){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "v0")) &&
+	!stepContainsNU(step, "cosmic")){
       // Kshort plots
       plotvar("recoVertexCompositeCandidates_generalV0Candidates_Kshort_"+recoS+".@obj.size()");
       V0("Kshort","pt");
@@ -2076,7 +2093,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
 
 
-    if ((step.Contains("all") || step.Contains("dE")) && !step.Contains("cosmic")){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "dE")) && !stepContainsNU(step, "cosmic")){
       ///dedx plots 
       // median was replaced by dedxHarmonic2 in CMSSW_4_2
       //      plotvar("recoDeDxDataedmValueMap_dedxMedian__"+recoS+".obj.size()");
@@ -2108,7 +2125,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoDeDxHitInfos_isolatedTracks__"+recoS+".obj.infos_.charge()");
     }
 
-    if ((step.Contains("all") || step.Contains("muon")) && !step.Contains("cosmic")){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "muon")) && !stepContainsNU(step, "cosmic")){
       ///STA muons plots
       plotvar("recoTracks_standAloneMuons_UpdatedAtVtx_"+recoS+".obj@.size()");
       staMuons("pt");
@@ -2194,7 +2211,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       muonVars("slimmedMuons_","patMuons_");
     }
 
-    if ((step.Contains("all") || step.Contains("tau")) && !step.Contains("cosmic") && !step.Contains("NoTaus")){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "tau")) && !stepContainsNU(step, "cosmic") && !stepContainsNU(step, "NoTaus")){
       // tau plots
       tauVars("hpsPFTauProducer_");
       // miniaod
@@ -2237,7 +2254,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       //      plotvar("recoRecoTauPiZeros_hpsPFTauProducer_pizeros_"+recoS+".obj.numberOfElectrons()");
   }
 
-  if (step.Contains("all") || step.Contains("conversion") || step.Contains("photon")){
+  if (stepContainsNU(step, "all") || stepContainsNU(step, "conversion") || stepContainsNU(step, "photon")){
       //converstion plots
       conversionVars("conversions_");
       conversionVars("allConversions_");
@@ -2257,7 +2274,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       */
     }
 
-    if (step.Contains("all") || step.Contains("photon")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "photon")){
       //photon plots
       photonVars("photons_");
 
@@ -2371,7 +2388,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       superClusters("reducedEgamma_reducedOOTSuperClusters");
     }
 
-    if ((step.Contains("all") || step.Contains("electron")) && !step.Contains("cosmic")){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "electron")) && !stepContainsNU(step, "cosmic")){
       ///electron plots
       electronVars("gsfElectrons_");
       electronVars("gedGsfElectrons_");
@@ -2402,7 +2419,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       gsfTrackVars("reducedEgamma_reducedGsfTracks");
     }
 
-    if (step.Contains("pfdebug")){
+    if (stepContainsNU(step, "pfdebug")){
       //for tests of PF hadron corrs
       TString var = "pt";
       TString pfName="recoPFCandidates_particleFlow__"+recoS+".obj";
@@ -2425,9 +2442,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         sel2 = sel+"&&abs("+pfAl+".eta())>2.5";
         plotvar("log10(Sum$("+v+"*("+sel2+")))");
       }
-    }//step.Contains("pfdebug")
+    }//stepContainsNU(step, "pfdebug")
 
-    if (step.Contains("all") || step.Contains("pflow")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "pflow")){
       ///particle flow objects
 
       allpf(-1, "particleFlow_");
@@ -2474,7 +2491,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
       plotvar("booledmValueMap_chargedHadronPFTrackIsolation__"+recoS+".obj.values_");
     }
-    if (step.Contains("all") || step.Contains("EI")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "EI")){
       /* this existed only in 610pre
       plotvar("log10(recoPFJets_pfJets__"+recoS+".obj.pt())");
       plotvar("recoPFJets_pfJets__"+recoS+".obj.eta()");
@@ -2516,7 +2533,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("recoPFTaus_pfTaus__"+recoS+".obj.isolationPFGammaCandsEtSum()");
       */
 
-      if (!step.Contains("NoTaus")){
+      if (!stepContainsNU(step, "NoTaus")){
 	plotvar("log10(recoPFTaus_pfTausEI__"+recoS+".obj.pt())");
 	plotvar("recoPFTaus_pfTausEI__"+recoS+".obj.eta()");
 	plotvar("recoPFTaus_pfTausEI__"+recoS+".obj.phi()");
@@ -2553,7 +2570,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(""+recoS+".obj.()");
       */
     }
-    if (step.Contains("all") || step.Contains("met")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "met")){
       ///MET plots
       metVars("tcMet_");
       metVars("tcMetWithPFclusters_");
@@ -2606,7 +2623,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       
     }
 
-    if (step.Contains("all") || step.Contains("calotower") || step.Contains("HEP17")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "calotower") || stepContainsNU(step, "HEP17")){
       //calo towers plot
 
       plotvar("CaloTowersSorted_towerMaker__"+recoS+".obj.obj@.size()");
@@ -2617,7 +2634,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("CaloTowersSorted_towerMaker__"+recoS+".obj.obj.eta()");
       plotvar("CaloTowersSorted_towerMaker__"+recoS+".obj.obj.phi()");
 
-      if (step.Contains("HEP17")){
+      if (stepContainsNU(step, "HEP17")){
 	plotvar("log10(CaloTowersSorted_towerMaker__"+recoS+".obj.obj.energy())", "CaloTowersSorted_towerMaker__"+recoS+".obj.obj.eta()>1.5&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.eta()<3&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.phi()<-0.435&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.phi()>-0.960");
 	plotvar("log10(CaloTowersSorted_towerMaker__"+recoS+".obj.obj.emEnergy())", "CaloTowersSorted_towerMaker__"+recoS+".obj.obj.eta()>1.5&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.eta()<3&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.phi()<-0.435&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.phi()>-0.960");
 	plotvar("log10(CaloTowersSorted_towerMaker__"+recoS+".obj.obj.hadEnergy())", "CaloTowersSorted_towerMaker__"+recoS+".obj.obj.eta()>1.5&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.eta()<3&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.phi()<-0.435&&CaloTowersSorted_towerMaker__"+recoS+".obj.obj.phi()>-0.960");
@@ -2645,7 +2662,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
     }
 
-    if (step.Contains("all") || step.Contains("jet")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "jet")){
       
       ///jet plots
       jets("recoCaloJets","iterativeCone5CaloJets");
@@ -2734,7 +2751,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       //jets("patJets","slimmedJetsCMSTopTagCHSPacked_SubJets");      
     }
 
-    if (step.Contains("all") || step.Contains("jet")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "jet")){
       jetTagVar("combinedSecondaryVertexMVABJetTags__");
       jetTagVar("combinedMVAV2BJetTags__");
       jetTagVar("combinedInclusiveSecondaryVertexV2BJetTags__");
@@ -2819,7 +2836,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       impactParameterTagInfoVars("recoTrackIPTagInfos_impactParameterTagInfosEI_ghostTracks_");
     }
       
-    if (step.Contains("all") || step.Contains("hfreco")){
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "hfreco")){
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+recoS+".obj@.size()");
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+recoS+".obj.pt()");
       plotvar("recoRecoEcalCandidates_hfRecoEcalCandidate__"+recoS+".obj.eta()");
