@@ -761,6 +761,7 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
   muonVar("outerTrack().index",cName,tName);
   muonVar("globalTrack().index",cName,tName);
   muonVar("pt",cName,tName);
+  plotvar("log10("+tName+cName+"_"+recoS+".obj.pt())");
   muonVar("eta",cName,tName);
   muonVar("phi",cName,tName);
   muonVar("calEnergy().towerS9",cName,tName, true);
@@ -1978,9 +1979,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       allTracks("cosmicDCTracks__"+recoS+"");
       allTracks("displacedGlobalMuons__"+recoS+"");
     }
-    if ((stepContainsNU(step, "all") || stepContainsNU(step, "pixeltrack")) && !stepContainsNU(step, "cosmic") ){
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "pixelTrack")) && !stepContainsNU(step, "cosmic") ){
       /// general track plots
       allTracks("pixelTracks__"+recoS+"");
+      allTracks("hiConformalPixelTracks__"+recoS+"");
     }
 
     if (stepContainsNU(step, "all")) {
