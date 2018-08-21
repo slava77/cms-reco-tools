@@ -1744,7 +1744,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("EcalRecHitsSorted_reducedEgamma_reducedESRecHits_"+recoS+".obj.obj.recoFlag()");
       plotvar("log2(max(EcalRecHitsSorted_reducedEgamma_reducedESRecHits_"+recoS+".obj.obj.flagBits_,0.5))");
       plotvar("EcalRecHitsSorted_reducedEgamma_reducedESRecHits_"+recoS+".obj.obj.flags()");
-      
+    }
+
+    if ((stepContainsNU(step, "all") || stepContainsNU(step, "mtd") || stepContainsNU(step, "ftl")) && !stepContainsNU(step, "cosmic") ){       
       //FTL rechit plots
       plotvar("FTLRecHitsSorted_ftlRecHits_FTLBarrel_"+recoS+".obj.obj@.size()");
       plotvar("log10(FTLRecHitsSorted_ftlRecHits_FTLBarrel_"+recoS+".obj.obj.energy())");
@@ -1759,7 +1761,21 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("FTLRecHitsSorted_ftlRecHits_FTLEndcap_"+recoS+".obj.obj.time()");
       plotvar("FTLRecHitsSorted_ftlRecHits_FTLEndcap_"+recoS+".obj.obj.timeError()");      
       plotvar("log2(max(FTLRecHitsSorted_ftlRecHits_FTLEndcap_"+recoS+".obj.obj.flagBits_,0.5))");      
-    }
+      //FTL rechits with a different name
+      plotvar("FTLRecHitsSorted_mtdRecHits_FTLBarrel_"+recoS+".obj.obj@.size()");
+      plotvar("log10(FTLRecHitsSorted_mtdRecHits_FTLBarrel_"+recoS+".obj.obj.energy())");
+      plotvar("log10(FTLRecHitsSorted_mtdRecHits_FTLBarrel_"+recoS+".obj.obj.energy())", "FTLRecHitsSorted_mtdRecHits_FTLBarrel_"+recoS+".obj.obj.energy()>0.001");
+      plotvar("FTLRecHitsSorted_mtdRecHits_FTLBarrel_"+recoS+".obj.obj.time()");
+      plotvar("FTLRecHitsSorted_mtdRecHits_FTLBarrel_"+recoS+".obj.obj.timeError()");      
+      plotvar("log2(max(FTLRecHitsSorted_mtdRecHits_FTLBarrel_"+recoS+".obj.obj.flagBits_,0.5))");      
+
+      plotvar("FTLRecHitsSorted_mtdRecHits_FTLEndcap_"+recoS+".obj.obj@.size()");
+      plotvar("log10(FTLRecHitsSorted_mtdRecHits_FTLEndcap_"+recoS+".obj.obj.energy())");
+      plotvar("log10(FTLRecHitsSorted_mtdRecHits_FTLEndcap_"+recoS+".obj.obj.energy())", "FTLRecHitsSorted_mtdRecHits_FTLEndcap_"+recoS+".obj.obj.energy()>0.001");
+      plotvar("FTLRecHitsSorted_mtdRecHits_FTLEndcap_"+recoS+".obj.obj.time()");
+      plotvar("FTLRecHitsSorted_mtdRecHits_FTLEndcap_"+recoS+".obj.obj.timeError()");      
+      plotvar("log2(max(FTLRecHitsSorted_mtdRecHits_FTLEndcap_"+recoS+".obj.obj.flagBits_,0.5))");      
+   }
 
 
     if ((stepContainsNU(step, "all") || stepContainsNU(step, "dt")) && !stepContainsNU(step, "cosmic") ){
