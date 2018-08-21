@@ -465,6 +465,13 @@ void photonVars(TString cName = "photons_", TString tName = "recoPhotons_"){
   if (detailed)    photon("pz", cName,tName);
   photon("eta", cName,tName);
   photon("phi", cName,tName);
+
+  photon("hadronicDepth1OverEm", cName,tName);
+  photon("hadronicDepth2OverEm", cName,tName);
+  photon("hadronicOverEmValid", cName,tName);
+  photon("hadTowDepth1OverEm", cName,tName);
+  photon("hadTowDepth2OverEm", cName,tName);
+  photon("hadTowOverEmValid", cName,tName);
   
   photon("e1x5", cName,tName);
   photon("e2x5", cName,tName);
@@ -618,6 +625,7 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
   electron("hcalDepth1OverEcal", cName, tName);
   electron("hcalDepth2OverEcal", cName, tName);
   electron("hcalOverEcalBc", cName, tName);
+  electron("hcalOverEcalValid", cName, tName);
   electron("eLeft", cName, tName);
   electron("eTop", cName, tName);
   electron("full5x5_sigmaEtaEta", cName, tName);
@@ -627,6 +635,7 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
   electron("full5x5_hcalDepth1OverEcal", cName, tName);
   electron("full5x5_hcalDepth2OverEcal", cName, tName);
   electron("full5x5_hcalOverEcalBc", cName, tName);
+  electron("full5x5_hcalOverEcalValid", cName, tName);
   electron("full5x5_e2x5Left", cName, tName);
   electron("full5x5_eLeft", cName, tName);
   electron("full5x5_e2x5Top", cName, tName);
