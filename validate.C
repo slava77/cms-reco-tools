@@ -286,7 +286,7 @@ void jets(TString type,TString algo){
     }
     jet(type, algo, "userCands_@.size");
     jet(type, algo, "pairDiscriVector_@.size");
-    for (int i = 0; i< 32; ++i){
+    for (int i = 0; i< 64; ++i){
       plotvar("min(2,max(-2,"+type+"_"+algo+(algo.Contains("_")? "_" : "__")+recoS+Form(".obj[].pairDiscriVector_[%d].second))",i), "", true);
     }
   }
