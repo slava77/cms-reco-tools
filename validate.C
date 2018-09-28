@@ -788,6 +788,11 @@ void gsfTrackVars(TString cName = "electronGsfTracks_", TString tName = "recoGsf
   if (detailed)    gsfTracks("px", false, cName, tName);
   if (detailed)    gsfTracks("py", false, cName, tName);
   if (detailed)    gsfTracks("pz", false, cName, tName);
+
+  gsfTracks("t0", false, cName, tName);
+  gsfTracks("beta", false, cName, tName);
+  gsfTracks("covt0t0", true, cName, tName);
+  gsfTracks("covBetaBeta", true, cName, tName);
 }
 void globalMuons(TString var){
   TString v="globalMuonTracks."+var+"()";
@@ -1079,6 +1084,10 @@ void allTracks(TString alias){
   if (detailed1)    plotTrack(alias,"pz");
   if (detailed1)    plotvar("log10(abs(recoTracks_"+alias+".pz()))");
 
+  plotTrack(alias,"t0");
+  plotTrack(alias,"beta");
+  plotvar("log10(abs(recoTracks_"+alias+".covt0t0()))");
+  plotvar("log10(abs(recoTracks_"+alias+".covBetaBeta()))");
 }
 
 void generalTrack(TString var){
