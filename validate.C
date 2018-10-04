@@ -1645,51 +1645,51 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("log10(HBHERecHitsSorted_hbheprereco__"+recoS+".obj.obj.chi2())");
 
       plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj@.size()");
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()==1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()==1");
 
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
-      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
+      plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1");
 
       if (stepContainsNU(step, "HEP17")){
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66");
 
 	//outside of HEP17
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
-	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().subdet()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.energy()>0.001&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eraw())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.eaux())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("log2(max(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.flags(),0.5))", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.time()", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
+	plotvar("log10(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.chi2())", "HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.detid().subdetId()!=1&&!(HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()>=63&&HBHERecHitsSorted_hbhereco__"+recoS+".obj.obj.id().iphi()<=66)");
       }
 
       plotvar("HBHERecHitsSorted_reducedHcalRecHits_hbhereco_"+recoS+".obj.obj@.size()");
