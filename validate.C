@@ -1431,6 +1431,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj._sets@.size()");
       plotvar(tbr+recoS+".obj._sets.data@.size()");
       plotvar(tbr+recoS+".obj._sets.data.getStripNumber()");
+      //TOTEM timing
+      tbr="TotemTimingDigiedmDetSetVector_totemTimingRawToDigi_TotemTiming_";
+      plotvar(tbr+recoS+".obj._sets@.size()");
+      plotvar(tbr+recoS+".obj._sets.data@.size()");
+      plotvar(tbr+recoS+".obj._sets.data.getHardwareId()");
+      plotvar(tbr+recoS+".obj._sets.data.getCellInfo()");
+      plotvar(tbr+recoS+".obj._sets.data.samples_@.size()");
+      plotvar(tbr+recoS+".obj._sets.data.samples_");
       //pixel digis
       tbr="CTPPSPixelDigiedmDetSetVector_ctppsPixelDigis__";
       plotvar(tbr+recoS+".obj._sets@.size()");
@@ -1489,6 +1497,18 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj._sets.data.getTx()");
       plotvar(tbr+recoS+".obj._sets.data.getTy()");
       plotvar(tbr+recoS+".obj._sets.data.getChiSquared()");
+      //TOTEM timing detectors
+      tbr="TotemTimingRecHitedmDetSetVector_totemTimingRecHits__";
+      plotvar(tbr+recoS+".obj._sets@.size()");
+      plotvar(tbr+recoS+".obj._sets.data@.size()");
+      plotvar(tbr+recoS+".obj._sets.data.getX()");
+      plotvar(tbr+recoS+".obj._sets.data.getY()");
+      plotvar(tbr+recoS+".obj._sets.data.getT()");
+      plotvar(tbr+recoS+".obj._sets.data.getXWidth()");
+      plotvar(tbr+recoS+".obj._sets.data.getYWidth()");
+      plotvar(tbr+recoS+".obj._sets.data.getSampicThresholdTime()");
+      plotvar(tbr+recoS+".obj._sets.data.getAmplitude()");
+      plotvar(tbr+recoS+".obj._sets.data.getTimingAlgorithm()");
 
       tbr="CTPPSDiamondRecHitedmDetSetVector_ctppsDiamondRecHits__";
       plotvar(tbr+recoS+".obj._sets@.size()");
@@ -1498,6 +1518,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj._sets.data.getT()");
       plotvar(tbr+recoS+".obj._sets.data.getXWidth()");
       plotvar(tbr+recoS+".obj._sets.data.getYWidth()");
+      plotvar(tbr+recoS+".obj._sets.data.getToT()");
+      plotvar(tbr+recoS+".obj._sets.data.getTPrecision()");
+      plotvar(tbr+recoS+".obj._sets.data.getOOTIndex()");
 
       tbr="CTPPSDiamondLocalTrackedmDetSetVector_ctppsDiamondLocalTracks__";
       plotvar(tbr+recoS+".obj._sets@.size()");
