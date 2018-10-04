@@ -152,6 +152,8 @@ RunEGamma2018Awf136p85 136.85_RunEGamma2018A+*/step3.root reRECO
 RunDoubleMuon2018Awf136p851 136.851_RunDoubleMuon2018A+*/step3.root reRECO
 RunJetHT2018Awf136p852 136.852_RunJetHT2018A+*/step3.root reRECO
 RunJetHT2018AnanoEDMwf136p8521 136.8521_RunJetHT2018A*NANOEDM*/step2.root DQM
+RunZeroBias2018hBStarTKwf136p8561 136.8561_RunZeroBias_hBStarTk*/step3.root reRECO
+RunZeroBias2018hBStarRPwf136p8562 136.8562_RunZeroBias1_hBStarRP*/step3.root reRECO
 RunMET2018Awf136p853 136.853_RunMET2018A+*/step3.root reRECO
 RunSingleMu2018Awf136p855 136.855_RunSingleMu2018A+*/step3.root reRECO
 RunEGamma2018Bwf136p862 136.862_RunEGamma2018B+*/step3.root reRECO
