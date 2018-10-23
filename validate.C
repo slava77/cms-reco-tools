@@ -2184,6 +2184,19 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       /// general track plots
       allTracks("pixelTracks__"+recoS+"");
       allTracks("hiConformalPixelTracks__"+recoS+"");
+
+      tbr="recoCentrality_hiCentrality__";
+      plotvar(tbr+recoS+".obj.raw()");
+      plotvar(tbr+recoS+".obj.EtHFhitSum()");
+      plotvar(tbr+recoS+".obj.EtHFtowerSum()");
+      plotvar(tbr+recoS+".obj.EtHFtruncated()");
+      plotvar(tbr+recoS+".obj.EtEESum()");
+      plotvar(tbr+recoS+".obj.EtEBSum()");
+      plotvar(tbr+recoS+".obj.EtEcalSum()");
+      plotvar(tbr+recoS+".obj.multiplicityPixel()");
+      plotvar(tbr+recoS+".obj.Ntracks()");
+      plotvar(tbr+recoS+".obj.NpixelTracks()");
+      plotvar(tbr+recoS+".obj.zdcSum()");
     }
 
     if (stepContainsNU(step, "all")) {
