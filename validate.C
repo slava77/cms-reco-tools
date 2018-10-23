@@ -2545,7 +2545,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       caloClusters("particleFlowSuperClusterHGCal_particleFlowBasicClusterECALPreshower");
       caloClusters("particleFlowSuperClusterHGCal_particleFlowBasicClusterECALBarrel");
       caloClusters("particleFlowSuperClusterHGCalFromMultiCl_");
+
       caloClusters("hgcalLayerClusters_");
+      plotvar("min(15,max(-2,floatedmValueMap_hgcalLayerClusters_timeLayerCluster_"+recoS+".obj.values_))");
+      plotvar("floatedmValueMap_hgcalLayerClusters_timeLayerCluster_"+recoS+".obj.values_", "floatedmValueMap_hgcalLayerClusters_timeLayerCluster_"+recoS+".obj.values_>-10");
 
       plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj@.size()");
       plotvar("recoPFRecHits_particleFlowRecHitHO_Cleaned_"+recoS+".obj.position_.eta()");
