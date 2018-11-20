@@ -22,13 +22,16 @@ static loadFWLite lfw;
 
 using namespace std;
 
-void print_patJets_btags(){
-  TFile* f = new TFile("pass-1acac95/136.8311_RunJetHT2017F_reminiaod+RunJetHT2017F_reminiaod+REMINIAOD_data2017+HARVEST2017_REMINIAOD_data2017/step2.root");
+void print_patJets_btags(const std::string& fName,
+                         int nEvts = 1, const std::string& substr = "DeepDouble"){
+  TFile* f = new TFile(fName.c_str());
   cout<<" loaded file "<<std::endl;
+
   fwlite::Event e(f);
-  cout<<" loaded event "<<endl;
-  
-  if (1<2){
+  int eCount = 0;
+  for (e.toBegin(); ! e.atEnd() && (eCount < nEvts || nEvts < 0); ++e, ++eCount){
+    cout<<" loaded event "<<e.id().event()<<endl;
+    
     fwlite::Handle<pat::JetCollection> jh;
     jh.getByLabel(e, "slimmedJetsAK8");
     
@@ -36,11 +39,11 @@ void print_patJets_btags(){
     for (auto const& j : jh.ref()){
       int iD = 0;
       for (auto const& pd : j.getPairDiscri()) {
-        if(pd.first.find("DeepDouble")!= std::string::npos){cout<<"jet "<<iJ<<" discr "<<iD<<" "<<pd.first<<" "<<pd.second<<endl;} ++iD;
+        if(pd.first.find(substr)!= std::string::npos){cout<<"jet "<<iJ<<" "<<j.pt()<<" discr "<<iD<<" "<<pd.first<<" "<<pd.second<<endl;} ++iD;
       }
       ++iJ;
     }
-  }
+  }//event loop
 }
 
 void print_patEGamma_userFloats(){
