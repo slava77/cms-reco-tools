@@ -1578,6 +1578,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("log10("+tbr+recoS+".obj._sets.data.getTySigma())");
       plotvar("min(20,"+tbr+recoS+".obj._sets.data.getChiSquaredOverNDF())");
       plotvar(tbr+recoS+".obj._sets.data.getNDF()");
+      plotvar(tbr+recoS+".obj._sets.data.getRecoInfo()");
       plotvar(tbr+recoS+".obj._sets.data.isValid()");
 
       tbr="CTPPSLocalTrackLites_ctppsLocalTrackLiteProducer__";
@@ -1588,6 +1589,13 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.getYUnc()");
       plotvar(tbr+recoS+".obj.getTime()");
       plotvar(tbr+recoS+".obj.getTimeUnc()");      
+      plotvar(tbr+recoS+".obj.getTx()");
+      plotvar(tbr+recoS+".obj.getTxUnc()");
+      plotvar(tbr+recoS+".obj.getTy()");
+      plotvar(tbr+recoS+".obj.getTyUnc()");
+      plotvar(tbr+recoS+".obj.getRecoInfo()");
+      plotvar(tbr+recoS+".obj.getChiSquaredOverNDF()");
+      plotvar(tbr+recoS+".obj.getNumberOfPointsUsedForFit()");
     }
 
     if ((stepContainsNU(step, "all") || stepContainsNU(step, "halo"))){
