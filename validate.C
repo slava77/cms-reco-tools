@@ -60,12 +60,16 @@ bool stepContainsNU(const TString& s, TString v){
   }
 }
 
-bool checkBranchAND(const TString& b){
-  return Events->GetBranch(b) != nullptr && refEvents->GetBranch(b) != nullptr;
+bool checkBranchAND(const TString& b, bool verboseFalse = false){
+  bool res Events->GetBranch(b) != nullptr && refEvents->GetBranch(b) != nullptr;
+  if (!res && verboseFalse) std::cout<<"Branch "<<b.Data()<<" is not found one of the inputs. Skip."<<std::endl;
+  return res;
 }
 
-bool checkBranchOR(const TString& b){
-  return Events->GetBranch(b) != nullptr || refEvents->GetBranch(b) != nullptr;
+bool checkBranchOR(const TString& b, bool verboseFalse = false){
+  bool res = Events->GetBranch(b) != nullptr || refEvents->GetBranch(b) != nullptr;
+  if (!res && verboseFalse) std::cout<<"Branch "<<b.Data()<<" is not found in either of the inputs. Skip."<<std::endl;
+  return res;
 }
 
 struct PlotStats {
@@ -335,53 +339,65 @@ void jets(TString type,TString algo){
 
 
 void secondaryVertexTagInfoVars(TString br){
-  plotvar(br+recoS+".obj@.size()");
-  plotvar(br+recoS+".obj.nSelectedTracks()");
-  plotvar(br+recoS+".obj.nVertexTracks()");
-  plotvar(br+recoS+".obj.nVertices()");
-  plotvar(br+recoS+".obj.nVertexCandidates()");
-  plotvar(br+recoS+".obj.m_svData.dist1d.value()");
-  plotvar(br+recoS+".obj.m_svData.dist1d.error()");
-  plotvar(br+recoS+".obj.m_svData.dist2d.value()");
-  plotvar(br+recoS+".obj.m_svData.dist2d.error()");
-  plotvar(br+recoS+".obj.m_trackData.first");
-  plotvar(br+recoS+".obj.m_trackData.second.svStatus");
+  TString bObj = br+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".nSelectedTracks()");
+  plotvar(bObj+".nVertexTracks()");
+  plotvar(bObj+".nVertices()");
+  plotvar(bObj+".nVertexCandidates()");
+  plotvar(bObj+".m_svData.dist1d.value()");
+  plotvar(bObj+".m_svData.dist1d.error()");
+  plotvar(bObj+".m_svData.dist2d.value()");
+  plotvar(bObj+".m_svData.dist2d.error()");
+  plotvar(bObj+".m_trackData.first");
+  plotvar(bObj+".m_trackData.second.svStatus");
 }
 
 void impactParameterTagInfoVars(TString br){
-  plotvar(br+recoS+".obj@.size()");
-  plotvar(br+recoS+".obj.m_axis.theta()");
-  plotvar(br+recoS+".obj.m_axis.phi()");
-  plotvar(br+recoS+".obj.m_data@.size()");
-  plotvar(br+recoS+".obj.m_data.ip2d.value()");
-  plotvar(br+recoS+".obj.m_data.ip2d.error()");
-  plotvar(br+recoS+".obj.m_data.distanceToJetAxis.value()");
-  plotvar(br+recoS+".obj.m_data.distanceToGhostTrack.value()");
-  plotvar(br+recoS+".obj.m_data.ghostTrackWeight");
-  plotvar(br+recoS+".obj.m_prob2d");
-  plotvar(br+recoS+".obj.m_prob3d");
+  TString bObj = br+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".m_axis.theta()");
+  plotvar(bObj+".m_axis.phi()");
+  plotvar(bObj+".m_data@.size()");
+  plotvar(bObj+".m_data.ip2d.value()");
+  plotvar(bObj+".m_data.ip2d.error()");
+  plotvar(bObj+".m_data.distanceToJetAxis.value()");
+  plotvar(bObj+".m_data.distanceToGhostTrack.value()");
+  plotvar(bObj+".m_data.ghostTrackWeight");
+  plotvar(bObj+".m_prob2d");
+  plotvar(bObj+".m_prob3d");
 }
 
 void vertexVars(TString br){
-  plotvar(br+recoS+".obj@.size()");
-  plotvar(br+recoS+".obj.x()");
-  plotvar(br+recoS+".obj.y()");
-  plotvar(br+recoS+".obj.z()");
-  plotvar(br+recoS+".obj.t()");
-  plotvar("log10("+br+recoS+".obj.xError())");
-  plotvar("log10("+br+recoS+".obj.yError())");
-  plotvar("log10("+br+recoS+".obj.zError())");
-  plotvar("log10("+br+recoS+".obj.tError())");
-  plotvar(br+recoS+".obj.chi2()");
-  plotvar(br+recoS+".obj.tracksSize()");
+  TString bObj = br+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".x()");
+  plotvar(bObj+".y()");
+  plotvar(bObj+".z()");
+  plotvar(bObj+".t()");
+  plotvar("log10("+bObj+".xError())");
+  plotvar("log10("+bObj+".yError())");
+  plotvar("log10("+bObj+".zError())");
+  plotvar("log10("+bObj+".tError())");
+  plotvar(bObj+".chi2()");
+  plotvar(bObj+".tracksSize()");
 }
 
 void jetTagVar(TString mName){
   TString br = "recoJetedmRefToBaseProdTofloatsAssociationVector_" + mName;
 
-  plotvar(br+recoS+".obj.@data_.size()");
-  plotvar(br+recoS+".obj.data_");
-  plotvar(br+recoS+".obj.data_", br+recoS+".obj.data_>=0");
+  TString bObj = br+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+".@data_.size()");
+  plotvar(bObj+".data_");
+  plotvar(bObj+".data_", bObj+".data_>=0");
 
 }
 
@@ -448,7 +464,10 @@ void tau(TString var, TString cName = "hpsPFTauProducer_", TString tName = "reco
 }
 
 void tauVars(TString cName = "hpsPFTauProducer_", TString tName = "recoPFTaus_"){
-  plotvar(tName+cName+"_"+recoS+".obj@.size()");
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
   tau("energy",cName,tName);
   tau("et",cName,tName);
   tau("eta",cName,tName);
@@ -498,7 +517,10 @@ void photon(TString var, TString cName = "photons_", TString tName = "recoPhoton
 }
 
 void photonVars(TString cName = "photons_", TString tName = "recoPhotons_"){
-  plotvar(tName+cName+"_"+recoS+".obj@.size()");
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
   photon("energy", cName,tName);
   photon("et", cName,tName);
   if (detailed)    photon("px", cName,tName);
@@ -611,7 +633,10 @@ void conversion(TString var, TString cName = "conversions_", TString tName = "re
 }
 
 void conversionVars(TString cName = "conversions_", TString tName = "recoConversions_"){
-      plotvar(tName+cName+recoS+".obj@.size()");
+      TString bObj = tName+cName+"_"+recoS+".obj";
+      if (! checkBranchOR(bObj, true)) return;
+
+      plotvar(bObj+"@.size()");
       //conversion("EoverP", cName,tName); //seg fault !!! 
       conversion("algo", cName,tName);
       conversion("nTracks", cName,tName);
@@ -628,7 +653,10 @@ void electron(TString var, TString cName = "gsfElectrons_", TString tName = "rec
 }
 
 void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElectrons_"){
-  plotvar(tName+cName+"_"+recoS+".obj@.size()");
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
   electron("pt", cName, tName);
   if (detailed)    electron("px", cName, tName);
   if (detailed)    electron("py", cName, tName);
@@ -772,7 +800,9 @@ void gsfTracks(TString var, bool doLog10 = false, TString cName = "electronGsfTr
 }
 
 void gsfTrackVars(TString cName = "electronGsfTracks_", TString tName = "recoGsfTracks_"){
-  plotvar(tName+cName+"_"+recoS+".obj@.size()");
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
 
   gsfTracks("pt", true, cName, tName);
   gsfTracks("p", true, cName, tName);
@@ -810,7 +840,10 @@ void muonVar(TString var, TString cName = "muons_", TString tName = "recoMuons_"
 }
 
 void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
-  plotvar(tName+cName+"_"+recoS+".obj@.size()");
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
   muonVar("innerTrack().index",cName,tName);
   muonVar("track().index",cName,tName);
   muonVar("outerTrack().index",cName,tName);
@@ -937,6 +970,10 @@ void packedCandVar(TString var, TString cName = "packedPFCandidates_", TString t
 }
 
 void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPackedCandidates_"){
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()", "", true);//check for exception here
+
   //try to get something from the branches without constructor calls
   packedCandVar("packedPt_",cName,tName, true); 
   packedCandVar("packedEta_",cName,tName, true); 
@@ -947,7 +984,6 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   packedCandVar("normalizedChi2_",cName,tName, true); 
 
   //for the rest do some exception checking (it apparently does not throw for a range of cases)
-  plotvar(tName+cName+"_"+recoS+".obj@.size()", "", true);//check for exception here
   //  packedCandVar("charge",cName,tName);
   //track parameters require vertex and it wouldnt unpack in our environment
   //  packedCandVar("dxy",cName,tName);
@@ -1003,42 +1039,50 @@ void recoMuonsCos1Leg(TString var, bool notafunction = false){
 }
 
 void superClusters(TString cName, bool plotPreshower = false ){
-  plotvar("recoSuperClusters_"+cName+"_"+recoS+".obj@.size()");
-  plotvar("recoSuperClusters_"+cName+"_"+recoS+".obj.eta()");
-  plotvar("recoSuperClusters_"+cName+"_"+recoS+".obj.phi()");
-  plotvar("log10(recoSuperClusters_"+cName+"_"+recoS+".obj.energy())");
-  plotvar("log10(max(1e-5,recoSuperClusters_"+cName+"_"+recoS+".obj.correctedEnergy()))");
-  plotvar("log10(max(1e-5,recoSuperClusters_"+cName+"_"+recoS+".obj.correctedEnergyUncertainty()))");
+  TString bObj = "recoSuperClusters_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".eta()");
+  plotvar(bObj+".phi()");
+  plotvar("log10("+bObj+".energy())");
+  plotvar("log10(max(1e-5,"+bObj+".correctedEnergy()))");
+  plotvar("log10(max(1e-5,"+bObj+".correctedEnergyUncertainty()))");
 
   if (plotPreshower){
-    plotvar("log10(max(1e-5,recoSuperClusters_"+cName+"_"+recoS+".obj.preshowerEnergy()))");
-    plotvar("log10(max(1e-5,recoSuperClusters_"+cName+"_"+recoS+".obj.preshowerEnergyPlane1()))");
+    plotvar("log10(max(1e-5,"+bObj+".preshowerEnergy()))");
+    plotvar("log10(max(1e-5,"+bObj+".preshowerEnergyPlane1()))");
   }
 }
 
 void caloClusters(TString cName ){
-  plotvar("recoCaloClusters_"+cName+"_"+recoS+".obj@.size()");
-  plotvar("recoCaloClusters_"+cName+"_"+recoS+".obj.eta()");
-  plotvar("recoCaloClusters_"+cName+"_"+recoS+".obj.phi()");
-  plotvar("log10(recoCaloClusters_"+cName+"_"+recoS+".obj.energy())");
-  plotvar("log10(max(1e-5,recoCaloClusters_"+cName+"_"+recoS+".obj.correctedEnergy()))");
-  plotvar("log10(max(1e-5,recoCaloClusters_"+cName+"_"+recoS+".obj.correctedEnergyUncertainty()))");
+  TString bObj = "recoCaloClusters_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".eta()");
+  plotvar(bObj+".phi()");
+  plotvar("log10("+bObj+".energy())");
+  plotvar("log10(max(1e-5,"+bObj+".correctedEnergy()))");
+  plotvar("log10(max(1e-5,"+bObj+".correctedEnergyUncertainty()))");
 }
 
 void pfClusters(TString cName ){
-  plotvar("recoPFClusters_"+cName+"_"+recoS+".obj@.size()");
-  plotvar("recoPFClusters_"+cName+"_"+recoS+".obj.eta()");
-  plotvar("recoPFClusters_"+cName+"_"+recoS+".obj.phi()");
-  plotvar("log10(recoPFClusters_"+cName+"_"+recoS+".obj.energy())");
-  plotvar("recoPFClusters_"+cName+"_"+recoS+".obj.time()");
+  TString bObj = "recoPFClusters_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".eta()");
+  plotvar(bObj+".phi()");
+  plotvar("log10("+bObj+".energy())");
+  plotvar(bObj+".time()");
 }
 
 void hgcalMultiClusters(TString cName ){
-  plotvar("recoHGCalMultiClusters_"+cName+"_"+recoS+".obj@.size()");
-  plotvar("recoHGCalMultiClusters_"+cName+"_"+recoS+".obj.eta()");
-  plotvar("recoHGCalMultiClusters_"+cName+"_"+recoS+".obj.phi()");
-  plotvar("log10(recoHGCalMultiClusters_"+cName+"_"+recoS+".obj.energy())");
-  plotvar("recoHGCalMultiClusters_"+cName+"_"+recoS+".obj.time()");
+  TString bObj = "recoHGCalMultiClusters_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".eta()");
+  plotvar(bObj+".phi()");
+  plotvar("log10("+bObj+".energy())");
+  plotvar(bObj+".time()");
 }
 
 void plotTrack(TString alias, TString var){
@@ -1140,12 +1184,15 @@ void V0(TString res, TString var){
 
 void mtdHits(TString cName){
   TString tbr="FTLRecHitsSorted_"+cName+"_";
-  plotvar(tbr+recoS+".obj.obj@.size()");
-  plotvar("log10("+tbr+recoS+".obj.obj.energy())");
-  plotvar("log10("+tbr+recoS+".obj.obj.energy())", tbr+recoS+".obj.obj.energy()>0.001");
-  plotvar(tbr+recoS+".obj.obj.time()");
-  plotvar(tbr+recoS+".obj.obj.timeError()");
-  plotvar("log2(max("+tbr+recoS+".obj.obj.flagBits_,0.5))");
+  TString bObj = tbr+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+".obj@.size()");
+  plotvar("log10("+bObj+".obj.energy())");
+  plotvar("log10("+bObj+".obj.energy())", bObj+".obj.energy()>0.001");
+  plotvar(bObj+".obj.time()");
+  plotvar(bObj+".obj.timeError()");
+  plotvar("log2(max("+bObj+".obj.flagBits_,0.5))");
 }
 
 void flatTable(const TString& shortName){
@@ -1236,34 +1283,40 @@ void validateLumi(TString step, TString file, TString refFile, TString r="RECO",
 
   gROOT->cd();
 
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_algoToFirstIndex@.size()");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_algoToFirstIndex");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_allValues@.size()");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_allValues");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_allErrors@.size()");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_allErrors");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_allQualities@.size()");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_allQualities");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_beam1Intensities@.size()");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_beam1Intensities");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_beam2Intensities@.size()");
-  plotvar("LumiDetails_lumiProducer__"+recoS+".obj.m_beam2Intensities");
+  TString bObj = "LumiDetails_lumiProducer__"+recoS+".obj";
+  if (checkBranchOR(bObj, true)) {
+    plotvar(bObj+".m_algoToFirstIndex@.size()");
+    plotvar(bObj+".m_algoToFirstIndex");
+    plotvar(bObj+".m_allValues@.size()");
+    plotvar(bObj+".m_allValues");
+    plotvar(bObj+".m_allErrors@.size()");
+    plotvar(bObj+".m_allErrors");
+    plotvar(bObj+".m_allQualities@.size()");
+    plotvar(bObj+".m_allQualities");
+    plotvar(bObj+".m_beam1Intensities@.size()");
+    plotvar(bObj+".m_beam1Intensities");
+    plotvar(bObj+".m_beam2Intensities@.size()");
+    plotvar(bObj+".m_beam2Intensities");
+  }
 
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.avgInsDelLumi()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.avgInsDelLumiErr()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.intgDelLumi()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.lumiSecQual()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.deadcount()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.bitzerocount()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.deadFrac()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.liveFrac()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.lumiSectionLength()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.lsNumber()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.startOrbit()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.numOrbit()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.nTriggerLine()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.nHLTPath()");
-  plotvar("LumiSummary_lumiProducer__"+recoS+".obj.avgInsRecLumi()");
+  bObj = "LumiSummary_lumiProducer__"+recoS+".obj";
+  if (checkBranchOR(bObj, true)) {
+    plotvar(bObj+".avgInsDelLumi()");
+    plotvar(bObj+".avgInsDelLumiErr()");
+    plotvar(bObj+".intgDelLumi()");
+    plotvar(bObj+".lumiSecQual()");
+    plotvar(bObj+".deadcount()");
+    plotvar(bObj+".bitzerocount()");
+    plotvar(bObj+".deadFrac()");
+    plotvar(bObj+".liveFrac()");
+    plotvar(bObj+".lumiSectionLength()");
+    plotvar(bObj+".lsNumber()");
+    plotvar(bObj+".startOrbit()");
+    plotvar(bObj+".numOrbit()");
+    plotvar(bObj+".nTriggerLine()");
+    plotvar(bObj+".nHLTPath()");
+    plotvar(bObj+".avgInsRecLumi()");
+  }
 
 
 }
@@ -1976,9 +2029,21 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+recoS+".obj.m_data.localPosition().y()");
 
       allTracks("trackExtenderWithMTD__RECO");
-      plotvar("floatedmValueMap_trackExtenderWithMTD_generalTrackBeta_"+recoS+".obj.values_");
-      plotvar("floatedmValueMap_trackExtenderWithMTD_generalTrackt0_"+recoS+".obj.values_");
-      plotvar("floatedmValueMap_trackExtenderWithMTD_pathLength_"+recoS+".obj.values_");
+      tbr="floatedmValueMap_trackExtenderWithMTD_";
+      plotvar(tbr+"generalTrackBeta_"+recoS+".obj.values_");
+      plotvar(tbr+"generalTrackt0_"+recoS+".obj.values_");
+      plotvar(tbr+"generalTracksigmat0_"+recoS+".obj.values_");
+      plotvar(tbr+"generalTracktmtd_"+recoS+".obj.values_");
+      plotvar(tbr+"pathLength_"+recoS+".obj.values_");
+      plotvar(tbr+"tmtd_"+recoS+".obj.values_");
+
+      tbr="floatedmValueMap_tofPID_";
+      plotvar(tbr+"t0_"+recoS+".obj.values_");
+      plotvar(tbr+"t0safe_"+recoS+".obj.values_");
+      plotvar(tbr+"sigmat0safe_"+recoS+".obj.values_");
+      plotvar(tbr+"probPi_"+recoS+".obj.values_");
+      plotvar(tbr+"probK_"+recoS+".obj.values_");
+      plotvar(tbr+"probP_"+recoS+".obj.values_");
    }
 
 
@@ -2262,8 +2327,14 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       //phase-2 vertex reco
       vertexVars("recoVertexs_offlinePrimaryVertices1D__");
       vertexVars("recoVertexs_offlinePrimaryVertices1DWithBS__");
+      vertexVars("recoVertexs_offlinePrimaryVertices3D__");
+      vertexVars("recoVertexs_offlinePrimaryVertices3DWithBS__");
       vertexVars("recoVertexs_offlinePrimaryVertices4D__");
       vertexVars("recoVertexs_offlinePrimaryVertices4DWithBS__");
+      vertexVars("recoVertexs_offlinePrimaryVertices4DnoPID__");
+      vertexVars("recoVertexs_offlinePrimaryVertices4DnoPIDWithBS__");
+      vertexVars("recoVertexs_offlinePrimaryVertices4Dfastsim__");
+      vertexVars("recoVertexs_offlinePrimaryVertices4DfastsimWithBS__");
 
       vertexVars("recoVertexs_hiSelectedVertex__");
       vertexVars("recoVertexs_hiSelectedPixelVertex__");
