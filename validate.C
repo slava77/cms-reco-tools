@@ -61,7 +61,7 @@ bool stepContainsNU(const TString& s, TString v){
 }
 
 bool checkBranchAND(const TString& b, bool verboseFalse = false){
-  bool res Events->GetBranch(b) != nullptr && refEvents->GetBranch(b) != nullptr;
+  bool res = Events->GetBranch(b) != nullptr && refEvents->GetBranch(b) != nullptr;
   if (!res && verboseFalse) std::cout<<"Branch "<<b.Data()<<" is not found one of the inputs. Skip."<<std::endl;
   return res;
 }
