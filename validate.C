@@ -1662,6 +1662,20 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+"._sets.data.getOOTIndex()");
       }
 
+      tbr="TotemTimingLocalTrackedmDetSetVector_totemTimingLocalTracks__"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        plotvar(tbr+"._sets@.size()");
+        plotvar(tbr+"._sets.data@.size()");
+        plotvar(tbr+"._sets.data.getX0()");
+        plotvar(tbr+"._sets.data.getY0()");
+        plotvar(tbr+"._sets.data.getX0Sigma()");
+        plotvar(tbr+"._sets.data.getY0Sigma()");
+        plotvar(tbr+"._sets.data.getZ0()");
+        plotvar(tbr+"._sets.data.getChiSquared()");
+        plotvar(tbr+"._sets.data.getT()");
+        plotvar(tbr+"._sets.data.getTSigma()");
+      }
+
       tbr="CTPPSPixelClusteredmDetSetVector_ctppsPixelClusters__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
         plotvar(tbr+"._sets@.size()");
