@@ -843,7 +843,7 @@ void gsfTrackVars(TString cName = "electronGsfTracks_", TString tName = "recoGsf
   gsfTracks("covBetaBeta", true, cName, tName);
 }
 void globalMuons(TString var){
-  TString v="globalMuonTracks."+var+"()";
+  TString v="recoTracks_globalMuons__"+recoS+".obj."+var+"()";
   plotvar(v);
 }
 void staMuons(TString var){
@@ -2670,83 +2670,108 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
     if ((stepContainsNU(step, "all") || stepContainsNU(step, "muon")) && !stepContainsNU(step, "cosmic")){
       ///STA muons plots
-      plotvar("recoTracks_standAloneMuons_UpdatedAtVtx_"+recoS+".obj@.size()");
-      staMuons("pt");
-      if (detailed)    staMuons("p");
-      staMuons("eta");
-      staMuons("phi");
-      if (detailed)    staMuons("found");
-      staMuons("chi2");
-      if (detailed)    staMuons("dz");
-      if (detailed)    staMuons("dxy");
-      if (detailed)    staMuons("ndof");      
+      tbr="recoTracks_standAloneMuons_UpdatedAtVtx_"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        plotvar(tbr+"@.size()");
+        staMuons("pt");
+        if (detailed)    staMuons("p");
+        staMuons("eta");
+        staMuons("phi");
+        if (detailed)    staMuons("found");
+        staMuons("chi2");
+        if (detailed)    staMuons("dz");
+        if (detailed)    staMuons("dxy");
+        if (detailed)    staMuons("ndof");      
+      }
 
       ///global Muons plots
-      plotvar("globalMuonTracks@.size()");
-      globalMuons("pt");
-      if (detailed)    globalMuons("p");
-      globalMuons("eta");
-      globalMuons("phi");
-      if (detailed)    globalMuons("found");
-      globalMuons("chi2");
-      plotvar("min(globalMuonTracks.chi2(),99)");
-      if (detailed)    globalMuons("dz");
-      if (detailed)    globalMuons("dxy");
-      if (detailed)    globalMuons("ndof");
+      tbr="recoTracks_globalMuons__"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        plotvar(tbr+"@.size()");
+        globalMuons("pt");
+        if (detailed)    globalMuons("p");
+        globalMuons("eta");
+        globalMuons("phi");
+        if (detailed)    globalMuons("found");
+        globalMuons("chi2");
+        plotvar("min("+tbr+".chi2(),99)");
+        if (detailed)    globalMuons("dz");
+        if (detailed)    globalMuons("dxy");
+        if (detailed)    globalMuons("ndof");
+      }
 
       allTracks("tevMuons_dyt_"+recoS);
       allTracks("tevMuons_picky_"+recoS);
       allTracks("standAloneSETMuons_UpdatedAtVtx_"+recoS);
 
       ///tracker muons
-      TString c="recoMuons_muons__"+recoS+".obj.isTrackerMuon()";
-      plotvar("recoMuons_muons__"+recoS+".obj@.size()",c);
-      plotvar("recoMuons_muons__"+recoS+".obj.eta()",c);
-      plotvar("recoMuons_muons__"+recoS+".obj.phi()",c);
-      plotvar("recoMuons_muons__"+recoS+".obj.pt()",c);
-      plotvar("recoMuons_muons__"+recoS+".obj.p()",c);
-      c="patMuons_slimmedMuons__"+recoS+".obj.isTrackerMuon()";
-      plotvar("patMuons_slimmedMuons__"+recoS+".obj@.size()",c);
-      plotvar("patMuons_slimmedMuons__"+recoS+".obj.eta()",c);
-      plotvar("patMuons_slimmedMuons__"+recoS+".obj.phi()",c);
-      plotvar("patMuons_slimmedMuons__"+recoS+".obj.pt()",c);
-      plotvar("patMuons_slimmedMuons__"+recoS+".obj.p()",c);
+      tbr="recoMuons_muons__"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        TString c=tbr+".isTrackerMuon()";
+        plotvar(tbr+"@.size()",c);
+        plotvar(tbr+".eta()",c);
+        plotvar(tbr+".phi()",c);
+        plotvar(tbr+".pt()",c);
+        plotvar(tbr+".p()",c);
+      }
+      
+      tbr="patMuons_slimmedMuons__"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        TString c=tbr+".isTrackerMuon()";
+        plotvar(tbr+"@.size()",c);
+        plotvar(tbr+".eta()",c);
+        plotvar(tbr+".phi()",c);
+        plotvar(tbr+".pt()",c);
+        plotvar(tbr+".p()",c);
+      }
 
       muonVars("muons_");
-      plotvar("recoCaloMuons_calomuons__"+recoS+".obj@.size()");
-      //      plotvar("recoCaloMuons_calomuons__"+recoS+".obj.eta()");
-      //      plotvar("recoCaloMuons_calomuons__"+recoS+".obj.phi()");
-      //      plotvar("log10(recoCaloMuons_calomuons__"+recoS+".obj.pt())");
-      plotvar("log10(recoCaloMuons_calomuons__"+recoS+".obj.caloCompatibility())");
 
+      tbr="recoCaloMuons_calomuons__"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        plotvar(tbr+"@.size()");
+        //      plotvar(tbr+".eta()");
+        //      plotvar(tbr+".phi()");
+        //      plotvar("log10("+tbr+".pt())");
+        plotvar("log10("+tbr+".caloCompatibility())");
+      }
 
-      plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.cosmicCompatibility");
-      plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.timeCompatibility");
-      plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.backToBackCompatibility");
-      plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.overlapCompatibility");
-      plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.ipCompatibility");
-      plotvar("recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj.values_.vertexCompatibility");
+      tbr="recoMuonCosmicCompatibilityedmValueMap_muons_cosmicsVeto_"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        plotvar(tbr+".values_.cosmicCompatibility");
+        plotvar(tbr+".values_.timeCompatibility");
+        plotvar(tbr+".values_.backToBackCompatibility");
+        plotvar(tbr+".values_.overlapCompatibility");
+        plotvar(tbr+".values_.ipCompatibility");
+        plotvar(tbr+".values_.vertexCompatibility");
+      }
 
-      for (int iS = 0; iS<4;++iS){
-	TString iSS = ""; iSS += iS;
-	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].nStationHits["+iSS+"]");
-	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].nStationCorrelatedHits["+iSS+"]");
-	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].stationShowerSizeT["+iSS+"]");
-	plotvar("recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj.values_[].stationShowerDeltaR["+iSS+"]");
+      tbr="recoMuonShoweredmValueMap_muons_muonShowerInformation_"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        for (int iS = 0; iS<4;++iS){
+          TString iSS = ""; iSS += iS;
+          plotvar(tbr+".values_[].nStationHits["+iSS+"]");
+          plotvar(tbr+".values_[].nStationCorrelatedHits["+iSS+"]");
+          plotvar(tbr+".values_[].stationShowerSizeT["+iSS+"]");
+          plotvar(tbr+".values_[].stationShowerDeltaR["+iSS+"]");
+        }
       }
 
       plotvar("booledmValueMap_muons_muidGlobalMuonPromptTight_"+recoS+".obj.values_");
       plotvar("booledmValueMap_muons_muidTMLastStationAngTight_"+recoS+".obj.values_");
 
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.primaryClass");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.extendedClass");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.flavour");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.pdgId");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.g4processType");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.motherFlavour");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.tpEvent");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.tpBX");
-      plotvar("recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj.values_.tpAssoQuality");
+      tbr="recoMuonSimInfoedmValueMap_muonSimClassifier__"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        plotvar(tbr+".values_.primaryClass");
+        plotvar(tbr+".values_.extendedClass");
+        plotvar(tbr+".values_.flavour");
+        plotvar(tbr+".values_.pdgId");
+        plotvar(tbr+".values_.g4processType");
+        plotvar(tbr+".values_.motherFlavour");
+        plotvar(tbr+".values_.tpEvent");
+        plotvar(tbr+".values_.tpBX");
+        plotvar(tbr+".values_.tpAssoQuality");
+      }
 
       muonVars("muonsFromCosmics_");
       muonVars("muonsFromCosmics1Leg_");
