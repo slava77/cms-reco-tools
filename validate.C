@@ -2546,6 +2546,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       vertexVars("recoVertexs_offlinePrimaryVertices4DnoPIDWithBS__");
       vertexVars("recoVertexs_offlinePrimaryVertices4Dfastsim__");
       vertexVars("recoVertexs_offlinePrimaryVertices4DfastsimWithBS__");
+      vertexVars("recoVertexs_offlineSlimmedPrimaryVertices4D__");
 
       vertexVars("recoVertexs_hiSelectedVertex__");
       vertexVars("recoVertexs_hiSelectedPixelVertex__");
