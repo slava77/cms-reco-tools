@@ -303,6 +303,9 @@ void jet(TString type, TString algo, TString var, bool log10Var = false, bool tr
 }
 
 void jets(TString type,TString algo){
+  TString bObj = type+"_"+algo+(algo.Contains("_")? "_" : "__")+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
   jet(type,algo,"energy", true);
   jet(type,algo,"et", true);
   jet(type,algo,"eta");
@@ -408,6 +411,15 @@ void calomet(TString algo, TString var, bool doLog10 = false){
   plotvar(v);
 }
 
+void caloMetVars(TString cName){
+  TString bObj = "recoCaloMETs_"+cName+"__"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  calomet(cName,"et", true);
+  calomet(cName,"eta");
+  calomet(cName,"phi");
+  calomet(cName,"metSignificance");
+}
+
 void met(TString var, TString cName = "tcMet_", TString tName = "recoMETs_",  bool log10Var = false, bool trycatch = false, bool notafunction=false){
   TString v = tName+cName+"_"+recoS+".obj."+var+(notafunction? "" : "()");
   if (log10Var) v = "log10(" + v + ")";
@@ -415,6 +427,9 @@ void met(TString var, TString cName = "tcMet_", TString tName = "recoMETs_",  bo
 }
 
 void metVars(TString cName = "tcMet_", TString tName = "recoMETs_") {
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
   met("pt",cName,tName);
   met("px",cName,tName);
   met("py",cName,tName);
@@ -426,6 +441,9 @@ void metVars(TString cName = "tcMet_", TString tName = "recoMETs_") {
 
 void patMetVars(TString cName){
   const TString tName = "patMETs_";
+  TString bObj = tName+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
   metVars(cName, tName);
   
   met("userFloats_@.size", cName, tName);
@@ -1095,20 +1113,22 @@ void plotTrack(TString alias, TString var){
 void allTracks(TString alias){
   ///general tracks plots
   alias+=".obj";
-  plotvar("recoTracks_"+alias+"@.size()");
+  TString bObj = "recoTracks_"+alias;
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
 
   plotTrack(alias,"pt");
-  plotvar("log10(recoTracks_"+alias+".pt())");
+  plotvar("log10("+bObj+".pt())");
   plotTrack(alias,"p");
-  plotvar("log10(recoTracks_"+alias+".p())");
+  plotvar("log10("+bObj+".p())");
   plotTrack(alias,"eta");
   if (detailed1)    plotTrack(alias,"theta");
   plotTrack(alias,"phi");
   if (detailed)    plotTrack(alias,"found");
   plotTrack(alias,"chi2");
   plotTrack(alias,"normalizedChi2");
-  plotvar("min(recoTracks_"+alias+".chi2(),99)");
-  plotvar("min(recoTracks_"+alias+".normalizedChi2(),29)");
+  plotvar("min("+bObj+".chi2(),99)");
+  plotvar("min("+bObj+".normalizedChi2(),29)");
   if (detailed)    plotTrack(alias,"dz");
   plotTrack(alias,"dxy");
   if (detailed)    plotTrack(alias,"ndof");
@@ -1122,16 +1142,16 @@ void allTracks(TString alias){
   plotTrack(alias,"qualityMask");
   plotTrack(alias,"qoverp");
   if (detailed1)    plotTrack(alias,"px");
-  if (detailed1)    plotvar("log10(abs(recoTracks_"+alias+".px()))");
+  if (detailed1)    plotvar("log10(abs("+bObj+".px()))");
   if (detailed1)    plotTrack(alias,"py");
-  if (detailed1)    plotvar("log10(abs(recoTracks_"+alias+".py()))");
+  if (detailed1)    plotvar("log10(abs("+bObj+".py()))");
   if (detailed1)    plotTrack(alias,"pz");
-  if (detailed1)    plotvar("log10(abs(recoTracks_"+alias+".pz()))");
+  if (detailed1)    plotvar("log10(abs("+bObj+".pz()))");
 
   plotTrack(alias,"t0");
   plotTrack(alias,"beta");
-  plotvar("log10(abs(recoTracks_"+alias+".covt0t0()))");
-  plotvar("log10(abs(recoTracks_"+alias+".covBetaBeta()))");
+  plotvar("log10(abs("+bObj+".covt0t0()))");
+  plotvar("log10(abs("+bObj+".covBetaBeta()))");
 }
 
 void generalTrack(TString var){
@@ -1164,6 +1184,9 @@ void pf(TString var,int type=-1, TString cName = "particleFlow_", float ptMin = 
 }
 
 void allpf(int type=-1, TString cName  = "particleFlow_", float ptMin = 0){
+  TString bObj = "recoPFCandidates_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
   pf("particleId",type, cName, ptMin);
   pf("eta",type, cName, ptMin);
   pf("phi",type, cName, ptMin);
@@ -3130,42 +3153,13 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       metVars("pfMetT1Puppi_","recoPFMETs_");
       metVars("pfMetPuppi_","recoPFMETs_");
 
-      calomet("metOpt","et", true);
-      calomet("metOpt","eta");
-      calomet("metOpt","phi");
-      calomet("metOpt","metSignificance");
-
-      
-      calomet("metOptNoHFHO","et", true);
-      calomet("metOptNoHFHO","eta");
-      calomet("metOptNoHFHO","phi");
-      calomet("metOptNoHFHO","metSignificance");
-      
-      calomet("corMetGlobalMuons","et", true);
-      calomet("corMetGlobalMuons","eta");
-      calomet("corMetGlobalMuons","phi");
-      calomet("corMetGlobalMuons","metSignificance");
-
-      calomet("caloMetM","et", true);
-      calomet("caloMetM","eta");
-      calomet("caloMetM","phi");
-      calomet("caloMetM","metSignificance");
-      
-      calomet("caloMetBEFO","et", true);
-      calomet("caloMetBEFO","eta");
-      calomet("caloMetBEFO","phi");
-      calomet("caloMetBEFO","metSignificance");
-
-      calomet("caloMet","et", true);
-      calomet("caloMet","eta");
-      calomet("caloMet","phi");
-      calomet("caloMet","metSignificance");
-      
-      calomet("caloMetBE","et", true);
-      calomet("caloMetBE","eta");
-      calomet("caloMetBE","phi");
-      calomet("caloMetBE","metSignificance");
-      
+      caloMetVars("metOpt");
+      caloMetVars("metOptNoHFHO");
+      caloMetVars("corMetGlobalMuons");
+      caloMetVars("caloMetM");
+      caloMetVars("caloMetBEFO");
+      caloMetVars("caloMet");
+      caloMetVars("caloMetBE");
 
       //PAT filters (almost all are MET filters)
       tbr = "edmTriggerResults_TriggerResults__"+recoS+".obj";
