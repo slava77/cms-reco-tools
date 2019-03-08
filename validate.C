@@ -1732,7 +1732,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+".getTxUnc()");
         plotvar(tbr+".getTy()");
         plotvar(tbr+".getTyUnc()");
-        plotvar(tbr+".getRecoInfo()");
+        plotvar(tbr+".getPixelTrackRecoInfo()");
         plotvar(tbr+".getChiSquaredOverNDF()");
         plotvar(tbr+".getNumberOfPointsUsedForFit()");
       }
@@ -3024,6 +3024,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       gsfTrackVars("electronGsfTracks_");
       gsfTrackVars("electronGsfTracksFromMultiCl_");
       gsfTrackVars("reducedEgamma_reducedGsfTracks");
+      gsfTrackVars("lowPtGsfEleGsfTracks_");
     }
 
     if (stepContainsNU(step, "pfdebug")){
