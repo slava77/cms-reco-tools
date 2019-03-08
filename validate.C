@@ -876,6 +876,10 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
   muonVar("calEnergy().hoS9",cName,tName, true);
   muonVar("calEnergy().ecal_time",cName,tName, true);
   muonVar("calEnergy().hcal_time",cName,tName, true);
+  muonVar("calEnergy().crossedHadRecHits@.size()",cName,tName, true);
+  plotvar("log10("+tName+cName+"_"+recoS+".obj.calEnergy().crossedHadRecHits.energy)");
+  plotvar("min(200,max(-100,"+tName+cName+"_"+recoS+".obj.calEnergy().crossedHadRecHits.time))");
+  muonVar("calEnergy().crossedHadRecHits.detId.ietaAbs()",cName,tName, true);
   muonVar("combinedQuality().trkKink",cName,tName, true);
   muonVar("combinedQuality().glbKink",cName,tName, true);
   muonVar("combinedQuality().localDistance",cName,tName, true);
