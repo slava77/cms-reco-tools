@@ -38,6 +38,10 @@ selectDQMb.sh or stripDQMb.sh patterns
 - jet response uncorrected, also includes resolution-like histograms
 "RecoOverGen"
 
+- Tau
+DecayModeFindingEffpt in 
+/ RecoTauV / hpsPFTauProducerZTT_hpsPFTauDiscriminationByDecayModeFinding
+
 ==================
 Selection of modules for timing counts:
 
