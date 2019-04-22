@@ -576,6 +576,8 @@ void photonVars(TString cName = "photons_", TString tName = "recoPhotons_"){
   photon("trkSumPtSolidConeDR03", cName,tName);
   photon("trkSumPtHollowConeDR03", cName,tName);
   photon("chargedHadronIso", cName,tName);
+  photon("chargedHadronWorstVtxIso", cName,tName);
+  photon("chargedHadronPFPVIso", cName,tName);
   photon("neutralHadronIso", cName,tName);
   photon("photonIso", cName,tName);
   photon("sumChargedParticlePt", cName,tName);
@@ -602,6 +604,7 @@ void photonVars(TString cName = "photons_", TString tName = "recoPhotons_"){
   photon("showerShapeVariables().e2x5Right",cName,tName, true);
   photon("showerShapeVariables().e2x5Top",cName,tName, true);
   photon("showerShapeVariables().e2x5Bottom",cName,tName, true);
+  photon("showerShapeVariables().smMajor",cName,tName, true);
 
   photon("energyCorrections().scEcalEnergy", cName,tName, true);
   photon("energyCorrections().scEcalEnergyError", cName,tName, true);
@@ -729,6 +732,7 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
   electron("full5x5_eTop", cName, tName);
   electron("nSaturatedXtals", cName, tName);
   electron("dr03TkSumPt", cName, tName);
+  electron("dr03TkSumPtHEEP", cName, tName);
   electron("dr03EcalRecHitSumEt", cName, tName);
   electron("dr03HcalDepth1TowerSumEt", cName, tName);
   electron("dr03HcalTowerSumEt", cName, tName);
@@ -736,6 +740,7 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
   electron("dr03HcalTowerSumEtBc", cName, tName);
   electron("convDist", cName, tName);
   electron("convRadius", cName, tName);
+  electron("convVtxFitProb", cName, tName);
   electron("pfIsolationVariables().chargedHadronIso", cName, tName, true);
   electron("pfIsolationVariables().neutralHadronIso", cName, tName, true);
   electron("pfIsolationVariables().photonIso", cName, tName, true);
