@@ -2554,6 +2554,12 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       packedCand("lostTracks_eleTracks");
       packedCand("packedPFCandidatesDiscarded_");
 
+      tbr="patHcalDepthEnergyFractionsedmValueMap_packedPFCandidates_hcalDepthEnergyFractions_"+recoS+".obj";
+      if (checkBranchOR(tbr, true)){
+        plotvar(tbr+".values_.fraction(0)");
+        plotvar(tbr+".values_.fraction(0)", tbr+".values_.fraction(0)>=0");
+      }
+
       tbr="patIsolatedTracks_isolatedTracks__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
         plotvar(tbr+"@.size()");
