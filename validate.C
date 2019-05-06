@@ -979,6 +979,7 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
     muonVar("jetPtRatio", cName,tName);
     muonVar("jetPtRel", cName,tName);
     muonVar("mvaValue", cName,tName);
+    muonVar("lowptMvaValue", cName,tName);
     muonVar("softMvaValue", cName,tName);
 
     muonVar("simType", cName,tName);
@@ -1024,6 +1025,7 @@ void packedCand(TString cName = "packedPFCandidates_", TString tName = "patPacke
   packedCandVar("eta",cName,tName);
   packedCandVar("hcalFraction",cName,tName); 
   packedCandVar("rawCaloFraction",cName,tName); 
+  packedCandVar("caloFraction",cName,tName); 
   //all false now//  packedCandVar("isElectron",cName,tName);
   //all false now//  packedCandVar("isPhoton",cName,tName);
   //all false now//  packedCandVar("isConvertedPhoton",cName,tName);
