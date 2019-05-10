@@ -2581,6 +2581,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+".pfLepOverlap()");
         plotvar("min(30,"+tbr+".pfNeutralSum())");
       }
+
+      //L1 prefire weights in miniAOD
+      plotvar("double_prefiringweight_nonPrefiringProb_"+recoS+".obj");
+      plotvar("double_prefiringweight_nonPrefiringProbUp_"+recoS+".obj");
     }
     
     if ((stepContainsNU(step, "all") || stepContainsNU(step, "vertex")) && !stepContainsNU(step, "cosmic") ){
