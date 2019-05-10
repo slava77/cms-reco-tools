@@ -280,6 +280,7 @@ ProdTTbar13TeVPUpmx2018wf250202p118 250202.118_ProdTTbar_13*/step3.root RECO
 #  2019 MC
 #
 TTbar13TeV2019wf11624p0 11624.0_TTbar_13+TTbar_13TeV_TuneCUETP8M1_2019*/step3.root RECO
+TTbar13TeV2021wf11624p0 11624.0_TTbar_13+TTbar_13TeV_TuneCUETP8M1_2021*/step3.root RECO
 #
 #2023 workflows follow
 #
