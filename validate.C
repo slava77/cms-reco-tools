@@ -3349,6 +3349,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar("double_kt6PFJets_rho_"+recoS+".obj");
       plotvar("double_kt6CaloJets_rho_"+recoS+".obj");
       plotvar("double_fixedGridRhoFastjetAll__"+recoS+".obj");
+      plotvar("double_fixedGridRhoFastjetAllTmp__"+recoS+".obj");
       plotvar("double_fixedGridRhoAll__"+recoS+".obj");
 
       tbr="recoJetIDedmValueMap_ak5JetID__"+recoS+".obj";
