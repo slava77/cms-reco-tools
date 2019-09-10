@@ -3035,6 +3035,13 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
       hgcalMultiClusters("hgcalLayerClusters_sharing");
       hgcalMultiClusters("hgcalLayerClusters_");
+      //ticl
+      hgcalMultiClusters("multiClustersFromTracksters_MultiClustersFromTracksterByCA");
+      hgcalMultiClusters("multiClustersFromTrackstersHAD_MultiClustersFromTracksterByCA");
+      hgcalMultiClusters("multiClustersFromTrackstersEM_MultiClustersFromTracksterByCA");
+      hgcalMultiClusters("multiClustersFromTrackstersTrk_TrkMultiClustersFromTracksterByCA");
+      hgcalMultiClusters("multiClustersFromTrackstersMIP_MIPMultiClustersFromTracksterByCA");
+
       // miniaod
       superClusters("reducedEgamma_reducedSuperClusters");
       superClusters("reducedEgamma_reducedOOTSuperClusters");
