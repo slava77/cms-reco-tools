@@ -37,7 +37,7 @@ TTbarPUwf202p0 202.0_TTbar+TTbar*/step3.root RECO
 #
 # fastsim etc
 #
-TTbarFSpHLwf5p1 5.1_TTbar+TTbarFS+*/step1.root HLT
+TTbarFSpHLTwf5p1 5.1_TTbar+TTbarFS+*/step1.root HLT
 TTbarFSpRECOwf5p1 5.1_TTbar+TTbarFS+*/step1.root RECO
 SingleMuPt10FSwf50101p0 50101.0_SingleMuPt10+*/step2.root HLT2
 SingleElectronE120EHCALwf101p0 101.0_SingleElectronE120EHCAL+*/step1.root RECO
