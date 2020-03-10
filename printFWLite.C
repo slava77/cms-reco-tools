@@ -1,4 +1,5 @@
 #include <vector>
+#include <map>
 #include <TFile.h>
 #include <iostream>
 #include <TSystem.h>
@@ -47,8 +48,9 @@ void print_patJets_btags(const std::string& fName,
 }
 
 
-void compare_patJets_btags(const std::string& fNameRef, const std::string& fNameNew,
-                           int nEvts = 1, bool allowNew = true, bool verbose = false){
+void compare_patJets_btags(const std::string& fNameRef, const std::string& fNameNew, const std::string jetName = "slimmedJetsAK8",
+                           int nEvts = 1, bool allowNew = true, bool allowValueDiffs = true, float minRel = -1,
+                           bool verbose = false){
   TFile* fRef = new TFile(fNameRef.c_str());
   cout<<" loaded file "<<fNameRef<<std::endl;
 
@@ -63,21 +65,30 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
   int nTagsRefSameAllGE0 = 0;
   int nTagsRefSameAllGT0 = 0;
 
+  std::map<std::string, int> deltaCountsMap;
+  std::map<std::string, int> deltaMinRelCountsMap;
+
   bool kFirst = true;
 
   eRef.toBegin();
   eNew.toBegin();
   for (; ! eRef.atEnd() && !eNew.atEnd() && (eCount < nEvts || nEvts < 0); ++eRef, ++eNew, ++eCount){
     if (verbose) cout<<" loaded event "<<eRef.id().event()<<endl;
-    assert(eRef.id().event() == eNew.id().event());
+    if (eRef.id().event() != eNew.id().event()){
+      std::cout<<"Events are out of order"<<std::endl;
+      return;
+    }
     
     fwlite::Handle<pat::JetCollection> jhRef;
-    jhRef.getByLabel(eRef, "slimmedJetsAK8");
+    jhRef.getByLabel(eRef, jetName.c_str());
 
     fwlite::Handle<pat::JetCollection> jhNew;
-    jhNew.getByLabel(eNew, "slimmedJetsAK8");
+    jhNew.getByLabel(eNew, jetName.c_str());
     
-    assert(jhRef.ref().size() == jhNew.ref().size());
+    if (jhRef.ref().size() != jhNew.ref().size()){
+      std::cout<<"Jet sizes do not match"<<std::endl;
+      return;
+    }
     int nJ = jhRef.ref().size();
 
     const pat::JetCollection& jvRef = jhRef.ref();
@@ -91,16 +102,40 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
       auto const& dvNew = jNew.getPairDiscri();
       if (not allowNew){
         int nD = dvRef.size();
-        assert(nD == dvNew.size());
+        if (nD != dvNew.size()){
+          std::cout<<"Jet discriminant count does not match"<<std::endl;
+          return;
+        }
         for (int iD = 0; iD < nD; ++iD){
-          assert(dvRef[iD].first == dvNew[iD].first);
-          assert(dvRef[iD].second == dvNew[iD].second);
+          if (dvRef[iD].first != dvNew[iD].first){
+            std::cout<<"Jet discriminant mismatch at index "<<iD
+                     <<" : Ref "<<dvRef[iD].first<<" New "<<dvNew[iD].first
+                     <<std::endl;
+            return;
+          }
+          auto deltaVal = std::abs(dvRef[iD].second - dvNew[iD].second);
+          if (dvRef[iD].second != dvNew[iD].second){
+            if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
+              std::cout<<"Jet discriminant mismatch for "<<dvRef[iD].first
+                       <<" : Ref "<<dvRef[iD].second<<" New "<<dvNew[iD].second
+                       <<std::endl;
+            }
+            if (allowValueDiffs) {
+              deltaCountsMap[dvRef[iD].first]++;
+              auto aveVal = (std::abs(dvRef[iD].second) + std::abs(dvNew[iD].second))*0.5f;
+              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[dvRef[iD].first]++;
+            } else
+              return;
+          }
         }
       } else {
         //assume the reference is required to always have a match in the New
         int nDRef = dvRef.size();
         int nDNew = dvNew.size();
-        assert(nDRef <= nDNew);
+        if (nDRef > nDNew){
+          std::cout<<"Ref has more tags than New: try reruning with flipped order"<<std::endl;
+          return;
+        }
         for (int iDRef = 0; iDRef < nDRef; ++iDRef){
           auto const& keyRef = dvRef[iDRef].first;
           auto const& valRef = dvRef[iDRef].second;
@@ -108,13 +143,30 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
           for (int iDNew = 0; iDNew < nDNew; ++iDNew){
             if (dvNew[iDNew].first == keyRef){
               hasMatch = (valRef == dvNew[iDNew].second);
+              if (not hasMatch){
+                if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
+                  std::cout<<"Jet discriminant mismatch for "<<keyRef
+                           <<" : Ref "<<valRef<<" New "<<dvNew[iDNew].second
+                           <<std::endl;
+                }
+                if (allowValueDiffs) {
+                  deltaCountsMap[keyRef]++;
+                  auto deltaVal = std::abs(valRef - dvNew[iDNew].second);
+                  auto aveVal = (std::abs(valRef) + std::abs(dvNew[iDNew].second))*0.5f;
+                  if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[dvRef[iDNew].first]++;
+                } else
+                  return;
+              }
               break;
             }
           }
-          assert(hasMatch);
-          nTagsRefSameAll++;
-          if (valRef >= 0) nTagsRefSameAllGE0++;
-          if (valRef >  0) nTagsRefSameAllGT0++;
+          if (hasMatch){
+            nTagsRefSameAll++;
+            if (valRef >= 0) nTagsRefSameAllGE0++;
+            if (valRef >  0) nTagsRefSameAllGT0++;
+          } else if (verbose) {
+            std::cout<<"Jet tag difference for "<<std::endl;
+          }
         }
         if (kFirst){
           std::cout<<"New has "<<nDNew<<" tags; Ref has "<<nDRef<<" tags"<<std::endl;
@@ -137,12 +189,20 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
     }//iJ
   }//event loop
 
-  std::cout<<"Comparison OK on "<<eCount<<" events "
+  std::cout<<"Comparison on "<<eCount<<" events "
            <<nJetsRefAll<<" refJets "
            <<nTagsRefSameAll<<" allRefTags "
            <<nTagsRefSameAllGE0<<" allRefTagsGE0 "
            <<nTagsRefSameAllGT0<<" allRefTagsGT0 "
            <<std::endl;
+  if (not deltaCountsMap.empty()){
+    std::cout<<"Common pairs have differences: "<<std::endl;
+    for (auto const& mVal : deltaCountsMap){
+      std::cout<<"\t "<<mVal.first<<" diff count "<<mVal.second;
+      if (minRel > 0) std::cout<<" , "<<deltaMinRelCountsMap[mVal.first]<< " relD > "<<minRel;
+      std::cout<<std::endl;
+    }
+  }
 }
 
 void print_patEGamma_userFloats(){
