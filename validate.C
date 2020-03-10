@@ -332,17 +332,23 @@ void jets(TString type,TString algo){
 
   if (type == "patJets"){    
     PlotStats res = jet(type, algo, "userFloats_@.size");
+    TString jetBName = type+"_"+algo+(algo.Contains("_")? "_" : "__")+recoS;
     for (int i = 0; i< maxSize(res); ++i){
-      plotvar(type+"_"+algo+(algo.Contains("_")? "_" : "__")+recoS+Form(".obj[].userFloats_[%d]",i), "", true);
+      plotvar(jetBName+Form(".obj[].userFloats_[%d]",i), "", true);
     }
     res = jet(type, algo, "userInts_@.size");
     for (int i = 0; i< maxSize(res); ++i){
-      plotvar(type+"_"+algo+(algo.Contains("_")? "_" : "__")+recoS+Form(".obj[].userInts_[%d]",i), "", true);
+      plotvar(jetBName+Form(".obj[].userInts_[%d]",i), "", true);
     }
     jet(type, algo, "userCands_@.size");
     res = jet(type, algo, "pairDiscriVector_@.size");
     for (int i = 0; i< maxSize(res); ++i){
-      plotvar("min(2,max(-2,"+type+"_"+algo+(algo.Contains("_")? "_" : "__")+recoS+Form(".obj[].pairDiscriVector_[%d].second))",i), "", true);
+      plotvar("min(2,max(-2,"+jetBName+Form(".obj[].pairDiscriVector_[%d].second))",i), "", true);
+    }
+    if (algo.Contains("AK8")){//many discriminants are valid only for high pt
+      for (int i = 0; i< maxSize(res); ++i){
+        plotvar("min(2,max(-2,"+jetBName+Form(".obj[].pairDiscriVector_[%d].second))",i), jetBName+".obj[].pt()>200", true);
+      }
     }
   }
 }
