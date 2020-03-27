@@ -3,6 +3,7 @@ baseA=$1
 baseB=$2
 diffN=$3
 inList=$4
+stepN=${5:-"all"}
 #noMiniAOD=$5
 
 function waitForProcesses {
@@ -28,7 +29,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do
     fN=`echo ${baseA}/${fNP} | cut -d" " -f1 | sed -e "s?^${baseA}/??g"`
     #[ ! -f "${baseA}/${fN}" ] && echo Missing ${baseA}/${fN} && continue
     if [ -f "${baseA}/${fN}" ]; then
-      extN=all_${diffN}_${dsN}
+      extN=${stepN}_${diffN}_${dsN}
       mkdir -p ${extN}
       cd ${cWD}/${extN}
       cp ~/tools/validate.C ./
@@ -47,7 +48,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do
     #if [ -f "${baseA}/${mFN}" ] && [ ! $noMiniAOD ]; then 
     if [ -f "${baseA}/${mFN}" ]; then
         echo $mFN
-        extmN=all_mini_${diffN}_${dsN}
+        extmN=${stepN}_mini_${diffN}_${dsN}
         mkdir -p ${extmN}
         cd ${cWD}/${extmN}
         cp ~/tools/validate.C ./
