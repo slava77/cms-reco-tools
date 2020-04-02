@@ -7,6 +7,7 @@
 #include "FWCore/FWLite/interface/FWLiteEnabler.h"
 #include "DataFormats/FWLite/interface/Handle.h"
 #include "DataFormats/PatCandidates/interface/Jet.h"
+#include "DataFormats/PatCandidates/interface/Tau.h"
 #include "DataFormats/PatCandidates/interface/Electron.h"
 #include "DataFormats/PatCandidates/interface/Photon.h"
 #include "DataFormats/FWLite/interface/Event.h"
@@ -113,17 +114,20 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
                      <<std::endl;
             return;
           }
-          auto deltaVal = std::abs(dvRef[iD].second - dvNew[iD].second);
-          if (dvRef[iD].second != dvNew[iD].second){
+          auto const& keyRef = dvRef[iD].first;
+          auto const& valRef = dvRef[iD].second;
+          auto const& valNew = dvNew[iD].second;
+          auto deltaVal = std::abs(valRef - valNew);
+          if (valRef != valNew){
             if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
-              std::cout<<"Jet discriminant mismatch for "<<dvRef[iD].first
-                       <<" : Ref "<<dvRef[iD].second<<" New "<<dvNew[iD].second
+              std::cout<<"Jet discriminant mismatch for "<<keyRef
+                       <<" : Ref "<<valRef<<" New "<<valNew
                        <<std::endl;
             }
             if (allowValueDiffs) {
-              deltaCountsMap[dvRef[iD].first]++;
-              auto aveVal = (std::abs(dvRef[iD].second) + std::abs(dvNew[iD].second))*0.5f;
-              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[dvRef[iD].first]++;
+              deltaCountsMap[keyRef]++;
+              auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
             } else
               return;
           }
@@ -142,18 +146,19 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
           bool hasMatch = false;
           for (int iDNew = 0; iDNew < nDNew; ++iDNew){
             if (dvNew[iDNew].first == keyRef){
-              hasMatch = (valRef == dvNew[iDNew].second);
+              auto const& valNew = dvNew[iDNew].second;
+              hasMatch = (valRef == valNew);
               if (not hasMatch){
                 if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
                   std::cout<<"Jet discriminant mismatch for "<<keyRef
-                           <<" : Ref "<<valRef<<" New "<<dvNew[iDNew].second
+                           <<" : Ref "<<valRef<<" New "<<valNew
                            <<std::endl;
                 }
                 if (allowValueDiffs) {
                   deltaCountsMap[keyRef]++;
-                  auto deltaVal = std::abs(valRef - dvNew[iDNew].second);
-                  auto aveVal = (std::abs(valRef) + std::abs(dvNew[iDNew].second))*0.5f;
-                  if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[dvRef[iDNew].first]++;
+                  auto deltaVal = std::abs(valRef - valNew);
+                  auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+                  if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
                 } else
                   return;
               }
@@ -194,6 +199,161 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
            <<nTagsRefSameAll<<" allRefTags "
            <<nTagsRefSameAllGE0<<" allRefTagsGE0 "
            <<nTagsRefSameAllGT0<<" allRefTagsGT0 "
+           <<std::endl;
+  if (not deltaCountsMap.empty()){
+    std::cout<<"Common pairs have differences: "<<std::endl;
+    for (auto const& mVal : deltaCountsMap){
+      std::cout<<"\t "<<mVal.first<<" diff count "<<mVal.second;
+      if (minRel > 0) std::cout<<" , "<<deltaMinRelCountsMap[mVal.first]<< " relD > "<<minRel;
+      std::cout<<std::endl;
+    }
+  }
+}
+
+void compare_patTaus_IDs(const std::string& fNameRef, const std::string& fNameNew, const std::string tauName = "slimmedTaus",
+                         int nEvts = 1, bool allowNew = true, bool allowValueDiffs = true, float minRel = -1,
+                         bool verbose = false){
+  TFile* fRef = new TFile(fNameRef.c_str());
+  cout<<" loaded file "<<fNameRef<<std::endl;
+
+  TFile* fNew = new TFile(fNameNew.c_str());
+  cout<<" loaded file "<<fNameNew<<std::endl;
+
+  fwlite::Event eRef(fRef);
+  fwlite::Event eNew(fNew);
+  int eCount = 0;
+  int nTausRefAll = 0;
+  int nIDsRefSameAll = 0;
+
+  std::map<std::string, int> deltaCountsMap;
+  std::map<std::string, int> deltaMinRelCountsMap;
+
+  bool kFirst = true;
+
+  eRef.toBegin();
+  eNew.toBegin();
+  for (; ! eRef.atEnd() && !eNew.atEnd() && (eCount < nEvts || nEvts < 0); ++eRef, ++eNew, ++eCount){
+    if (verbose) cout<<" loaded event "<<eRef.id().event()<<endl;
+    if (eRef.id().event() != eNew.id().event()){
+      std::cout<<"Events are out of order"<<std::endl;
+      return;
+    }
+    
+    fwlite::Handle<pat::TauCollection> thRef;
+    thRef.getByLabel(eRef, tauName.c_str());
+
+    fwlite::Handle<pat::TauCollection> thNew;
+    thNew.getByLabel(eNew, tauName.c_str());
+    
+    if (thRef.ref().size() != thNew.ref().size()){
+      std::cout<<"Tau sizes do not match"<<std::endl;
+      return;
+    }
+    int nT = thRef.ref().size();
+
+    const pat::TauCollection& tvRef = thRef.ref();
+    const pat::TauCollection& tvNew = thNew.ref();
+
+    for (int iT = 0; iT < nT; ++iT){
+      auto const& tRef = tvRef[iT];
+      auto const& tNew = tvNew[iT];
+
+      auto const& idvRef = tRef.tauIDs();
+      auto const& idvNew = tNew.tauIDs();
+      if (not allowNew){
+        int nID = idvRef.size();
+        if (nID != idvNew.size()){
+          std::cout<<"Tau ID count does not match"<<std::endl;
+          return;
+        }
+        for (int iID = 0; iID < nID; ++iID){
+          if (idvRef[iID].first != idvNew[iID].first){
+            std::cout<<"Tau ID mismatch at index "<<iID
+                     <<" : Ref "<<idvRef[iID].first<<" New "<<idvNew[iID].first
+                     <<std::endl;
+            return;
+          }
+          auto const& keyRef = idvRef[iID].first;
+          auto const& valRef = idvRef[iID].second;
+          auto const& valNew = idvNew[iID].second;
+          auto deltaVal = std::abs(valRef - valNew);
+          if (valRef != valNew){
+            if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
+              std::cout<<"Tau ID mismatch for "<<keyRef
+                       <<" : Ref "<<valRef<<" New "<<valNew
+                       <<std::endl;
+            }
+            if (allowValueDiffs) {
+              deltaCountsMap[keyRef]++;
+              auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
+            } else
+              return;
+          }
+        }
+      } else {
+        //assume the reference is required to always have a match in the New
+        int nIDRef = idvRef.size();
+        int nIDNew = idvNew.size();
+        if (nIDRef > nIDNew){
+          std::cout<<"Ref has more IDs than New: try reruning with flipped order"<<std::endl;
+          return;
+        }
+        for (int iIDRef = 0; iIDRef < nIDRef; ++iIDRef){
+          auto const& keyRef = idvRef[iIDRef].first;
+          auto const& valRef = idvRef[iIDRef].second;
+          bool hasMatch = false;
+          for (int iIDNew = 0; iIDNew < nIDNew; ++iIDNew){
+            if (idvNew[iIDNew].first == keyRef){
+              auto const& valNew = idvNew[iIDNew].second;
+              hasMatch = (valRef == valNew);
+              if (not hasMatch){
+                if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
+                  std::cout<<"Tau ID mismatch for "<<keyRef
+                           <<" : Ref "<<valRef<<" New "<<valNew
+                           <<std::endl;
+                }
+                if (allowValueDiffs) {
+                  deltaCountsMap[keyRef]++;
+                  auto deltaVal = std::abs(valRef - valNew);
+                  auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+                  if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
+                } else
+                  return;
+              }
+              break;
+            }
+          }
+          if (hasMatch){
+            nIDsRefSameAll++;
+          } else if (verbose) {
+            std::cout<<"Tau ID difference for "<<std::endl;
+          }
+        }
+        if (kFirst){
+          std::cout<<"New has "<<nIDNew<<" IDs; Ref has "<<nIDRef<<" IDs"<<std::endl;
+          for (int iIDNew = 0; iIDNew < nIDNew; ++iIDNew){
+            bool hasMatch = false;
+            int iRefMatch = 0;
+            for (int iIDRef = 0; iIDRef < nIDRef; ++iIDRef){
+              if (idvNew[iIDNew].first == idvRef[iIDRef].first){
+                hasMatch = true;
+                iRefMatch = iIDRef;
+              }
+            }
+            if (hasMatch) printf("%3d was %3d %s\n", iIDNew, iRefMatch, idvNew[iIDNew].first.c_str());
+            else          printf("%3d is new  %s\n", iIDNew, idvNew[iIDNew].first.c_str());
+          }
+          kFirst = false;
+        }
+      }// else: allowNew
+      nTausRefAll++;
+    }//iT
+  }//event loop
+
+  std::cout<<"Comparison on "<<eCount<<" events "
+           <<nTausRefAll<<" refTaus "
+           <<nIDsRefSameAll<<" allRefIDs "
            <<std::endl;
   if (not deltaCountsMap.empty()){
     std::cout<<"Common pairs have differences: "<<std::endl;
