@@ -114,17 +114,20 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
                      <<std::endl;
             return;
           }
-          auto deltaVal = std::abs(dvRef[iD].second - dvNew[iD].second);
-          if (dvRef[iD].second != dvNew[iD].second){
+          auto const& keyRef = dvRef[iD].first;
+          auto const& valRef = dvRef[iD].second;
+          auto const& valNew = dvNew[iD].second;
+          auto deltaVal = std::abs(valRef - valNew);
+          if (valRef != valNew){
             if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
-              std::cout<<"Jet discriminant mismatch for "<<dvRef[iD].first
-                       <<" : Ref "<<dvRef[iD].second<<" New "<<dvNew[iD].second
+              std::cout<<"Jet discriminant mismatch for "<<keyRef
+                       <<" : Ref "<<valRef<<" New "<<valNew
                        <<std::endl;
             }
             if (allowValueDiffs) {
-              deltaCountsMap[dvRef[iD].first]++;
-              auto aveVal = (std::abs(dvRef[iD].second) + std::abs(dvNew[iD].second))*0.5f;
-              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[dvRef[iD].first]++;
+              deltaCountsMap[keyRef]++;
+              auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
             } else
               return;
           }
@@ -270,17 +273,20 @@ void compare_patTaus_IDs(const std::string& fNameRef, const std::string& fNameNe
                      <<std::endl;
             return;
           }
-          auto deltaVal = std::abs(idvRef[iID].second - idvNew[iID].second);
-          if (idvRef[iID].second != idvNew[iID].second){
+          auto const& keyRef = idvRef[iID].first;
+          auto const& valRef = idvRef[iID].second;
+          auto const& valNew = idvNew[iID].second;
+          auto deltaVal = std::abs(valRef - valNew);
+          if (valRef != valNew){
             if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
-              std::cout<<"Tau ID mismatch for "<<idvRef[iID].first
-                       <<" : Ref "<<idvRef[iID].second<<" New "<<idvNew[iID].second
+              std::cout<<"Tau ID mismatch for "<<keyRef
+                       <<" : Ref "<<valRef<<" New "<<valNew
                        <<std::endl;
             }
             if (allowValueDiffs) {
-              deltaCountsMap[idvRef[iID].first]++;
-              auto aveVal = (std::abs(idvRef[iID].second) + std::abs(idvNew[iID].second))*0.5f;
-              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[idvRef[iID].first]++;
+              deltaCountsMap[keyRef]++;
+              auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
             } else
               return;
           }
