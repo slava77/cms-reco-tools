@@ -1132,7 +1132,7 @@ void hgcalMultiClusters(TString cName ){
   plotvar(bObj+".eta()");
   plotvar(bObj+".phi()");
   plotvar("log10("+bObj+".energy())");
-  plotvar(bObj+".time()");
+  plotvar("min(100,max(-20,"+bObj+".time()))");
 }
 
 void tracksters(TString cName ){
@@ -1150,7 +1150,7 @@ void tracksters(TString cName ){
   plotvar(bObj+".id_probabilities(4)");
   plotvar("log10("+bObj+".raw_energy())");
   plotvar("log10("+bObj+".regressed_energy())");
-  plotvar(bObj+".time()");
+  plotvar("min(100,max(-20,"+bObj+".time()))");
 }
 
 void ticlCands(TString cName ){
@@ -1168,7 +1168,7 @@ void ticlCands(TString cName ){
   plotvar(bObj+".id_probability(TICLCandidate::ParticleType::charged_hadron)");
   plotvar(bObj+".id_probability(TICLCandidate::ParticleType::neutral_hadron)");
   plotvar("log10("+bObj+".rawEnergy())");
-  plotvar(bObj+".time()");
+  plotvar("min(100,max(-20,"+bObj+".time()))");
   plotvar("log10("+bObj+".timeError())");
 }
 
