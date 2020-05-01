@@ -51,7 +51,7 @@ void print_patJets_btags(const std::string& fName,
 
 void compare_patJets_btags(const std::string& fNameRef, const std::string& fNameNew, const std::string jetName = "slimmedJetsAK8",
                            int nEvts = 1, bool allowNew = true, bool allowValueDiffs = true, float minRel = -1,
-                           bool verbose = false){
+                           bool verbose = false, bool verboseRel = false){
   TFile* fRef = new TFile(fNameRef.c_str());
   cout<<" loaded file "<<fNameRef<<std::endl;
 
@@ -74,7 +74,7 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
   eRef.toBegin();
   eNew.toBegin();
   for (; ! eRef.atEnd() && !eNew.atEnd() && (eCount < nEvts || nEvts < 0); ++eRef, ++eNew, ++eCount){
-    if (verbose) cout<<" loaded event "<<eRef.id().event()<<endl;
+    if (verbose || verboseRel) cout<<" loaded event "<<eRef.id().event()<<endl;
     if (eRef.id().event() != eNew.id().event()){
       std::cout<<"Events are out of order"<<std::endl;
       return;
@@ -119,17 +119,20 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
           auto const& valNew = dvNew[iD].second;
           auto deltaVal = std::abs(valRef - valNew);
           if (valRef != valNew){
-            if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
+            deltaCountsMap[keyRef]++;
+            auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+            bool hasDiffRel = false;
+            if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel){
+              deltaMinRelCountsMap[keyRef]++;
+              hasDiffRel = true;
+            }
+            
+            if ( (!allowValueDiffs) || (allowValueDiffs && (verbose || (hasDiffRel && verboseRel)) ) ){
               std::cout<<"Jet discriminant mismatch for "<<keyRef
                        <<" : Ref "<<valRef<<" New "<<valNew
                        <<std::endl;
             }
-            if (allowValueDiffs) {
-              deltaCountsMap[keyRef]++;
-              auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
-              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
-            } else
-              return;
+            if (!allowValueDiffs) return;
           }
         }
       } else {
@@ -149,18 +152,21 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
               auto const& valNew = dvNew[iDNew].second;
               hasMatch = (valRef == valNew);
               if (not hasMatch){
-                if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
+                deltaCountsMap[keyRef]++;
+                auto deltaVal = std::abs(valRef - valNew);
+                auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+                bool hasDiffRel = false;
+                if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel){
+                  deltaMinRelCountsMap[keyRef]++;
+                  hasDiffRel = true;
+                }
+
+                if ( (!allowValueDiffs) || (allowValueDiffs && (verbose || (hasDiffRel && verboseRel)) ) ){
                   std::cout<<"Jet discriminant mismatch for "<<keyRef
                            <<" : Ref "<<valRef<<" New "<<valNew
                            <<std::endl;
                 }
-                if (allowValueDiffs) {
-                  deltaCountsMap[keyRef]++;
-                  auto deltaVal = std::abs(valRef - valNew);
-                  auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
-                  if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
-                } else
-                  return;
+                if (!allowValueDiffs) return;
               }
               break;
             }
