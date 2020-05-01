@@ -2438,7 +2438,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+".m_data.localPosition().y()");
       }
 
-      allTracks("trackExtenderWithMTD__RECO");
+      allTracks("trackExtenderWithMTD__"+recoS);
       tbr="floatedmValueMap_trackExtenderWithMTD_";
       plotvar(tbr+"generalTrackBeta_"+recoS+".obj.values_");
       plotvar(tbr+"generalTrackt0_"+recoS+".obj.values_");
