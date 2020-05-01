@@ -1135,6 +1135,43 @@ void hgcalMultiClusters(TString cName ){
   plotvar(bObj+".time()");
 }
 
+void tracksters(TString cName ){
+  TString bObj = "ticlTracksters_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".vertices_@.size()");
+  plotvar(bObj+".vertex_multiplicity_@.size()");
+
+  plotvar(bObj+".barycenter().phi()");
+  plotvar(bObj+".barycenter().eta()");
+  plotvar(bObj+".barycenter().z()");
+  plotvar(bObj+".id_probabilities(0)");
+  plotvar(bObj+".id_probabilities(2)");
+  plotvar(bObj+".id_probabilities(4)");
+  plotvar("log10("+bObj+".raw_energy())");
+  plotvar("log10("+bObj+".regressed_energy())");
+  plotvar(bObj+".time()");
+}
+
+void ticlCands(TString cName ){
+  TString bObj = "TICLCandidates_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+  plotvar(bObj+"@.size()");
+
+  plotvar(bObj+".phi()");
+  plotvar(bObj+".eta()");
+  plotvar("log10("+bObj+".pt())");
+  plotvar(bObj+".id_probability(TICLCandidate::ParticleType::photon)");
+  plotvar(bObj+".id_probability(TICLCandidate::ParticleType::electron)");
+  plotvar(bObj+".id_probability(TICLCandidate::ParticleType::muon)");
+  plotvar(bObj+".id_probability(TICLCandidate::ParticleType::neutral_pion)");
+  plotvar(bObj+".id_probability(TICLCandidate::ParticleType::charged_hadron)");
+  plotvar(bObj+".id_probability(TICLCandidate::ParticleType::neutral_hadron)");
+  plotvar("log10("+bObj+".rawEnergy())");
+  plotvar(bObj+".time()");
+  plotvar("log10("+bObj+".timeError())");
+}
+
 void plotTrack(TString alias, TString var){
   TString v="recoTracks_"+alias+"."+var;
   if (!(v.Contains("(") && v.Contains(")") && !v.Contains("()")))
@@ -3261,7 +3298,19 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       hgcalMultiClusters("multiClustersFromTrackstersEM_MultiClustersFromTracksterByCA");
       hgcalMultiClusters("multiClustersFromTrackstersTrk_TrkMultiClustersFromTracksterByCA");
       hgcalMultiClusters("multiClustersFromTrackstersMIP_MIPMultiClustersFromTracksterByCA");
+      hgcalMultiClusters("ticlMultiClustersFromTrackstersEM_");
+      hgcalMultiClusters("ticlMultiClustersFromTrackstersHAD_");
+      hgcalMultiClusters("ticlMultiClustersFromTrackstersMIP_");
+      hgcalMultiClusters("ticlMultiClustersFromTrackstersMerge_");
+      hgcalMultiClusters("ticlMultiClustersFromTrackstersTrk_");
 
+      tracksters("ticlTrackstersEM_");
+      tracksters("ticlTrackstersHAD_");
+      tracksters("ticlTrackstersMIP_");
+      tracksters("ticlTrackstersMerge_");
+      tracksters("ticlTrackstersTrk_");
+
+      ticlCands("ticlCandidateFromTracksters_");
       // miniaod
       superClusters("reducedEgamma_reducedSuperClusters");
       superClusters("reducedEgamma_reducedOOTSuperClusters");
@@ -3361,6 +3410,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       allpf(-1, "particleFlowTmp_CleanedPunchThroughNeutralHadrons");
       allpf(-1, "particleFlowTmp_CleanedTrackerAndGlobalMuons");
       allpf(-1, "particleFlowTmp_electrons");
+
+      allpf(-1, "pfTICL_");
 
       tbr="recoPFMETs_pfMet__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
