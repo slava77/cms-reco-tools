@@ -25,7 +25,7 @@ cWD=`pwd`
 export pidList=""
 llistF=lastlist_${diffN}.txt
 echo Start processing at `date`
-grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do 
+grep root ${inList} | grep -v "#" | while read -r dsN fNP procN procR comm; do 
     fN=`echo ${baseA}/${fNP} | cut -d" " -f1 | sed -e "s?^${baseA}/??g"`
     #[ ! -f "${baseA}/${fN}" ] && echo Missing ${baseA}/${fN} && continue
     if [ -f "${baseA}/${fN}" ]; then
@@ -37,7 +37,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do
       echo "Now in `pwd`"
       #g++ -shared -o validate.so validate.C `root-config --cflags ` -fPIC
       echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n AutoLibraryLoader::enable();\n FWLiteEnabler::enable();\n 
-      .x validate.C+(\"${extN}\", \"${baseA}/${fN}\", \"${baseB}/${fN}\", \"${procN}\");\n .qqqqqq" | root -l -b >& ${extN}.log &
+      .x validate.C+(\"${extN}\", \"${baseA}/${fN}\", \"${baseB}/${fN}\", \"${procN}\", 0, \"${procR}\");\n .qqqqqq" | root -l -b >& ${extN}.log &
       waitForProcesses
     fi
     fNBase=`echo ${fN} | sed -e 's/.root$//g'`
@@ -55,7 +55,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do
         echo "Will run on ${mFN} in ${cWD}/${extmN}"
         echo "Now in `pwd`"
         echo -e "gSystem->Load(\"libFWCoreFWLite.so\");\n AutoLibraryLoader::enable();\n FWLiteEnabler::enable();\n 
-        .x validate.C+(\"${extmN}\", \"${baseA}/${mFN}\", \"${baseB}/${mFN}\", \"${procN}\");\n .qqqqqq" | root -l -b >& ${extmN}.log &
+        .x validate.C+(\"${extmN}\", \"${baseA}/${mFN}\", \"${baseB}/${mFN}\", \"${procN}\", 0, \"${procR}\");\n .qqqqqq" | root -l -b >& ${extmN}.log &
         waitForProcesses
     fi
     #manually set the make flags, not needed in most cases
