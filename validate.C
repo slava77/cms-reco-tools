@@ -362,7 +362,7 @@ void caloTowers(TString br, bool addHEP17 = false){
   plotvar("log10("+tObj+".energy())");
   plotvar("log10("+tObj+".emEnergy())");
   plotvar("log10("+tObj+".hadEnergy())");
-  plotvar("log10("+tObj+".mass2())/2.");
+  plotvar("log10("+tObj+".massSqr())/2.");
   plotvar(tObj+".eta()");
   plotvar(tObj+".phi()");
   
@@ -370,7 +370,7 @@ void caloTowers(TString br, bool addHEP17 = false){
     plotvar("log10("+tObj+".energy())", tObj+".eta()>1.5&&"+tObj+".eta()<3&&"+tObj+".phi()<-0.435&&"+tObj+".phi()>-0.960");
     plotvar("log10("+tObj+".emEnergy())", tObj+".eta()>1.5&&"+tObj+".eta()<3&&"+tObj+".phi()<-0.435&&"+tObj+".phi()>-0.960");
     plotvar("log10("+tObj+".hadEnergy())", tObj+".eta()>1.5&&"+tObj+".eta()<3&&"+tObj+".phi()<-0.435&&"+tObj+".phi()>-0.960");
-    plotvar("log10("+tObj+".mass2())/2.", tObj+".eta()>1.5&&"+tObj+".eta()<3&&"+tObj+".phi()<-0.435&&"+tObj+".phi()>-0.960");
+    plotvar("log10("+tObj+".massSqr())/2.", tObj+".eta()>1.5&&"+tObj+".eta()<3&&"+tObj+".phi()<-0.435&&"+tObj+".phi()>-0.960");
     plotvar(tObj+".eta()", tObj+".eta()>1.5&&"+tObj+".eta()<3&&"+tObj+".phi()<-0.435&&"+tObj+".phi()>-0.960");
     plotvar(tObj+".phi()", tObj+".eta()>1.5&&"+tObj+".eta()<3&&"+tObj+".phi()<-0.435&&"+tObj+".phi()>-0.960");
   }
@@ -379,7 +379,7 @@ void caloTowers(TString br, bool addHEP17 = false){
   plotvar("log10("+tObj+".energy())", tObj+".energy()>0");
   plotvar("log10("+tObj+".emEnergy())", tObj+".energy()>0");
   plotvar("log10("+tObj+".hadEnergy())", tObj+".energy()>0");
-  plotvar("log10("+tObj+".mass2())/2.", tObj+".energy()>0");
+  plotvar("log10("+tObj+".massSqr())/2.", tObj+".energy()>0");
   plotvar(tObj+".eta()", tObj+".energy()>0");
   plotvar(tObj+".phi()", tObj+".energy()>0");
 }
@@ -3587,7 +3587,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar("log10("+tbr+".energy())");
         plotvar("log10("+tbr+".emEnergy())");
         plotvar("log10("+tbr+".hadEnergy())");
-        plotvar("log10("+tbr+".mass2())/2.");
+        plotvar("log10("+tbr+".massSqr())/2.");
         plotvar(tbr+".eta()");
         plotvar(tbr+".phi()");
       }
