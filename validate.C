@@ -2482,7 +2482,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+".m_data.y()");
         plotvar(tbr+".m_data.energy()");
         plotvar(tbr+".m_data.time()");
-        plotvar(tbr+".m_data.time_error()");
+        plotvar(tbr+".m_data.timeError()");
       }
 
       tbr="FTLClusteredmNewDetSetVector_mtdClusters_FTLEndcap_"+recoS+".obj";
@@ -2492,7 +2492,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+".m_data.y()");
         plotvar(tbr+".m_data.energy()");
         plotvar(tbr+".m_data.time()");
-        plotvar(tbr+".m_data.time_error()");
+        plotvar(tbr+".m_data.timeError()");
       }
 
       //tracking rechits
