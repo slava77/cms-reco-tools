@@ -2513,6 +2513,10 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+"generalTracktmtd_"+recoS+".obj.values_");
       plotvar(tbr+"pathLength_"+recoS+".obj.values_");
       plotvar(tbr+"tmtd_"+recoS+".obj.values_");
+      plotvar(tbr+"btlMatchChi2_"+recoS+".obj.values_");
+      plotvar(tbr+"etlMatchChi2_"+recoS+".obj.values_");
+      plotvar(tbr+"btlMatchTimeChi2_"+recoS+".obj.values_");
+      plotvar(tbr+"etlMatchTimeChi2_"+recoS+".obj.values_");
 
       tbr="floatedmValueMap_tofPID_";
       plotvar(tbr+"t0_"+recoS+".obj.values_");
