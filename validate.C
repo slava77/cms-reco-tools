@@ -2503,8 +2503,6 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
             plotvar(tbr+".m_data.energy()");
             plotvar(tbr+".m_data.time()");
         */
-        plotvar(tbr+".m_data.localPosition().x()");
-        plotvar(tbr+".m_data.localPosition().y()");
       }
 
       allTracks("trackExtenderWithMTD__"+recoS);
