@@ -2515,6 +2515,8 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+"tmtd_"+recoS+".obj.values_");
       plotvar(tbr+"btlMatchChi2_"+recoS+".obj.values_");
       plotvar(tbr+"etlMatchChi2_"+recoS+".obj.values_");
+      plotvar("min(20,"+tbr+"btlMatchChi2_"+recoS+".obj.values_)", tbr+"btlMatchChi2_"+recoS+".obj.values_>=0");
+      plotvar("min(20,"+tbr+"etlMatchChi2_"+recoS+".obj.values_)", tbr+"etlMatchChi2_"+recoS+".obj.values_>=0");
       plotvar(tbr+"btlMatchTimeChi2_"+recoS+".obj.values_");
       plotvar(tbr+"etlMatchTimeChi2_"+recoS+".obj.values_");
 
