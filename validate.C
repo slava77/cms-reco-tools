@@ -1355,33 +1355,35 @@ void tauIDContainer(const TString& bName){
 }
 
 void flatTable(const TString& shortName){
-  const TString tName = "nanoaodFlatTable_"+shortName;
-  plotvar(tName+"_"+recoS+".obj.size_");
-  PlotStats res = plotvar(tName+"_"+recoS+".obj.columns_@.size()");
+  const TString bObj = "nanoaodFlatTable_"+shortName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+".size_");
+  PlotStats res = plotvar(bObj+".columns_@.size()");
   if (res.new_mean == 0 && res.new_entries != 0){ //over/underflow case
-    std::cout<<"WARNING: Branch "<<tName<<" columns_@.size() is off scale vs ref"<<std::endl;
+    std::cout<<"WARNING: Branch "<<bObj<<" columns_@.size() is off scale vs ref"<<std::endl;
   }
   int nCols = res.ref_mean;
   if (res.ref_rms != 0){//size varies event to event => use xmax instead
     nCols = res.ref_xmax;
   }
 
-  refEvents->SetAlias("xN", tName+"_"+recoS+".obj.size_");
-  Events->SetAlias("xN", tName+"_"+recoS+".obj.size_");
+  refEvents->SetAlias("xN", bObj+".size_");
+  Events->SetAlias("xN", bObj+".size_");
   for (int i = 0; i< nCols; ++i){
-    res = plotvar(tName+"_"+recoS+Form(".obj.columns_[%i].type", i));
+    res = plotvar(bObj+Form(".columns_[%i].type", i));
     if (res.new_mean == res.ref_mean && res.new_entries != 0 && res.ref_entries != 0){//plot only matching content
-      const char* cName = Events->Query(tName+"_"+recoS+Form(".obj.columnName(%i)", i), "", "", 1)->Next()->GetField(0);
+      const char* cName = Events->Query(bObj+Form(".columnName(%i)", i), "", "", 1)->Next()->GetField(0);
 
-      refEvents->SetAlias(Form("xC%i", i), tName+"_"+recoS+Form(".obj.columns_[%i].firstIndex", i));
-      Events->SetAlias(Form("xC%i", i), tName+"_"+recoS+Form(".obj.columns_[%i].firstIndex", i));
+      refEvents->SetAlias(Form("xC%i", i), bObj+Form(".columns_[%i].firstIndex", i));
+      Events->SetAlias(Form("xC%i", i), bObj+Form(".columns_[%i].firstIndex", i));
 
       if (res.new_mean == 0){
-        plotvar(tName+"_"+recoS+Form(".obj.floats_*(\"%s\"!=\"\")",cName), Form("Iteration$>=xC%i&&Iteration$<xC%i+xN", i, i));
+        plotvar(bObj+Form(".floats_*(\"%s\"!=\"\")",cName), Form("Iteration$>=xC%i&&Iteration$<xC%i+xN", i, i));
       } else if (res.new_mean == 1){
-        plotvar(tName+"_"+recoS+Form(".obj.ints_*(\"%s\"!=\"\")",cName), Form("Iteration$>=xC%i&&Iteration$<xC%i+xN", i, i));
+        plotvar(bObj+Form(".ints_*(\"%s\"!=\"\")",cName), Form("Iteration$>=xC%i&&Iteration$<xC%i+xN", i, i));
       } else {
-        plotvar(tName+"_"+recoS+Form(".obj.uint8s_*(\"%s\"!=\"\")",cName), Form("Iteration$>=xC%i&&Iteration$<xC%i+xN", i, i));
+        plotvar(bObj+Form(".uint8s_*(\"%s\"!=\"\")",cName), Form("Iteration$>=xC%i&&Iteration$<xC%i+xN", i, i));
       }
     }
   }
@@ -1522,7 +1524,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
     //Check if it's a NANOEDM
     if (checkBranchAND("nanoaodFlatTable_muonTable__"+recoS+".")){
-      const int nTabs = 52;
+      const int nTabs = 66;
       TString tNames[nTabs] = {
         "btagWeightTable_",                      //0
         "caloMetTable_",                         //1
@@ -1576,6 +1578,23 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         "vertexTable_otherPVs",                  //49
         "vertexTable_pv",                        //50
         "vertexTable_svs",                       //51
+        //additions from comparisons-24Jun2020
+        "chsMetTable_",                          //52
+        "corrT1METJetTable_",                    //53
+        "deepMetResolutionTuneTable_",           //54
+        "deepMetResponseTuneTable_",             //55
+        "metFixEE2017Table_",                    //56
+        "rawPuppiMetTable_",                     //57
+        //
+        "subjetMCTable_",                        //58
+        "fatJetMCTable_",                        //59
+        "l1PreFiringEventWeightTable_",          //60
+        //
+        "HTXSCategoryTable_",                    //61
+        "extraFlagsTable_",                      //62
+        "fsrTable_",                             //63
+        "genWeightsTable_LHEReweighting",        //64
+        "rivetPhotonTable_",                     //65
       };
       for (int iT = 0; iT < nTabs; ++iT){
         flatTable(tNames[iT]);
