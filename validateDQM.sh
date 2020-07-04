@@ -25,7 +25,7 @@ fi
 cWD=`pwd`
 export pidList=""
 echo Start processing at `date`
-grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do 
+grep root ${inList} | grep -v "#" | while read -r dsN fNP procN procR comm; do 
     fN=`echo ${baseA}/${fNP} | cut -d" " -f1 | sed -e "s?^${baseA}/??g"`
     wfDirA=`echo ${baseA}/${fN} | sed -e 's?/[^/]*root??g'`
     dqmA=`find -L ${wfDirA} -maxdepth 1 -name DQM_V\*.root | tail -1 `
@@ -33,6 +33,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fNP procN comm; do
     wfDirB=`echo ${baseB}/${fN} | sed -e 's?/[^/]*root??g'`
     dqmB=`find -L ${wfDirB} -maxdepth 1 -name DQM_V\*.root | tail -1 `
     [ "x${dqmB}" == "x" ] && echo "Missing DQM file in ${wfDirB}" && continue
+    [ "x${procN}" == "xNANO" ] && echo "Skip map entry with .root process NANO; NOT SUPPORTED YET" && continue
 
     extN=dqm_${diffN}_${dsN}
     mkdir -p ${extN}
