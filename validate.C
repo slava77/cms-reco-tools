@@ -2841,11 +2841,20 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       }
     }
 
-    if (stepContainsNU(step, "all")) {
+    if (stepContainsNU(step, "all") || stepContainsNU(step, "pat")) {
       packedCand("packedPFCandidates_");
       packedCand("lostTracks_");
       packedCand("lostTracks_eleTracks");
       packedCand("packedPFCandidatesDiscarded_");
+      packedCand("hiPixelTracks_");
+
+      for (const TString& inst : {"pfCandidatesTMOneStationTight", "pfCandidatesAllTrackerMuons", 
+                                 "lostTracksTMOneStationTight", "lostTracksAllTrackerMuons"} ) {
+        tbr="patPackedCandidatesRefs_packedCandidateMuonID_"+inst+"_"+recoS+".obj";
+        if (checkBranchOR(tbr, true)){
+          plotvar(tbr+"@.size()");
+        }
+      }
 
       tbr="patHcalDepthEnergyFractionsedmValueMap_packedPFCandidates_hcalDepthEnergyFractions_"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
