@@ -3637,6 +3637,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       jets("recoTrackJets","ak5TrackJets");
       jets("recoTrackJets","ak4TrackJets");
       jets("recoJPTJets","JetPlusTrackZSPCorJetAntiKt5");
+      jets("recoJPTJets","JetPlusTrackZSPCorJetAntiKt4");
       jets("recoJPTJets", "TCTauJetPlusTrackZSPCorJetAntiKt5");
       jets("recoPFJets","ak5PFJets");
       jets("recoPFJets","ak5PFJetsCHS");
