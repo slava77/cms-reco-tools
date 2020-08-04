@@ -254,7 +254,7 @@ SingleElectronPt1000in2018nanoEDMwf10803p0 10803.0_SingleElectronPt1000+*2018*/s
 SingleGammaPt10in2018wf10804p0 10804.0_SingleGammaPt10+*2018*/step3.root RECO
 SingleGammaPt10in2018nanoEDMwf10804p0 10804.0_SingleGammaPt10+*2018*/step6.root NANO
 SingleGammaPt35in2018wf10805p0 10805.0_SingleGammaPt35+*2018*/step3.root RECO
-SingleGammaPt35in2018wfnanoEDM10805p0 10805.0_SingleGammaPt35+*2018*/step6.root NANO
+SingleGammaPt35in2018nanoEDMwf10805p0 10805.0_SingleGammaPt35+*2018*/step6.root NANO
 SingleMuPt10in2018wf10807p0 10807.0_SingleMuPt10+*2018*/step3.root RECO
 SingleMuPt10in2018nanoEDMwf10807p0 10807.0_SingleMuPt10+*2018*/step6.root NANO
 SingleMuPt1000in2018wf10809p0 10809.0_SingleMuPt1000+*2018*/step3.root RECO
@@ -557,7 +557,7 @@ TTbar14TeV2023D9wf23634p0 23634.0_TTbar_14TeV+*2023D9*/step3.root RECO
 #
 #   D10
 #
-TenMuExtendedE2023D10wf20411p0 23611.0_TenMuExtendedE_0_200+*2023D10*/step3.root RECO
+TenMuExtendedE2023D10wf20411p0 20411.0_TenMuExtendedE_0_200+*2023D10*/step3.root RECO
 TTbar14TeV2023D10wf20434p0 20434.0_TTbar_14TeV+*2023D10*/step3.root RECO
 #
 #   D11
