@@ -218,7 +218,7 @@ void compare_patJets_btags(const std::string& fNameRef, const std::string& fName
 
 void compare_patTaus_IDs(const std::string& fNameRef, const std::string& fNameNew, const std::string tauName = "slimmedTaus",
                          int nEvts = 1, bool allowNew = true, bool allowValueDiffs = true, float minRel = -1,
-                         bool verbose = false){
+                         bool verbose = false, const std::vector<std::string>& ignoreInDebug = {}){
   TFile* fRef = new TFile(fNameRef.c_str());
   cout<<" loaded file "<<fNameRef<<std::endl;
 
@@ -274,7 +274,7 @@ void compare_patTaus_IDs(const std::string& fNameRef, const std::string& fNameNe
         }
         for (int iID = 0; iID < nID; ++iID){
           if (idvRef[iID].first != idvNew[iID].first){
-            std::cout<<"Tau ID mismatch at index "<<iID
+            std::cout<<"Tau ID mismatch for iT "<< iT <<"at index "<<iID
                      <<" : Ref "<<idvRef[iID].first<<" New "<<idvNew[iID].first
                      <<std::endl;
             return;
@@ -284,15 +284,18 @@ void compare_patTaus_IDs(const std::string& fNameRef, const std::string& fNameNe
           auto const& valNew = idvNew[iID].second;
           auto deltaVal = std::abs(valRef - valNew);
           if (valRef != valNew){
-            if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
-              std::cout<<"Tau ID mismatch for "<<keyRef
+            auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+            bool passDeltaMinRel = aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel;
+            bool needed = std::find(ignoreInDebug.begin(), ignoreInDebug.end(), keyRef) == ignoreInDebug.end();
+            if ( (!allowValueDiffs) || (allowValueDiffs && passDeltaMinRel && needed && verbose)){
+              std::cout<<"Tau ID value mismatch for iT "<<iT <<" for "<<keyRef
                        <<" : Ref "<<valRef<<" New "<<valNew
+                       <<" Ref-New "<<valRef-valNew
                        <<std::endl;
             }
             if (allowValueDiffs) {
               deltaCountsMap[keyRef]++;
-              auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
-              if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
+              if (passDeltaMinRel) deltaMinRelCountsMap[keyRef]++;
             } else
               return;
           }
@@ -314,16 +317,19 @@ void compare_patTaus_IDs(const std::string& fNameRef, const std::string& fNameNe
               auto const& valNew = idvNew[iIDNew].second;
               hasMatch = (valRef == valNew);
               if (not hasMatch){
-                if ( (!allowValueDiffs) || (allowValueDiffs && verbose)){
-                  std::cout<<"Tau ID mismatch for "<<keyRef
+                auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
+                auto deltaVal = std::abs(valRef - valNew);
+                bool passDeltaMinRel = aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel;
+                bool needed = std::find(ignoreInDebug.begin(), ignoreInDebug.end(), keyRef) == ignoreInDebug.end();
+                if ( (!allowValueDiffs) || (allowValueDiffs && passDeltaMinRel && needed && verbose)){
+                  std::cout<<"Tau ID value mismatch for iT "<< iT <<" for "<<keyRef
                            <<" : Ref "<<valRef<<" New "<<valNew
+                           <<" Ref-New "<<valRef-valNew
                            <<std::endl;
                 }
                 if (allowValueDiffs) {
                   deltaCountsMap[keyRef]++;
-                  auto deltaVal = std::abs(valRef - valNew);
-                  auto aveVal = (std::abs(valRef) + std::abs(valNew))*0.5f;
-                  if (aveVal != 0 && minRel > 0 && deltaVal/aveVal > minRel) deltaMinRelCountsMap[keyRef]++;
+                  if (passDeltaMinRel) deltaMinRelCountsMap[keyRef]++;
                 } else
                   return;
               }
@@ -332,8 +338,6 @@ void compare_patTaus_IDs(const std::string& fNameRef, const std::string& fNameNe
           }
           if (hasMatch){
             nIDsRefSameAll++;
-          } else if (verbose) {
-            std::cout<<"Tau ID difference for "<<std::endl;
           }
         }
         if (kFirst){
