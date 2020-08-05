@@ -839,6 +839,8 @@ void electronVars(TString cName = "gsfElectrons_", TString tName = "recoGsfElect
     electron("miniPFIsolation().photonIso", cName,tName);
     electron("miniPFIsolation().puChargedHadronIso", cName,tName);
 
+    electron("dB(pat::Electron::PV2D)", cName,tName, true);
+    electron("dB(pat::Electron::BS2D)", cName,tName, true);
     electron("dB(pat::Electron::PV3D)", cName,tName, true);
     electron("dB(pat::Electron::PVDZ)", cName,tName, true);
 
@@ -1006,6 +1008,8 @@ void muonVars(TString cName = "muons_", TString tName = "recoMuons_"){
     muonVar("miniPFIsolation().photonIso", cName,tName);
     muonVar("miniPFIsolation().puChargedHadronIso", cName,tName);
 
+    muonVar("dB(pat::Muon::PV2D)", cName,tName, true);
+    muonVar("dB(pat::Muon::BS2D)", cName,tName, true);
     muonVar("dB(pat::Muon::PV3D)", cName,tName, true);
     muonVar("dB(pat::Muon::PVDZ)", cName,tName, true);
 
