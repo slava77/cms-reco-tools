@@ -2121,6 +2121,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar("log2(max("+tbr+".obj.flags(),0.5))", tbr+".obj.detid().subdetId()==1");
         plotvar(tbr+".obj.time()", tbr+".obj.detid().subdetId()==1");
         plotvar("log10("+tbr+".obj.chi2())", tbr+".obj.detid().subdetId()==1");
+        plotvar("log10("+tbr+".obj.chi2())", tbr+".obj.energy()>0.001&&"+tbr+".obj.detid().subdetId()==1");
 
         plotvar(tbr+".obj.energy()", tbr+".obj.detid().subdetId()!=1");
         plotvar("log10("+tbr+".obj.energy())", tbr+".obj.detid().subdetId()!=1");
@@ -2132,6 +2133,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar("log2(max("+tbr+".obj.flags(),0.5))", tbr+".obj.detid().subdetId()!=1");
         plotvar(tbr+".obj.time()", tbr+".obj.detid().subdetId()!=1");
         plotvar("log10("+tbr+".obj.chi2())", tbr+".obj.detid().subdetId()!=1");
+        plotvar("log10("+tbr+".obj.chi2())", tbr+".obj.energy()>0.001&&"+tbr+".obj.detid().subdetId()!=1");
 
         if (stepContainsNU(step, "HEP17")){
           plotvar(tbr+".obj.energy()", tbr+".obj.detid().subdetId()!=1&&"+tbr+".obj.id().iphi()>=63&&"+tbr+".obj.id().iphi()<=66");
