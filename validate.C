@@ -151,7 +151,7 @@ PlotStats plotvar(TString v,TString cut="", bool tryCatch = false){
   gStyle->SetTitleY(1);
   gStyle->SetTitleW(1);
   gStyle->SetTitleH(0.06);
-  TGaxis::SetExponentOffset(-0.042,-0.035,"x");
+  TGaxis::SetExponentOffset(-0.052,-0.060,"x");
 
   res.ref_entries = -1;
   res.new_entries = -1;
