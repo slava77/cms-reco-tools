@@ -1343,6 +1343,41 @@ void mtdHits(TString cName){
   plotvar("log2(max("+bObj+".obj.flagBits_,0.5))");
 }
 
+void siStripClusters(TString cName){
+  TString bObj="SiStripClusteredmNewDetSetVector_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+".m_data@.size()");
+  plotvar(bObj+".m_data.barycenter()");
+  plotvar("log10(max(0.1,"+bObj+".m_data.amplitudes_@.size()))");
+  plotvar("min(50,"+bObj+".m_data.amplitudes_@.size())");
+}
+
+void siPixelClusters(TString cName){
+  TString bObj="SiPixelClusteredmNewDetSetVector_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+".m_data@.size()");
+  plotvar(bObj+".m_data.charge()");
+  plotvar("log10(max(0.1,"+bObj+".m_data.size()))");
+  plotvar("min(50,"+bObj+".m_data.size())");
+}
+
+void trackExtras(TString cName){
+  TString bObj="recoTrackExtras_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".recHitsSize()");
+  plotvar(bObj+".innerOk()+2*"+bObj+".outerOk()+");
+  plotvar(bObj+".innerPosition().z()", bObj+".innerOk()");
+  plotvar(bObj+".innerPosition().rho()", bObj+".innerOk()");
+  plotvar("log10("+bObj+".innerMomentum().pt())", bObj+".innerOk()");
+  plotvar(bObj+".outerPosition().z()", bObj+".outerOk()");
+  plotvar(bObj+".outerPosition().rho()", bObj+".outerOk()");
+  plotvar("log10("+bObj+".outerMomentum().pt())", bObj+".outerOk()");
+}
+
 void forwardProtons(TString cName ){
   TString bObj = "recoForwardProtons_"+cName+"_"+recoS+".obj";
   if (! checkBranchOR(bObj, true)) return;
@@ -2649,14 +2684,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       }
     }
     if ((stepContainsNU(step, "all") || stepContainsNU(step, "sipixel")) && !stepContainsNU(step, "cosmic") ){
-      tbr="SiPixelClusteredmNewDetSetVector_siPixelClusters__"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".m_data@.size()");
-        //plotvar(tbr+".m_data.barycenter()");
-        plotvar(tbr+".m_data.charge()");
-        plotvar("log10(max(0.1,"+tbr+".m_data.size()))");
-        plotvar("min(50,"+tbr+".m_data.size())");
-      }
+      siPixelClusters("siPixelClusters_");
+      siPixelClusters("muonReducedTrackExtras_");
+      siPixelClusters("slimmedMuonTrackExtras_");
 
       tbr="Phase2TrackerCluster1DedmNewDetSetVector_siPhase2Clusters__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
@@ -2685,14 +2715,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       }
     }
     if ((stepContainsNU(step, "all") || stepContainsNU(step, "sistrip")) && !stepContainsNU(step, "cosmic") ){
-      tbr="SiStripClusteredmNewDetSetVector_siStripClusters__"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".m_data@.size()");
-        plotvar(tbr+".m_data.barycenter()");
-        plotvar("log10(max(0.1,"+tbr+".m_data.amplitudes_@.size()))");
-        plotvar("min(50,"+tbr+".m_data.amplitudes_@.size())");
-        //plotvar(tbr+".m_data.amplitudes()[0]");
-      }
+      siStripClusters("siStripClusters_");
+      siStripClusters("muonReducedTrackExtras_");
+      siStripClusters("slimmedMuonTrackExtras_");
 
       tbr="ClusterSummary_clusterSummaryProducer__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
@@ -2757,7 +2782,6 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 	//	allTracks("thWithMaterialTracks__"+recoS);
 	//	allTracks("secWithMaterialTracks__"+recoS);
       }
-
     }
     if (stepContainsNU(step, "all")){
       allTracks("regionalCosmicTracks__"+recoS);
@@ -3011,6 +3035,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       allTracks("tevMuons_dyt_"+recoS);
       allTracks("tevMuons_picky_"+recoS);
       allTracks("standAloneSETMuons_UpdatedAtVtx_"+recoS);
+
+      trackExtras("muonReducedTrackExtras_");
+      trackExtras("slimmedMuonTrackExtras_");
 
       ///tracker muons
       tbr="recoMuons_muons__"+recoS+".obj";
