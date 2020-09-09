@@ -48,6 +48,31 @@ void print_patJets_btags(const std::string& fName,
   }//event loop
 }
 
+void print_patJets_userFloats(const std::string& fName, const std::string& cName,
+                              int nEvts = 1){
+  TFile* f = new TFile(fName.c_str());
+  cout<<" loaded file "<<std::endl;
+
+  fwlite::Event e(f);
+  int eCount = 0;
+  for (e.toBegin(); ! e.atEnd() && (eCount < nEvts || nEvts < 0); ++e, ++eCount){
+    cout<<" loaded event "<<e.id().event()<<endl;
+    
+    fwlite::Handle<pat::JetCollection> jh;
+    jh.getByLabel(e, cName.c_str());
+    
+    int iJ = 0;
+    for (auto const& j : jh.ref()){
+      int iF = 0;
+      for (auto const& fn : j.userFloatNames()) {
+        cout<<"jet "<<iJ<<" "<<j.pt()<<" userFloat "<<iF<<" "<<fn<<" "<<j.userFloat(fn)<<endl;
+        ++iF;
+      }
+      ++iJ;
+    }
+  }//event loop
+}
+
 
 void compare_patJets_btags(const std::string& fNameRef, const std::string& fNameNew, const std::string jetName = "slimmedJetsAK8",
                            int nEvts = 1, bool allowNew = true, bool allowValueDiffs = true, float minRel = -1,
