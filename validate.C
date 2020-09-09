@@ -1308,6 +1308,25 @@ void V0(TString res, TString var){
   plotvar(v);
 }
 
+void caloHitsGeneric(TString tName, TString cName){
+  TString bObj=tName+"_"+cName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+".obj@.size()");
+  plotvar(bObj+".obj.energy()");
+  plotvar("log10("+bObj+".obj.energy())");
+  plotvar("log10("+bObj+".obj.energy())", bObj+".obj.energy()>0.001");
+  if (tName == "HBHERecHitsSorted"){
+    plotvar(bObj+".obj.eraw()");
+    plotvar("log10("+bObj+".obj.eraw())");
+    plotvar(bObj+".obj.eaux()");
+    plotvar("log10("+bObj+".obj.eaux())");
+    plotvar("log10("+bObj+".obj.chi2())");
+  }
+  plotvar("log2(max("+bObj+".obj.flags(),0.5))");
+  plotvar(bObj+".obj.time()");
+}
+
 void mtdHits(TString cName){
   TString tbr="FTLRecHitsSorted_"+cName+"_";
   TString bObj = tbr+recoS+".obj";
@@ -2094,19 +2113,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
     }
     if ((stepContainsNU(step, "all") || stepContainsNU(step, "hcal")) && !stepContainsNU(step, "cosmic") ){
       //hcal rechit plots
-      tbr="HBHERecHitsSorted_hbheprereco__"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar(tbr+".obj.eraw()");
-        plotvar("log10("+tbr+".obj.eraw())");
-        plotvar(tbr+".obj.eaux()");
-        plotvar("log10("+tbr+".obj.eaux())");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-        plotvar("log10("+tbr+".obj.chi2())");
-      }
+      caloHitsGeneric("HBHERecHitsSorted", "hbheprereco_");
 
       tbr="HBHERecHitsSorted_hbhereco__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
@@ -2161,32 +2168,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         }
       }//check HBHERecHitsSorted_hbhereco__ is available
 
-      tbr="HBHERecHitsSorted_reducedHcalRecHits_hbhereco_"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar(tbr+".obj.eraw()");
-        plotvar("log10("+tbr+".obj.eraw())");
-        plotvar(tbr+".obj.eaux()");
-        plotvar("log10("+tbr+".obj.eaux())");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-        plotvar("log10("+tbr+".obj.chi2())");
-      }
-      tbr="HBHERecHitsSorted_reducedEgamma_reducedHBHEHits_"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar(tbr+".obj.eraw()");
-        plotvar("log10("+tbr+".obj.eraw())");
-        plotvar(tbr+".obj.eaux()");
-        plotvar("log10("+tbr+".obj.eaux())");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-        plotvar("log10("+tbr+".obj.chi2())");
-      }
+      caloHitsGeneric("HBHERecHitsSorted", "reducedHcalRecHits_hbhereco");
+      caloHitsGeneric("HBHERecHitsSorted", "reducedEgamma_reducedHBHEHits");
+      caloHitsGeneric("HBHERecHitsSorted", "slimmedHcalRecHits_reducedHcalRecHits");
 
       tbr="HFPreRecHitsSorted_hfprereco__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
@@ -2198,63 +2182,16 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+".obj.hasInfo_[1]");
       }
 
-      tbr="HFRecHitsSorted_hfreco__"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar("log10("+tbr+".obj.energy())", tbr+".obj.energy()>0.001");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-      }
+      caloHitsGeneric("HFRecHitsSorted", "hfreco_");
+      caloHitsGeneric("HFRecHitsSorted", "reducedHcalRecHits_hfreco");
+      caloHitsGeneric("HFRecHitsSorted", "slimmedHcalRecHits_reducedHcalRecHits");
 
-      tbr="HFRecHitsSorted_reducedHcalRecHits_hfreco_"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-      }
+      caloHitsGeneric("HORecHitsSorted", "horeco_");
+      caloHitsGeneric("HORecHitsSorted", "reducedHcalRecHits_horeco");
+      caloHitsGeneric("HORecHitsSorted", "slimmedHcalRecHits_reducedHcalRecHits");
 
-      tbr="HORecHitsSorted_horeco__"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar("log10("+tbr+".obj.energy())", tbr+".obj.energy()>0.001");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-      }
-
-      tbr="HORecHitsSorted_reducedHcalRecHits_horeco_"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-      }
-
-      tbr="CastorRecHitsSorted_castorreco__"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar("log10("+tbr+".obj.energy())", tbr+".obj.energy()>0.001");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-      }
-
-      tbr="ZDCRecHitsSorted_zdcreco__"+recoS+".obj";
-      if (checkBranchOR(tbr, true)){
-        plotvar(tbr+".obj@.size()");
-        plotvar(tbr+".obj.energy()");
-        plotvar("log10("+tbr+".obj.energy())");
-        plotvar("log10("+tbr+".obj.energy())", tbr+".obj.energy()>0.001");
-        plotvar("log2(max("+tbr+".obj.flags(),0.5))");
-        plotvar(tbr+".obj.time()");
-      }
+      caloHitsGeneric("CastorRecHitsSorted", "castorreco_");
+      caloHitsGeneric("ZDCRecHitsSorted", "zdcreco_");
 
       tbr="HcalNoiseSummary_hcalnoise__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
