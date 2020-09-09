@@ -152,6 +152,7 @@ PlotStats plotvar(TString v,TString cut="", bool tryCatch = false){
   gStyle->SetTitleW(1);
   gStyle->SetTitleH(0.06);
   TGaxis::SetExponentOffset(-0.052,-0.060,"x");
+  TGaxis::SetExponentOffset(-0.052,0.010,"y");
 
   res.ref_entries = -1;
   res.new_entries = -1;
@@ -261,10 +262,10 @@ PlotStats plotvar(TString v,TString cut="", bool tryCatch = false){
     res.ksProb = refplot->KolmogorovTest(plot);
 
     TString outtext;
-    outtext.Form("Ref: %i, New: %i, De: %g, Diff: %g, 1-KS: %6.4g",res.ref_entries,res.new_entries,
+    outtext.Form("Ref: %i, New: %i, De: %6.4g, Diff: %g, 1-KS: %6.4g",res.ref_entries,res.new_entries,
                  res.ref_entries>0? (res.new_entries-res.ref_entries)/double(res.ref_entries):0, res.countDiff,1-res.ksProb);
 
-    TPaveText * pt = new TPaveText(0.01,0.89,0.71,0.93,"NDC");
+    TPaveText * pt = new TPaveText(0.05,0.89,0.71,0.93,"NDC");
     pt->AddText(outtext);
     pt->SetBorderSize(0);
     pt->SetFillStyle(0);
