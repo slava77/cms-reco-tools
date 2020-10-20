@@ -1413,6 +1413,33 @@ void tauIDContainer(const TString& bName){
   }
 }
 
+void evtPlanes(const TString& bName, bool detailByPlane = false){
+  const TString bObj = "recoEvtPlanes_"+bName+"_"+recoS+".obj";
+  if (! checkBranchOR(bObj, true)) return;
+
+  plotvar(bObj+"@.size()");
+  plotvar(bObj+".angle(0)");
+  plotvar(bObj+".sumSin(0)");
+  plotvar(bObj+".angle(3)");
+  plotvar(bObj+".sumSin(3)");
+  plotvar(bObj+".sumw()");
+  plotvar("log10("+bObj+".sumPtOrEt())");
+  plotvar(bObj+".mult()");
+
+  if (detailByPlane){
+    PlotStats res = plotvar(bObj+"@.size()");
+    for (int i = 0; i< maxSize(res) && i < 64; ++i){//restrict to 64
+      plotvar(bObj+Form("[%d].angle(0)",i), "", true);
+      plotvar(bObj+Form("[%d].sumSin(0)",i), "", true);
+      plotvar(bObj+Form("[%d].angle(3)",i), "", true);
+      plotvar(bObj+Form("[%d].sumSin(3)",i), "", true);
+      plotvar(bObj+Form("[%d].sumw()",i), "", true);
+      plotvar("log10("+bObj+Form("[%d].sumPtOrEt())",i), "", true);
+      plotvar(bObj+Form("[%d].mult()",i), "", true);
+    }
+  }
+}
+
 void flatTable(const TString& shortName){
   const TString bObj = "nanoaodFlatTable_"+shortName+"_"+recoS+".obj";
   if (! checkBranchOR(bObj, true)) return;
@@ -2807,6 +2834,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
         plotvar(tbr+".NpixelTracks()");
         plotvar(tbr+".zdcSum()");
       }
+
+      evtPlanes("hiEvtPlaneFlat_", stepContainsNU(step, "all_hi"));
+      evtPlanes("hiEvtPlane_", stepContainsNU(step, "all_hi"));
     }
 
     if (stepContainsNU(step, "all") || stepContainsNU(step, "pat")) {
