@@ -2844,7 +2844,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       packedCand("lostTracks_");
       packedCand("lostTracks_eleTracks");
       packedCand("packedPFCandidatesDiscarded_");
+      //HI miniAOD:
       packedCand("hiPixelTracks_");
+      packedCand("packedPFCandidatesCleaned_");
 
       for (const TString& inst : {"pfCandidatesTMOneStationTight", "pfCandidatesAllTrackerMuons", 
                                  "lostTracksTMOneStationTight", "lostTracksAllTrackerMuons"} ) {
