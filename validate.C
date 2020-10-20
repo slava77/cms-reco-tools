@@ -2913,6 +2913,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
       vertexVars("recoVertexs_hiSelectedVertex__");
       vertexVars("recoVertexs_hiSelectedPixelVertex__");
+      vertexVars("recoVertexs_offlineSlimmedPrimaryVerticesRecovery__");
 
       tbr="recoVertexCompositePtrCandidates_inclusiveCandidateSecondaryVertices__"+recoS+".obj";
       if (checkBranchOR(tbr, true)){
