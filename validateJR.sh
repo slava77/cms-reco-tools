@@ -28,7 +28,7 @@ echo Start processing at `date`
 grep root ${inList} | grep -v "#" | while read -r dsN fNP procN procR comm; do 
     fN=`echo ${baseA}/${fNP} | cut -d" " -f1 | sed -e "s?^${baseA}/??g"`
     #[ ! -f "${baseA}/${fN}" ] && echo Missing ${baseA}/${fN} && continue
-    if [ -f "${baseA}/${fN}" ]; then
+    if [ -f "${baseA}/${fN}" -a -f "${baseB}/${fN}" ]; then
       extN=${stepN}_${diffN}_${dsN}
       mkdir -p ${extN}
       cd ${cWD}/${extN}
@@ -46,7 +46,7 @@ grep root ${inList} | grep -v "#" | while read -r dsN fNP procN procR comm; do
         mFN="${fNBase}_inMINIAODSIM.root"
     fi
     #if [ -f "${baseA}/${mFN}" ] && [ ! $noMiniAOD ]; then 
-    if [ -f "${baseA}/${mFN}" ]; then
+    if [ -f "${baseA}/${mFN}" -a -f "${baseB}/${mFN}" ]; then
         echo $mFN
         extmN=${stepN}_mini_${diffN}_${dsN}
         mkdir -p ${extmN}
