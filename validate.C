@@ -1183,6 +1183,7 @@ void tracksters(TString cName ){
   plotvar(bObj+".id_probabilities(0)");
   plotvar(bObj+".id_probabilities(2)");
   plotvar(bObj+".id_probabilities(4)");
+  plotvar(bObj+".ticlIteration()");
   plotvar("log10("+bObj+".raw_energy())");
   plotvar("log10("+bObj+".regressed_energy())");
   plotvar("min(100,max(-20,"+bObj+".time()))");
