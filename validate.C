@@ -3382,6 +3382,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       tracksters("ticlTrackstersMerge_");
       tracksters("ticlTrackstersTrkEM_");
       tracksters("ticlTrackstersTrk_");
+      tracksters("ticlSimTracksters_");
 
       ticlCands("ticlCandidateFromTracksters_");
       ticlCands("ticlTrackstersMerge_");
