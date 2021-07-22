@@ -3234,6 +3234,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
       //phase 2 HGCAL dev
       photonVars("photonsFromMultiCl_");
+      photonVars("photonsHGC_");
 
       //OOT photons
       photonVars("ootPhotons_");
@@ -3252,6 +3253,7 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       photonVars("slimmedPhotons_","patPhotons_");
       photonVars("slimmedOOTPhotons_","patPhotons_");
       photonVars("slimmedPhotonsFromMultiCl_","patPhotons_");
+      photonVars("slimmedPhotonsHGC_","patPhotons_");
 
       caloClusters("reducedEgamma_reducedEBEEClusters");
       caloClusters("reducedEgamma_reducedESClusters");
@@ -3404,10 +3406,12 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
 
       //phase-2 HGCAL dev
       electronVars("ecalDrivenGsfElectronsFromMultiCl_");
+      electronVars("ecalDrivenGsfElectronsHGC_");
 
       // miniaod
       electronVars("slimmedElectrons_","patElectrons_");
       electronVars("slimmedElectronsFromMultiCl_","patElectrons_");
+      electronVars("slimmedElectronsHGC_","patElectrons_");
       electronVars("slimmedLowPtElectrons_","patElectrons_");
 
       plotvar("floatedmValueMap_eidLoose__"+recoS+".obj.values_");
