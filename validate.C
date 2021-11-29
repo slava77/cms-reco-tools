@@ -2568,6 +2568,9 @@ void validateEvents(TString step, TString file, TString refFile, TString r="RECO
       plotvar(tbr+"generalTrackt0_"+recoS+".obj.values_");
       plotvar(tbr+"generalTracksigmat0_"+recoS+".obj.values_");
       plotvar(tbr+"generalTracktmtd_"+recoS+".obj.values_");
+      plotvar(tbr+"generalTrackTofP_"+recoS+".obj.values_");
+      plotvar(tbr+"generalTrackTofK_"+recoS+".obj.values_");
+      plotvar(tbr+"generalTrackTofPi_"+recoS+".obj.values_");
       plotvar(tbr+"pathLength_"+recoS+".obj.values_");
       plotvar(tbr+"tmtd_"+recoS+".obj.values_");
       plotvar(tbr+"btlMatchChi2_"+recoS+".obj.values_");
