@@ -351,6 +351,9 @@ void jets(TString type,TString algo){
         plotvar("min(2,max(-2,"+jetBName+Form(".obj[].pairDiscriVector_[%d].second))",i), jetBName+".obj[].pt()>200", true);
       }
     }
+    jet(type, algo, "jec_@.size");
+    jet(type, algo, "currentJECSet_", false, false, true);
+    jet(type, algo, "currentJECLevel_", false, false, true);
   }
 }
 
