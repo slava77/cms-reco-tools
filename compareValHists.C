@@ -114,9 +114,37 @@ void compareInDir(TFile* f1, TFile* f2, std::string dirName,unsigned int logmod=
     
     pD->Clear();
     pD->cd();
-    std::cout<<"Save : "<<dirName.c_str()<<"/"<<h1->GetName()<<std::endl;
+    //std::cout<<"Save : "<<dirName.c_str()<<"/"<<h1->GetName()<<std::endl;
+    // Print extra Info
+    // Save : hName : refEntry : newEntry : KS : bDiff : Fractional Changes if Both Entries>10
+    std::cout<<"@@@ Save : "<<dirName.c_str()<<"/"<<h1->GetName()<<" :"<<h1->GetEntries()<<" :"<<h2->GetEntries()<<" :"<<ksProb<<" :"<<bDiff;
+    if(h1->GetEntries()>=10 && h2->GetEntries()>=10){ std::cout<<" :==> "<<bDiff/(0.5*(h1->GetEntries()+h2->GetEntries())); }
+    std::cout<<" "<<std::endl;
+
 
     if (! isH2){
+       //Print BinContent values (Egamma, Muon, Tau, Track eff or JetMET response) 
+       if (( (TString(h1->GetTitle()).Index("ff")>-1) && 
+             (TString(dirName.c_str()).Index("/Egamma")>-1 || 
+              TString(dirName.c_str()).Index("/Muon/")>-1 || 
+              TString(dirName.c_str()).Index("/Tracking/")>-1 || 
+              TString(dirName.c_str()).Index("/RecoTauV/")>-1) ) or 
+             (TString(dirName.c_str()).Index("/JetMET/")>-1) ) {
+          std::cout<<"HistName = "<<h1->GetName()<<"\t is 1D with nBins "<<nX1<<std::endl;
+          std::cout<<"Mean ref "<<h1->GetMean()<<" new "<<h2->GetMean()<<std::endl;
+          std::cout<< "- - - - - - - - - - - - - - - - - - - - - - - - - -"<<endl;
+          std::cout<<"|"<<setw(9)<<" X |"<<setw(11)<<" Y(ref) |"<<setw(11)<<" Y(new) |"<<setw(8)<<" Xlabel "<<endl;
+          for(unsigned int iB=0; iB<=nX1+1; ++iB){
+                 if((h1->GetBinContent(iB)!=0 || h2->GetBinContent(iB)!=0) && (h1->GetEntries()>0 || h2->GetEntries()>0) ){
+                    std::cout.precision(4);
+                    std::cout<<"|"<<std::setw(8)<<h1->GetXaxis()->GetBinCenter(iB)
+                             <<"|"<<std::setw(10)<<h1->GetBinContent(iB)
+                             <<"|"<<std::setw(10)<<h2->GetBinContent(iB)
+                             <<"|"<<std::setw(23)<<h1->GetXaxis()->GetBinLabel(iB) << std::endl;
+                  }
+          }
+          std::cout << "- - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
+       }
       h1->SetLineWidth(2);
       h1->SetLineColor(1);
       h1->SetMarkerColor(1);
