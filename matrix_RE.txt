@@ -222,7 +222,7 @@ RunMinimumBias2021PROMPTwf138p4 138.4_PromptCollisions+RunMinimumBias2021*/step2
 RunMinimumBias2021EXPRESSwf138p5 138.5_ExpressCollisions+RunMinimumBias2021*/step2.root RECO
 RunMinimumBias2021wf139p001 139.001_RunMinimumBias2021*/step3.root reRECO
 #
-#  MC WORKFLOWS FOLLOW BELOW 
+#  MC WORKFLOWS FOLLOW BELOW
 #
 # 2017 workflows follow
 #
@@ -940,6 +940,7 @@ ProdTTbar14TeV2026D86PUminiAODwf38834p21 38834.21_TTbar_14TeV+*2026D86PU*ProdLik
 #  D88 (minimal set)
 #
 TTbar14TeV2026D88wf39434p0 39434.0_TTbar_14TeV+*2026D88*/step3.root RECO
+TTbar14TeV2026D88DD4wf39434p911 39434.911_TTbar_14TeV+*2026D88*DD4*/step3.root RECO
 CloseByPGun2026D88wf39496p0 39496.0_CloseByPGun_*2026D88*/step3.root RECO
 CloseByPGun2026D88wf39500p0 39500.0_CloseByPGun_*2026D88*/step3.root RECO
 #
